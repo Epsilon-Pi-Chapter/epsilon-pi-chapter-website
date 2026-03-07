@@ -1,0 +1,293 @@
+:root {
+  --bg: #0c0d0f;
+  --panel: #15181d;
+  --panel-alt: #1a1f27;
+  --text: #f4f2eb;
+  --muted: #c8c0ab;
+  --gold: #c99a2e;
+  --gold-soft: #f0d58f;
+  --line: #2a2f39;
+  --max-width: 1080px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background:
+    radial-gradient(circle at 15% 0%, #222a37 0%, transparent 40%),
+    radial-gradient(circle at 85% 100%, #33220d 0%, transparent 35%),
+    var(--bg);
+  color: var(--text);
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  line-height: 1.5;
+  scroll-behavior: smooth;
+}
+
+.site-header,
+main,
+.site-footer {
+  width: min(100% - 2rem, var(--max-width));
+  margin-inline: auto;
+}
+
+.site-header {
+  padding: 2.5rem 0 1rem;
+}
+
+.brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.chapter-logo {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  border: 2px solid #6f5930;
+  object-fit: cover;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.brand-wrap h1 {
+  margin: 0.2rem 0;
+  font-family: "Cinzel", Georgia, serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  letter-spacing: 0.04em;
+}
+
+.eyebrow,
+.chapter-subtitle {
+  margin: 0;
+  color: var(--muted);
+}
+
+.main-nav {
+  margin-top: 1.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.main-nav a {
+  color: var(--gold-soft);
+  text-decoration: none;
+  border: 1px solid #594517;
+  padding: 0.4rem 0.72rem;
+  border-radius: 999px;
+  background: rgba(201, 154, 46, 0.08);
+  font-size: 0.9rem;
+}
+
+.main-nav a:hover {
+  background: rgba(201, 154, 46, 0.18);
+}
+
+main {
+  padding-bottom: 2rem;
+}
+
+.panel {
+  margin: 1rem 0;
+  padding: 1.3rem;
+  background: linear-gradient(180deg, var(--panel) 0%, var(--panel-alt) 100%);
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.panel h2 {
+  margin-top: 0;
+  font-family: "Cinzel", Georgia, serif;
+  color: var(--gold-soft);
+  letter-spacing: 0.03em;
+}
+
+.hero-panel {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1.4fr 1fr;
+}
+
+.photo-placeholder {
+  min-height: 210px;
+  border: 2px dashed #6f5930;
+  border-radius: 0.75rem;
+  display: grid;
+  place-content: center;
+  color: var(--muted);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.chip {
+  border: 1px solid #6f5930;
+  border-radius: 999px;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.82rem;
+}
+
+.grid {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.two-col {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  padding: 0.9rem;
+}
+
+.officer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem 1rem;
+}
+
+.person-item {
+  margin: 0;
+  padding: 0.55rem 0.6rem;
+  border: 1px solid #323948;
+  border-radius: 0.55rem;
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  align-items: center;
+  gap: 0.7rem;
+  background: rgba(12, 16, 23, 0.65);
+}
+
+.person-photo {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #6f5930;
+  object-fit: cover;
+  display: grid;
+  place-content: center;
+  background: #2a2314;
+  color: var(--gold-soft);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.person-meta {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.person-role {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.person-name {
+  color: var(--gold-soft);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.charter-list {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+  columns: 2;
+  column-gap: 1.5rem;
+}
+
+.section-intro {
+  color: var(--muted);
+  margin-top: 0;
+}
+
+.lineage-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.lineage-item {
+  border: 1px solid #3a414e;
+  border-left: 4px solid var(--gold);
+  border-radius: 0.7rem;
+  padding: 0.75rem 0.8rem;
+  background: rgba(10, 13, 18, 0.7);
+}
+
+.lineage-item h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--gold-soft);
+}
+
+.lineage-item p {
+  margin: 0.4rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.lineage-roster {
+  margin: 0.65rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lineage-roster li {
+  margin: 0.35rem 0;
+}
+
+.lineage-roster .line-name {
+  color: var(--gold-soft);
+}
+
+.site-footer {
+  padding: 1.2rem 0 2rem;
+  color: var(--muted);
+  text-align: center;
+  font-size: 0.92rem;
+}
+
+@media (max-width: 840px) {
+  .hero-panel,
+  .two-col,
+  .lineage-list {
+    grid-template-columns: 1fr;
+  }
+
+  .officer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-wrap {
+    align-items: flex-start;
+  }
+
+  .chapter-logo {
+    width: 68px;
+    height: 68px;
+  }
+
+  .charter-list {
+    columns: 1;
+  }
+
+  .site-header,
+  main,
+  .site-footer {
+    width: min(100% - 1.2rem, var(--max-width));
+  }
+}
