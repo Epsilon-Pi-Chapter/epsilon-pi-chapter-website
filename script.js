@@ -18,13 +18,17 @@ const officersData = [
 // State outline assets: place one image per state in assets/states/ (e.g. va.png, md.png).
 // Use transparent background + gold border for best look; or we'll use your outline as-is.
 const STATE_OUTLINE_PATH = {
-  VA: "assets/states/va.png", MD: "assets/states/md.png", PA: "assets/states/pa.png", AL: "assets/states/al.png", GA: "assets/states/ga.png", NC: "assets/states/nc.png",
+  VA: "assets/states/va.png", MD: "assets/states/md.png", MARYLAND: "assets/states/md.png", PA: "assets/states/pa.png", AL: "assets/states/al.png", GA: "assets/states/ga.png", NC: "assets/states/nc.png",
   NY: "assets/states/ny.png", NEWYORK: "assets/states/ny.png",
   IL: "assets/states/il.png", ILLINOIS: "assets/states/il.png",
   WI: "assets/states/wi.png", WISCONSIN: "assets/states/wi.png",
   CA: "assets/states/ca.png", CALIFORNIA: "assets/states/ca.png",
   NJ: "assets/states/nj.png", NEWJERSEY: "assets/states/nj.png",
   MI: "assets/states/mi.png", MICHIGAN: "assets/states/mi.png",
+  DC: "assets/states/dc.png", DISTRICTOFCOLUMBIA: "assets/states/dc.png",
+  MA: "assets/states/ma.png", MASSACHUSETTS: "assets/states/ma.png",
+  TX: "assets/states/tx.png", TEXAS: "assets/states/tx.png",
+  SC: "assets/states/sc.png", SOUTHCAROLINA: "assets/states/sc.png",
 };
 
 // The phi: place your gold phi image at assets/hand-sign.png
@@ -33,13 +37,14 @@ const HAND_SIGN_PATH = "assets/hand-sign.png";
 // City position on state (x%, y%) — approximate; adjust so the phi sits on the city.
 // Keys: "City Name" or normalized (lowercase, no extra spaces). Fallback: state default or center.
 const CITY_POSITION = {
-  VA: { "portsmouth": [90, 88], "hampton": [84, 86], "chester": [74, 66], "fredricksburg": [70, 32], "fredericksburg": [70, 32], "chesapeake": [87, 91], "richmond": [62, 55], "halifax county": [62, 45], "woodbridge": [75, 35], "prince george": [72, 70], "spotsylvania": [68, 42], default: [65, 65] },
-  MD: { "prince george's county": [40, 58], "pg county": [40, 58], "fort washington": [52, 72], default: [50, 50] },
+  VA: { "portsmouth": [90, 88], "hampton": [84, 86], "chester": [74, 66], "fredricksburg": [70, 32], "fredericksburg": [70, 32], "chesapeake": [87, 91], "richmond": [62, 55], "halifax county": [62, 45], "halifax": [62, 45], "woodbridge": [75, 35], "prince george": [72, 70], "spotsylvania": [68, 42], "manassas": [68, 28], "newport news": [88, 82], "petersburg": [68, 58], "danville": [55, 45], default: [65, 65] },
+  MD: { "prince george's county": [40, 58], "pg county": [40, 58], "fort washington": [52, 72], "baltimore": [62, 42], default: [50, 50] },
+  MARYLAND: { "baltimore": [62, 42], default: [50, 50] },
   PA: { "philadelphia": [78, 75], default: [50, 50] },
   AL: { "huntsville": [55, 25], default: [50, 50] },
   GA: { "atlanta": [48, 38], default: [50, 50] },
   NC: { "williamston": [72, 55], default: [50, 50] },
-  NY: { "mount vernon": [72, 45], default: [50, 50] },
+  NY: { "mount vernon": [72, 45], "brooklyn": [78, 55], default: [50, 50] },
   NEWYORK: { "mount vernon": [72, 45], default: [50, 50] },
   IL: { "chicago": [72, 38], default: [50, 50] },
   ILLINOIS: { "chicago": [72, 38], default: [50, 50] },
@@ -47,10 +52,17 @@ const CITY_POSITION = {
   WISCONSIN: { "milwaukee": [68, 48], default: [50, 50] },
   CA: { "carson": [48, 78], default: [50, 50] },
   CALIFORNIA: { "carson": [48, 78], default: [50, 50] },
-  NJ: { "neptune": [55, 45], default: [50, 50] },
+  NJ: { "neptune": [55, 45], "paterson": [72, 42], default: [50, 50] },
   NEWJERSEY: { "neptune": [55, 45], default: [50, 50] },
   MI: { "detroit": [72, 35], default: [50, 50] },
   MICHIGAN: { "detroit": [72, 35], default: [50, 50] },
+  DC: { "washington": [50, 50], default: [50, 50] },
+  MA: { "boston": [72, 40], default: [50, 50] },
+  MASSACHUSETTS: { "boston": [72, 40], default: [50, 50] },
+  TX: { "dallas": [45, 38], default: [50, 50] },
+  TEXAS: { "dallas": [45, 38], default: [50, 50] },
+  SC: { "chester": [52, 30], default: [50, 50] },
+  SOUTHCAROLINA: { "chester": [52, 30], default: [50, 50] },
 };
 
 const STORAGE_KEY = "rap-sheet-position-overrides";
@@ -127,7 +139,7 @@ function getMajorMinorDisplay(member) {
   return { major, minor, minorLabel };
 }
 
-const LINKEDIN_LOGO_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>';
+const LINKEDIN_LOGO_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 24" width="100" height="24" aria-hidden="true"><text x="0" y="18" font-family="-apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, sans-serif" font-size="18" fill="currentColor"><tspan font-weight="400">Linked</tspan><tspan font-weight="700">In</tspan></text></svg>';
 
 function getCityPosition(state, cityKey) {
   const overrides = getPositionOverrides();
@@ -148,7 +160,7 @@ const lineageData = {
       { position: "1/Ace", fullName: "Keshun Nelson", lineName: "Prime Proton", photo: "", major: "Chemistry with a focus in Pre-Med", minor: "", hometown: "Milwaukee, WI", linkedIn: "" },
       { position: "2/Deuce", fullName: "Jahkari Taylor", lineName: "V.I.Pharoah", photo: "", major: "Political Science", minor: "", hometown: "Chesapeake, VA", linkedIn: "" },
       { position: "3/Tre", fullName: "Allan White", lineName: "Nocturnal Beast", photo: "", major: "Sociology", minor: "", hometown: "Mount Vernon, NY", linkedIn: "" },
-      { position: "4/Hardcore 4our", fullName: "Jerome Sutton III", lineName: "Steady Heart", photo: "assets/portraits/jerome-sutton-iii.png", major: "Sociology", minor: "Criminal Justice", hometown: "Chesapeake, VA", linkedIn: "" },
+      { position: "4/H4ardcore", fullName: "Jerome Sutton III", lineName: "Steady Heart", photo: "assets/portraits/jerome-sutton-iii.png", major: "Sociology", minor: "Criminal Justice", hometown: "Chesapeake, VA", linkedIn: "" },
       { position: "5/Live 5ive", fullName: "Jahkael Parker", lineName: "The Illusion", photo: "", major: "Business Management", minor: "", hometown: "Richmond, VA", linkedIn: "" },
       { position: "6/Slick 6ix", fullName: "Jaylen Johnson", lineName: "Perfect Peace", photo: "assets/portraits/jaylen-johnson.png", major: "Exercise Science with a focus in Kinesiotherapy", minor: "", hometown: "Fort Washington, MD", linkedIn: "" },
       { position: "7/Jewel", fullName: "Zachary Roberts II", lineName: "MuPhasa", photo: "", major: "Management Information Systems", minor: "", hometown: "Carson, CA", linkedIn: "" },
@@ -157,22 +169,54 @@ const lineageData = {
       { position: "10/Dime - Tail", fullName: "Xavier Spindle", lineName: "The Epilogue", photo: "", major: "Business Entrepreneurship", minor: "", hometown: "Richmond, VA", linkedIn: "" },
     ],
   },
-  "Spring 2024": {
-    lineName: "12 Degrees Below Zero aka Sons of the New World",
+  "Spring 2023": {
+    lineName: "New World Order aka Always Follow Suit",
     noHeadshots: true,
     members: [
-      { position: "1/Ace", fullName: "Jahmire Westbrook", lineName: "Vantage Po1nt", photo: "", major: "Accounting", minor: "", hometown: "Neptune, NJ", linkedIn: "" },
-      { position: "2/Deuce", fullName: "Narenzo Fleors", lineName: "unPhased Marksman", photo: "", major: "Political Science", minor: "Business Finance", hometown: "Detroit, MI", linkedIn: "" },
-      { position: "3/Tre", fullName: "Malcolm Warren", lineName: "Golden Glove", photo: "", major: "Computer Science", minor: "", hometown: "Richmond, VA", linkedIn: "" },
-      { position: "4/Hardcore 4our", fullName: "Jamari Jones", lineName: "Frozone\" aka \"Virgil", photo: "", major: "Business Entrepreneurship", minor: "", hometown: "Richmond, VA", linkedIn: "" },
-      { position: "5/Live 5ive", fullName: "Jaden Johnson", lineName: "Psychotic\" aka \"Knucklehead", photo: "", major: "Computer Science and Mathematics", minor: "", hometown: "Richmond, VA", linkedIn: "" },
-      { position: "6/Slick 6ix", fullName: "Tre Greaux", lineName: "Venom", photo: "", major: "Political Science", minor: "", hometown: "Atlanta, GA", linkedIn: "" },
-      { position: "7/Jewel", fullName: "Jordan Cain", lineName: "Prince of Peace", photo: "", major: "Psychology", minor: "", hometown: "Woodbridge, VA", linkedIn: "" },
-      { position: "8/8Ball", fullName: "Ellis Lamont Robertson", lineName: "Phoenix", photo: "", major: "Mass Communications", minor: "", hometown: "Detroit, MI", linkedIn: "" },
-      { position: "9/Notorious 9ine", fullName: "Kaion Hamilton III", lineName: "John Wick", photo: "", major: "Business Marketing", minor: "", hometown: "Prince George, VA", linkedIn: "" },
-      { position: "10/Dime", fullName: "Darien Britt", lineName: "H1gh N0te", photo: "", major: "Music Education with a focus in Voice", minor: "", hometown: "Portsmouth, VA", linkedIn: "" },
-      { position: "11/Fly E11even", fullName: "Chase Greene", lineName: "JUGGANAUT", photo: "", major: "Business Management", minor: "", hometown: "Spotsylvania, VA", linkedIn: "" },
-      { position: "12/Dozen - Tail", fullName: "Elijah Smith", lineName: "Goliath", photo: "", major: "Business Marketing", minor: "", hometown: "Richmond, VA", linkedIn: "" },
+      { position: "1/Ace", fullName: "Aaron Fisher Jr", lineName: "Lord Frieza", photo: "", major: "Business Finance", minor: "", hometown: "Chesapeake, VA", linkedIn: "https://www.linkedin.com/in/aaron-fisher-jr-15a2a0248" },
+      { position: "2/Deuce", fullName: "Lauryce Derose", lineName: "Critical Condition", photo: "", major: "Sociology", minor: "Criminal Justice", hometown: "Chicago, IL", linkedIn: "https://www.linkedin.com/in/lauryce-derose-66424027b" },
+      { position: "3/Tre", fullName: "Taavon Mitchell Jr", lineName: "Pharoahgamo", photo: "", major: "Computer Science with a focus in Cybersecurity", minor: "", hometown: "Baltimore, MD", linkedIn: "https://www.linkedin.com/in/taavon-mitchell-jr-85ba23243" },
+      { position: "4/H4ardcore", fullName: "Alexander Soler", lineName: "Phlash", photo: "", major: "Social Work", minor: "", hometown: "Paterson, NJ", linkedIn: "https://www.linkedin.com/in/alexander-soler3" },
+      { position: "5/Live 5ive", fullName: "Christopher Martin", lineName: "Kakarot", photo: "", major: "Exercise Science", minor: "", hometown: "Manassas, VA", linkedIn: "https://www.linkedin.com/in/chris-martin-a63640259" },
+      { position: "6/Slick 6ix", fullName: "Marquice Brown-Thomas", lineName: "Son of Anarchy", photo: "", major: "Interdisciplinary Studies", minor: "", hometown: "Washington, DC", linkedIn: "https://www.linkedin.com/in/maurquice-brown-thomas-051844244" },
+      { position: "7/Jewel", fullName: "Madijan Kabba", lineName: "Blood Diamond", photo: "", major: "Biology", minor: "", hometown: "Boston, MA", linkedIn: "https://www.linkedin.com/in/madijan-kabba-25a099332" },
+      { position: "8/8Ball", fullName: "Braxton Bates", lineName: "Kamikaze", photo: "", major: "Computer Science with a focus in Cybersecurity", minor: "", hometown: "Chesapeake, VA", linkedIn: "https://www.linkedin.com/in/braxton-bates777" },
+      { position: "9/Notorious 9ine", fullName: "Jordan D Moody", lineName: "Gorilla Grodd", photo: "", major: "History Education", minor: "", hometown: "Newport News, VA", linkedIn: "https://www.linkedin.com/in/jdmoody02" },
+      { position: "10/Dime", fullName: "Nicolas Halorday", lineName: "Kratos", photo: "", major: "Sociology", minor: "", hometown: "Dallas, TX", linkedIn: "https://www.linkedin.com/in/nicoloas-halorday-0b5590186" },
+      { position: "11/Fly E11even", fullName: "Joseph Kemp III", lineName: "Phina11y Phamous", photo: "", major: "Exercise Science", minor: "", hometown: "Petersburg, VA", linkedIn: "" },
+      { position: "12/Dozen", fullName: "Carson Small", lineName: "Michael Myers", photo: "", major: "Information Technology", minor: "", hometown: "Brooklyn, NY", linkedIn: "https://www.linkedin.com/in/carson-small-9543661b5" },
+      { position: "13/Tail", fullName: "Jacquez Motley", lineName: "Phinal SacrifICE", photo: "", major: "Psychology", minor: "", hometown: "Danville, VA", linkedIn: "https://www.linkedin.com/in/jacquez-motley-1b899b259" },
+    ],
+  },
+  "Spring 2022": {
+    lineName: "The 7 Revolutionaries of War",
+    noHeadshots: true,
+    members: [
+      { position: "1/Ace", fullName: "McKinley Lowery III", lineName: "Basquiat", photo: "", major: "Business", minor: "", hometown: "Detroit, MI", linkedIn: "https://www.linkedin.com/in/mckinleyloweryiii" },
+      { position: "2/Deuce", fullName: "Malik Cunningham", lineName: "Winter Soldier", photo: "", major: "Information Technology", minor: "", hometown: "Baltimore, MD", linkedIn: "https://www.linkedin.com/in/malik-cunningham-b4792b228" },
+      { position: "3/Tre", fullName: "Tyreese Davis", lineName: "Koman", photo: "", major: "Early Childhood<br>Development", minor: "", hometown: "Chester, SC", linkedIn: "" },
+      { position: "4/H4ardcore", fullName: "Christian Palmer", lineName: "Split", photo: "", major: "Mass Communications", minor: "", hometown: "Halifax, VA", linkedIn: "" },
+      { position: "5/5ive", fullName: "Brian Peede Jr", lineName: "Rocky Balboa", photo: "", major: "Music Education", minor: "", hometown: "Hampton, VA", linkedIn: "https://www.linkedin.com/in/mr-brian-peede-585bab231" },
+      { position: "6/6ix", fullName: "Shy'Keem Hussey", lineName: "Static Shock", photo: "", major: "Sociology", minor: "Criminal Justice", hometown: "Chesapeake, VA", linkedIn: "https://www.linkedin.com/in/shykeem-hussey-21a296232" },
+      { position: "7/Jewel - Tail", fullName: "Christopher Price Jr", lineName: "Thanos", photo: "", major: "Business Marketing", minor: "", hometown: "Chicago, IL", linkedIn: "https://www.linkedin.com/in/christopher-price-jr-6a41ba314" },
+    ],
+  },
+  "Spring 2024": {
+    lineName: "12 Degrees Below Zero aka Sons of the New World aka Skii Club",
+    noHeadshots: true,
+    members: [
+      { position: "1/Ace", fullName: "Jahmire Westbrook", lineName: "Vantage Po1nt", photo: "", major: "Accounting", minor: "", hometown: "Neptune, NJ", linkedIn: "https://www.linkedin.com/in/jahmire-westbrook" },
+      { position: "2/Deuce", fullName: "Narenzo Fleors", lineName: "unPhased Marksman", photo: "", major: "Political Science", minor: "Business Finance", hometown: "Detroit, MI", linkedIn: "https://www.linkedin.com/in/narenzofleors" },
+      { position: "3/Tre", fullName: "Malcolm Warren", lineName: "Golden Glove", photo: "", major: "Computer Science", minor: "", hometown: "Richmond, VA", linkedIn: "https://www.linkedin.com/in/malcwarren404" },
+      { position: "4/H4ardcore", fullName: "Jamari Jones", lineName: "Frozone\" aka \"Virgil", photo: "", major: "Business Entrepreneurship", minor: "", hometown: "Richmond, VA", linkedIn: "https://www.linkedin.com/in/jamari-jones-4a2991288" },
+      { position: "5/Live 5ive", fullName: "Jaden Johnson", lineName: "Psychotic\" aka \"Knucklehead", photo: "", major: "Computer Science and Mathematics", minor: "", hometown: "Richmond, VA", linkedIn: "https://www.linkedin.com/in/jaden-johnson-nsu" },
+      { position: "6/Slick 6ix", fullName: "Tre Greaux", lineName: "Venom", photo: "", major: "Political Science", minor: "", hometown: "Atlanta, GA", linkedIn: "https://www.linkedin.com/in/tre-greaux-90a1a9277" },
+      { position: "7/Jewel", fullName: "Jordan Cain", lineName: "Prince of Peace", photo: "", major: "Psychology", minor: "", hometown: "Woodbridge, VA", linkedIn: "https://www.linkedin.com/in/jordan-cain-615b762a8" },
+      { position: "8/8Ball", fullName: "Ellis Robertson", lineName: "Phoenix", photo: "", major: "Mass Communications", minor: "", hometown: "Detroit, MI", linkedIn: "https://www.linkedin.com/in/ellis-robertson-b2b855256" },
+      { position: "9/Notorious 9ine", fullName: "Kaion Hamilton III", lineName: "John Wick", photo: "", major: "Business Marketing", minor: "", hometown: "Prince George, VA", linkedIn: "https://www.linkedin.com/in/kaion-hamilton-b677b6308" },
+      { position: "10/Dime", fullName: "Darien Britt", lineName: "H1gh N0te", photo: "", major: "Music Education with a focus in Voice", minor: "", hometown: "Portsmouth, VA", linkedIn: "https://www.linkedin.com/in/darien-britt-a43289203" },
+      { position: "11/Fly E11even", fullName: "Chase Greene", lineName: "JUGGANAUT", photo: "", major: "Business Management", minor: "", hometown: "Spotsylvania, VA", linkedIn: "https://www.linkedin.com/in/chase-greene-831920270" },
+      { position: "12/Dozen - Tail", fullName: "Elijah Smith", lineName: "Goliath", photo: "", major: "Business Marketing", minor: "", hometown: "Richmond, VA", linkedIn: "https://www.linkedin.com/in/ets1" },
     ],
   },
   "Spring 2026": {
@@ -187,13 +231,13 @@ const lineageData = {
       { position: "1/Ace", fullName: "Adarius Johnson", lineName: "K1ll Switch", photo: "assets/portraits/adarius-johnson.png", major: "Exercise Science with a focus in Kinesiotherapy", minor: "", hometown: "Portsmouth, VA", linkedIn: "https://www.linkedin.com/in/adarius-johnson-456868383" },
       { position: "2/Deuce", fullName: "Justin Claiborne", lineName: "Flu Game", photo: "assets/portraits/justin-claiborne.png", major: "Computer Science with a focus in Cybersecurity", minor: "", hometown: "Hampton, VA", linkedIn: "https://www.linkedin.com/in/justin-claiborne" },
       { position: "3/Tre", fullName: "Brandon Richardson", lineName: "Tariq St. Patrick", photo: "assets/portraits/brandon-richardson.png", major: "Business Management", minor: "Psychology", hometown: "Chester, VA", linkedIn: "" },
-      { position: "4/Hardcore 4our", fullName: "Dylan Bryant", lineName: "Spike Lee", photo: "assets/portraits/dylan-bryant.png", major: "Graphic Design with a focus in Fine Arts", minor: "", hometown: "Prince George's County, MD", linkedIn: "" },
+      { position: "4/H4ardcore", fullName: "Dylan Bryant", lineName: "Spike Lee", photo: "assets/portraits/dylan-bryant.png", major: "Graphic Design with a focus in Fine Arts", minor: "", hometown: "Prince George's County, MD", linkedIn: "" },
       { position: "5/Live 5ive", fullName: "Ian Thomas", lineName: "Ares", photo: "assets/portraits/ian-thomas.png", major: "Interdisciplinary Studies with a focus in Criminal Justice and Business Marketing", minor: "", hometown: "Fredricksburg, VA", linkedIn: "https://www.linkedin.com/in/ian-thomas-09186b330" },
       { position: "6/Slick 6ix", fullName: "Simeon Butler", lineName: "Pain Killer", photo: "assets/portraits/simeon-butler.png", major: "Mass Communications", minor: "Business", hometown: "Huntsville, AL", linkedIn: "" },
       { position: "7/Jewel", fullName: "Kyree Williams", lineName: "Eagle Eye", photo: "assets/portraits/kyree-williams.png", major: "Psychology", minor: "Business", hometown: "Philadelphia, PA", linkedIn: "https://www.linkedin.com/in/kyree-williams-390870383/" },
       { position: "8/8Ball", fullName: "Jaleel Drummond", lineName: "Creed", photo: "assets/portraits/jaleel-drummond.png", major: "Social Work", minor: "", hometown: "Philadelphia, PA", linkedIn: "" },
       { position: "9/Notorios 9ine", fullName: "Nyles Ferguson", lineName: "Mister Terrific", photo: "assets/portraits/nyles-ferguson.png", major: "Political Science", minor: "", hometown: "Chesapeake, VA", linkedIn: "https://www.linkedin.com/in/nyles-ferguson-45b254321/" },
-      { position: "10/Dime", fullName: "Brett Andrews Jr.", lineName: "Man of Steel", photo: "assets/portraits/brett-andrews-jr.png", major: "Double Major in Computer Engineering Technology and Electronics Engineering Technology", minor: "", hometown: "Atlanta, GA", linkedIn: "https://www.linkedin.com/in/brett-andrews-norfolk-state" },
+      { position: "10/Dime", fullName: "Brett Andrews Jr", lineName: "Man of Steel", photo: "assets/portraits/brett-andrews-jr.png", major: "Double Major in Computer Engineering Technology and Electronics Engineering Technology", minor: "", hometown: "Atlanta, GA", linkedIn: "https://www.linkedin.com/in/brett-andrews-norfolk-state" },
       { position: "11/Fly E11even - Tail", fullName: "Joseph Hargett", lineName: "Hail Mary", photo: "assets/portraits/joseph-hargett.png", major: "Business Marketing", minor: "", hometown: "Williamston, NC", linkedIn: "https://www.linkedin.com/in/joseph-hargett/" },
     ],
   },
@@ -280,13 +324,14 @@ function buildLineageItem(termKey, details) {
           const { state, cityKey } = parseHometown(member.hometown);
           statePath = state && STATE_OUTLINE_PATH[state] ? STATE_OUTLINE_PATH[state] : null;
           const [hx, hy] = statePath ? getCityPosition(state, cityKey) : [50, 50];
+          const editPosBtn = "";
           const stateMapHtml = statePath
             ? `<div class="lineage-member-state-wrap" data-state="${state}" data-city-key="${cityKey || ""}">
                  <div class="lineage-member-state-map">
                    <img class="lineage-member-state" src="${statePath}" alt="" role="presentation" />
                    <img class="lineage-member-phi" src="${HAND_SIGN_PATH}" alt="" style="left:${hx}%;top:${hy}%;transform:translate(-50%,-50%);" role="presentation" />
                  </div>
-                 <button type="button" class="lineage-member-edit-pos" aria-pressed="false">Edit position</button>
+                 ${editPosBtn}
                </div>`
             : "";
           const { major, minor, minorLabel } = getMajorMinorDisplay(member);
@@ -321,8 +366,9 @@ function buildLineageItem(termKey, details) {
 
         const roleAttrs = noPhotos ? "" : ' tabindex="0" role="button"';
         const noStateClass = noPhotos && !statePath ? " lineage-member-no-state" : "";
+        const fullNameAttr = noPhotos ? ` data-full-name="${member.fullName.replace(/"/g, "&quot;")}"` : "";
         return `
-            <li class="${memberClass}${noStateClass}" data-term="${termKey}" data-member-index="${idx}"${roleAttrs}>
+            <li class="${memberClass}${noStateClass}" data-term="${termKey}" data-member-index="${idx}"${fullNameAttr}${roleAttrs}>
               ${photoHtml}
               ${bodyHtml}
             </li>
@@ -500,9 +546,15 @@ function openRapSheet(termKey, memberIndex) {
     handSign.src = HAND_SIGN_PATH;
     const editPosBtn = modal.querySelector(".rap-sheet-edit-pos");
     const posDisplay = modal.querySelector(".rap-sheet-pos-display");
-    editPosBtn.setAttribute("aria-pressed", "false");
+    const disableEditPos = termKey === "Spring 2022" || termKey === "Spring 2025" || termKey === "Spring 2026";
+    if (editPosBtn) {
+      editPosBtn.hidden = disableEditPos;
+      editPosBtn.setAttribute("aria-pressed", "false");
+    }
     stateContainer.classList.remove("rap-sheet-edit-mode");
-    posDisplay.textContent = `${member.hometown} → ${x}, ${y}`;
+    if (posDisplay) {
+      posDisplay.textContent = `${member.hometown} → ${x}, ${y}`;
+    }
   } else {
     mapWrap.hidden = true;
   }

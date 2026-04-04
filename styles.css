@@ -487,11 +487,19 @@ main {
 }
 
 .lineage-member-no-photo {
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1.1fr 1.6fr auto auto;
   align-items: center;
   gap: 1.5rem;
   padding: 0.75rem 0.9rem;
   cursor: default;
+}
+
+.lineage-member-no-photo .lineage-member-col-identity {
+  grid-column: 1;
+}
+
+.lineage-member-no-photo .lineage-member-col-details {
+  grid-column: 2;
 }
 
 .lineage-member-no-photo .lineage-position-num {
@@ -512,12 +520,12 @@ main {
 
 .lineage-member-no-photo .lineage-member-details {
   font-size: 0.98rem;
-  gap: 0.25rem 0.9rem;
+  gap: 1.6rem 2rem;
 }
 
 .lineage-member-no-photo .lineage-member-linkedin svg {
-  width: 24px;
-  height: 24px;
+  width: auto;
+  height: 18px;
 }
 
 .lineage-member-no-photo .lineage-member-edit-pos {
@@ -529,8 +537,28 @@ main {
   background: var(--panel);
 }
 
+.lineage-member-no-photo .lineage-member-col-state {
+  grid-column: 3;
+}
+
+.lineage-member-no-photo .lineage-member-col-blank {
+  grid-column: 4;
+}
+
 .lineage-member-no-photo.lineage-member-no-state {
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.lineage-member-no-photo.lineage-member-no-state .lineage-member-col-details {
+  grid-column: 2;
+}
+
+.lineage-member-no-photo.lineage-member-no-state .lineage-member-col-state {
+  display: none;
+}
+
+.lineage-member-no-photo.lineage-member-no-state .lineage-member-col-blank {
+  grid-column: 4;
 }
 
 .lineage-member-col {
@@ -545,6 +573,11 @@ main {
 
 .lineage-member-col-details {
   min-width: 0;
+  max-width: 100%;
+}
+
+.lineage-member-no-photo .lineage-member-col-details {
+  max-width: 360px;
 }
 
 .lineage-member-col-state {
@@ -620,10 +653,11 @@ main {
 
 .lineage-member-details {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0.2rem 0.75rem;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1.4rem 2rem;
   margin: 0;
   font-size: 0.82rem;
+  align-items: baseline;
 }
 
 .lineage-member-details dt {
@@ -634,6 +668,28 @@ main {
 .lineage-member-details dd {
   margin: 0;
   color: var(--gold-soft);
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Desktop only (min-width: 841px) - isolate from tablet/mobile */
+@media (min-width: 841px) {
+  .lineage-member-no-photo .lineage-member-details {
+    grid-template-columns: auto minmax(220px, 1fr);
+  }
+
+  .lineage-member-no-photo .lineage-member-details dd {
+    word-break: normal;
+  }
+
+  .lineage-member-no-photo .lineage-member-col-details {
+    min-width: 260px;
+    max-width: 420px;
+  }
+
+  .lineage-member-no-photo .lineage-member-col-state {
+    margin-left: -1rem;
+  }
 }
 
 .lineage-member-linkedin {
@@ -1183,5 +1239,267 @@ main {
   .site-footer,
   .support-us {
     width: min(100% - 1.2rem, var(--max-width));
+  }
+
+  .panel {
+    padding: 1.5rem 1.25rem;
+  }
+
+  /* Lineage: full-bleed to screen edges on non-desktop */
+  #lineage.panel {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    border-radius: 0;
+  }
+
+  #lineage .lineage-item {
+    border-radius: 0;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  #lineage .lineage-term-track {
+    padding-left: 0;
+    padding-right: 0.6rem;
+  }
+
+  #lineage .lineage-term-btn:first-child {
+    margin-left: 0;
+  }
+
+  /* Spring 2024: 3 columns on tablet - state + linkedin stacked in col 4 */
+  .lineage-member-no-photo {
+    grid-template-columns: 1fr 1fr auto;
+    grid-template-rows: auto;
+    gap: 0.75rem 1rem;
+  }
+
+  .lineage-member-no-photo .lineage-member-col-identity { grid-column: 1; grid-row: 1; }
+  .lineage-member-no-photo .lineage-member-col-details { grid-column: 2; grid-row: 1; margin-left: 1.5rem; }
+  .lineage-member-no-photo .lineage-member-col-state { grid-column: 3; grid-row: 1; flex-direction: column; align-self: start; }
+  .lineage-member-no-photo[data-full-name="Kaion Hamilton III"] .lineage-member-col-state { align-self: center; }
+  .lineage-member-no-photo .lineage-member-col-blank { grid-column: 3; grid-row: 1; align-self: end; justify-content: flex-start; }
+
+  .lineage-member-no-photo.lineage-member-no-state .lineage-member-col-details { grid-column: 2; margin-left: 1.5rem; }
+  .lineage-member-no-photo.lineage-member-no-state .lineage-member-col-state { display: none; }
+  .lineage-member-no-photo.lineage-member-no-state .lineage-member-col-blank { grid-column: 3; grid-row: 1; }
+
+  .lineage-member-no-photo .lineage-member-state-wrap,
+  .lineage-member-no-photo .lineage-member-state-map {
+    width: 150px;
+    height: 125px;
+  }
+  /* Spring 2022 - Malik Cunningham: nudge Maryland right and place LinkedIn under state (tablet) */
+  .lineage-member-no-photo[data-full-name="Malik Cunningham"] .lineage-member-col-state {
+    align-self: start;
+    margin-left: 4.5rem;
+  }
+  .lineage-member-no-photo[data-full-name="Malik Cunningham"] .lineage-member-state-wrap,
+  .lineage-member-no-photo[data-full-name="Malik Cunningham"] .lineage-member-state-map {
+    width: 180px;
+    height: 150px;
+    margin-left: 0.75rem;
+  }
+  .lineage-member-no-photo[data-full-name="Malik Cunningham"] .lineage-member-col-blank {
+    grid-column: 3;
+    grid-row: 1;
+    align-self: end;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+    margin-right: 0;
+    margin-left: 2.5rem;
+    width: 150px;
+    text-align: center;
+  }
+  .lineage-member-no-photo[data-full-name="Malik Cunningham"] .lineage-member-col-blank .lineage-member-linkedin {
+    margin-top: 0.35rem;
+  }
+
+  .lineage-member-no-photo .lineage-member-state-wrap {
+    margin-left: -1rem;
+    margin-top: 0.25rem;
+  }
+
+  .lineage-member-no-photo .lineage-member-state-map .lineage-member-phi {
+    width: 20px;
+  }
+
+  .lineage-member-no-photo .lineage-position-num { font-size: 1rem; }
+  .lineage-member-no-photo .lineage-position-name { font-size: 0.9rem; }
+  .lineage-member-no-photo .lineage-full-name { font-size: 1.05rem; }
+  .lineage-member-no-photo .lineage-line-name { font-size: 0.94rem; }
+  .lineage-member-no-photo .lineage-member-col-details { max-width: 260px; }
+  .lineage-member-no-photo .lineage-member-details {
+    font-size: 0.9rem;
+    grid-template-columns: auto minmax(140px, 1fr);
+  }
+  .lineage-member-no-photo .lineage-member-details dd { word-break: normal; }
+
+  .lineage-line-pic {
+    width: 240px;
+  }
+}
+
+@media (max-width: 600px) {
+  .rap-sheet-body {
+    grid-template-columns: 1fr;
+  }
+
+  .rap-sheet-modal {
+    max-width: 100%;
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .panel {
+    padding: 1rem 1rem;
+    margin: 1.5rem 0;
+  }
+
+  /* Spring 2024: 3 columns on phone - state + linkedin stacked in col 4 */
+  .lineage-member-no-photo,
+  .lineage-member-no-photo.lineage-member-no-state {
+    grid-template-columns: min-content 1fr auto;
+    grid-template-rows: auto;
+    gap: 0.5rem 0.6rem;
+    align-items: center;
+  }
+
+  .lineage-member-no-photo .lineage-member-col-identity { grid-column: 1; grid-row: 1; }
+  .lineage-member-no-photo .lineage-member-col-details { grid-column: 2; grid-row: 1; margin-left: 1.5rem; }
+  .lineage-member-no-photo .lineage-member-col-state { grid-column: 3; grid-row: 1; flex-direction: column; align-self: start; }
+  .lineage-member-no-photo[data-full-name="Kaion Hamilton III"] .lineage-member-col-state { align-self: center; }
+  .lineage-member-no-photo .lineage-member-col-blank { grid-column: 3; grid-row: 1; align-self: end; justify-content: flex-start; }
+
+  .lineage-member-no-photo.lineage-member-no-state .lineage-member-col-details { grid-column: 2; margin-left: 1.5rem; }
+  .lineage-member-no-photo.lineage-member-no-state .lineage-member-col-state { display: none; }
+  .lineage-member-no-photo.lineage-member-no-state .lineage-member-col-blank { grid-column: 3; grid-row: 1; }
+
+  .lineage-member-no-photo .lineage-member-state-wrap,
+  .lineage-member-no-photo .lineage-member-state-map {
+    width: 130px;
+    height: 108px;
+  }
+  /* Spring 2022 - Malik Cunningham: nudge Maryland right and stack LinkedIn under state (phone) */
+  .lineage-member-no-photo[data-full-name="Malik Cunningham"] .lineage-member-col-state {
+    align-self: start;
+    margin-left: 4.5rem;
+  }
+  .lineage-member-no-photo[data-full-name="Malik Cunningham"] .lineage-member-state-wrap,
+  .lineage-member-no-photo[data-full-name="Malik Cunningham"] .lineage-member-state-map {
+    width: 170px;
+    height: 140px;
+    margin-left: 0.6rem;
+  }
+  .lineage-member-no-photo[data-full-name="Malik Cunningham"] .lineage-member-col-blank {
+    grid-column: 3;
+    grid-row: 1;
+    align-self: end;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+    margin-right: 0;
+    margin-left: 2.5rem;
+    width: 130px;
+    text-align: center;
+  }
+  .lineage-member-no-photo[data-full-name="Malik Cunningham"] .lineage-member-col-blank .lineage-member-linkedin {
+    margin-top: 0.35rem;
+  }
+
+  .lineage-member-no-photo .lineage-member-state-wrap {
+    margin-left: -0.75rem;
+    margin-top: 0.2rem;
+  }
+
+  .lineage-member-no-photo .lineage-member-state-map .lineage-member-phi {
+    width: 17px;
+  }
+
+  .lineage-member-no-photo {
+    padding: 0.6rem 0.75rem;
+    gap: 0.75rem;
+  }
+
+  .lineage-member-no-photo .lineage-position-num { font-size: 0.95rem; }
+  .lineage-member-no-photo .lineage-position-name { font-size: 0.84rem; }
+  .lineage-member-no-photo .lineage-full-name { font-size: 0.98rem; }
+  .lineage-member-no-photo .lineage-line-name { font-size: 0.86rem; }
+  .lineage-member-no-photo .lineage-member-col-details { max-width: 230px; }
+  .lineage-member-no-photo .lineage-member-details {
+    font-size: 0.82rem;
+    grid-template-columns: auto minmax(130px, 1fr);
+  }
+  .lineage-member-no-photo .lineage-member-details dd { word-break: normal; }
+
+  .lineage-member-no-photo .lineage-member-linkedin svg {
+    width: auto;
+    height: 16px;
+  }
+
+  .lineage-term-btn {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.9rem;
+  }
+
+  .lineage-term-track {
+    padding: 0.35rem 0 0.5rem 0.6rem;
+  }
+
+  .lineage-term-btn:first-child {
+    margin-left: 0;
+  }
+
+  .lineage-item {
+    padding: 1rem 0.75rem 2.5rem 0.75rem;
+  }
+
+  .lineage-line-pic {
+    width: 200px;
+  }
+
+  .lineage-member {
+    padding: 0.5rem 0.6rem;
+    grid-template-columns: 72px 1fr;
+    gap: 0.65rem;
+  }
+
+  .lineage-member .person-photo {
+    width: 72px;
+    height: 72px;
+  }
+
+  .main-nav a {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-header,
+  main,
+  .site-footer,
+  .support-us {
+    width: min(100% - 0.75rem, var(--max-width));
+  }
+
+  .lineage-member-state-wrap,
+  .lineage-member-state-map {
+    width: 176px;
+    height: 146px;
+  }
+
+  .lineage-member-state-map .lineage-member-phi {
+    width: 23px;
+  }
+
+  .lineage-member-no-photo .lineage-member-edit-pos {
+    font-size: 0.78rem;
+    padding: 0.35rem 0.5rem;
   }
 }
