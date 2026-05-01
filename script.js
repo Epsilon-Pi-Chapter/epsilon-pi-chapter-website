@@ -1,5 +1,8 @@
 const officerContainer = document.getElementById("officer-list");
 const lineageContainer = document.getElementById("lineage-list");
+const eventsCalendarGrid = document.getElementById("events-calendar-grid");
+const eventsCalendarMonth = document.getElementById("events-calendar-month");
+const eventsCalendarDetail = document.getElementById("events-calendar-detail");
 
 const officersData = [
   { role: "President", name: "Kaion N. Hamilton, III", photo: "assets/portraits/kaion-hamilton-iii.png" },
@@ -13,6 +16,49 @@ const officersData = [
   { role: "Parliamentarian", name: "Khamani Battiste", photo: "assets/portraits/khamani-battiste.png" },
   { role: "Sergeant-At-Arms", name: "Allan J. White", photo: "" },
   { role: "Chapter Advisor", name: "Dr. Leon Rousen", photo: "assets/portraits/leon-rousen.png" },
+];
+
+// Update this list to add or revise upcoming events shown on the monthly calendar.
+const eventsCalendarData = [
+  {
+    date: "2026-04-25",
+    title: "Brotherhood Cookout",
+    time: "1:00 PM",
+    location: "Student Center Lawn",
+    description: "An end-of-month fellowship gathering with music, food, and chapter updates for brothers and invited guests.",
+    linkLabel: "RSVP with the chapter",
+    linkUrl: "mailto:epialphas@gmail.com?subject=Brotherhood%20Cookout%20RSVP",
+  },
+  {
+    date: "2026-04-28",
+    title: "Study Hall and Mentorship Night",
+    time: "6:30 PM",
+    location: "Brown Hall, Room 214",
+    description: "An academic accountability night with upperclassmen support, planning time, and mentorship check-ins.",
+  },
+  {
+    date: "2026-05-03",
+    title: "Community Cleanup",
+    time: "9:00 AM",
+    location: "Downtown Norfolk",
+    description: "A service day focused on neighborhood cleanup, visibility, and local impact.",
+    linkLabel: "Volunteer details",
+    linkUrl: "mailto:epialphas@gmail.com?subject=Community%20Cleanup%20Volunteer",
+  },
+  {
+    date: "2026-05-10",
+    title: "Mother's Day Appreciation Brunch",
+    time: "11:30 AM",
+    location: "Campus Dining Hall",
+    description: "A celebratory brunch honoring the women who continue to support the chapter and its mission.",
+  },
+  {
+    date: "2026-05-18",
+    title: "Leadership Transition Meeting",
+    time: "7:00 PM",
+    location: "Chapter Meeting Room",
+    description: "Officer handoff, summer planning, and committee alignment for the next chapter term.",
+  },
 ];
 
 // State outline assets: place one image per state in assets/states/ (e.g. va.png, md.png).
@@ -139,7 +185,160 @@ function getMajorMinorDisplay(member) {
   return { major, minor, minorLabel };
 }
 
-const LINKEDIN_LOGO_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 24" width="100" height="24" aria-hidden="true"><text x="0" y="18" font-family="-apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, sans-serif" font-size="18" fill="currentColor"><tspan font-weight="400">Linked</tspan><tspan font-weight="700">In</tspan></text></svg>';
+const LINKEDIN_LOGO_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="3.5" fill="currentColor"/><circle cx="7.35" cy="7.2" r="1.15" fill="#0a0a0a"/><rect x="6.2" y="10" width="2.3" height="7.4" fill="#0a0a0a"/><path d="M11 10h2.15v1.15c.48-.83 1.38-1.37 2.6-1.37 2.09 0 3.25 1.36 3.25 3.9v3.72H16.7v-3.38c0-1.32-.48-2.08-1.56-2.08-1.16 0-1.84.8-1.84 2.37v3.09H11V10z" fill="#0a0a0a"/></svg>';
+
+const calendarMonthFormatter = new Intl.DateTimeFormat("en-US", {
+  month: "long",
+  year: "numeric",
+});
+
+const calendarDetailFormatter = new Intl.DateTimeFormat("en-US", {
+  weekday: "long",
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+});
+
+const todaysDateKey = formatDateKey(new Date());
+let currentCalendarMonth = getInitialCalendarMonth();
+let selectedCalendarDateKey = getInitialSelectedDate();
+
+function formatDateKey(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function getInitialCalendarMonth() {
+  const seed = eventsCalendarData[0]?.date ? new Date(`${eventsCalendarData[0].date}T12:00:00`) : new Date();
+  return new Date(seed.getFullYear(), seed.getMonth(), 1);
+}
+
+function getInitialSelectedDate() {
+  if (eventsCalendarData.some((event) => event.date === todaysDateKey)) return todaysDateKey;
+  return eventsCalendarData[0]?.date || todaysDateKey;
+}
+
+function getEventsForDate(dateKey) {
+  return eventsCalendarData.filter((event) => event.date === dateKey);
+}
+
+function renderEventsCalendarDetail(dateKey) {
+  if (!eventsCalendarDetail) return;
+
+  const events = getEventsForDate(dateKey);
+  const date = new Date(`${dateKey}T12:00:00`);
+  const formattedDate = calendarDetailFormatter.format(date);
+
+  if (!events.length) {
+    eventsCalendarDetail.innerHTML = `
+      <p class="events-calendar-detail-date">${formattedDate}</p>
+      <div class="events-calendar-empty">
+        <strong>No chapter events posted</strong>
+        <p>Select another highlighted date or add an event to the calendar data in <code>script.js</code>.</p>
+      </div>
+    `;
+    return;
+  }
+
+  const eventCards = events
+    .map((event) => {
+      const metaParts = [event.time, event.location].filter(Boolean);
+      const meta = metaParts.length ? `<p class="events-calendar-event-meta">${metaParts.join(" · ")}</p>` : "";
+      const link = event.linkUrl
+        ? `<a class="events-calendar-event-link" href="${event.linkUrl}" target="_blank" rel="noopener noreferrer">${event.linkLabel || "View details"}</a>`
+        : "";
+      return `
+        <article class="events-calendar-event">
+          <h4>${event.title}</h4>
+          ${meta}
+          <p>${event.description}</p>
+          ${link}
+        </article>
+      `;
+    })
+    .join("");
+
+  eventsCalendarDetail.innerHTML = `
+    <p class="events-calendar-detail-date">${formattedDate}</p>
+    <div class="events-calendar-detail-list">${eventCards}</div>
+  `;
+}
+
+function renderEventsCalendar() {
+  if (!eventsCalendarGrid || !eventsCalendarMonth) return;
+
+  const monthStart = new Date(currentCalendarMonth.getFullYear(), currentCalendarMonth.getMonth(), 1);
+  const monthEnd = new Date(currentCalendarMonth.getFullYear(), currentCalendarMonth.getMonth() + 1, 0);
+  const firstWeekday = monthStart.getDay();
+  const totalDays = monthEnd.getDate();
+
+  eventsCalendarMonth.textContent = calendarMonthFormatter.format(monthStart);
+
+  const cells = [];
+  for (let i = 0; i < firstWeekday; i += 1) {
+    cells.push('<div class="events-calendar-spacer" aria-hidden="true"></div>');
+  }
+
+  for (let day = 1; day <= totalDays; day += 1) {
+    const date = new Date(monthStart.getFullYear(), monthStart.getMonth(), day);
+    const dateKey = formatDateKey(date);
+    const events = getEventsForDate(dateKey);
+    const isSelected = dateKey === selectedCalendarDateKey;
+    const isToday = dateKey === todaysDateKey;
+    const classes = [
+      "events-calendar-day",
+      events.length ? "has-event" : "",
+      isSelected ? "is-selected" : "",
+    ]
+      .filter(Boolean)
+      .join(" ");
+    const countBadge = events.length
+      ? `<span class="events-calendar-event-count">${events.length}</span>`
+      : "";
+    const todayMarker = isToday ? '<span class="events-calendar-day-today" aria-hidden="true"></span>' : "";
+
+    cells.push(`
+      <button
+        type="button"
+        class="${classes}"
+        data-date="${dateKey}"
+        role="gridcell"
+        aria-pressed="${isSelected}"
+        aria-label="${calendarDetailFormatter.format(date)}${events.length ? `, ${events.length} event${events.length > 1 ? "s" : ""}` : ", no events"}"
+      >
+        ${todayMarker}
+        <span class="events-calendar-day-number">${day}</span>
+        ${countBadge}
+      </button>
+    `);
+  }
+
+  eventsCalendarGrid.innerHTML = cells.join("");
+  renderEventsCalendarDetail(selectedCalendarDateKey);
+}
+
+if (eventsCalendarGrid) {
+  renderEventsCalendar();
+
+  document.getElementById("events-calendar-prev")?.addEventListener("click", () => {
+    currentCalendarMonth = new Date(currentCalendarMonth.getFullYear(), currentCalendarMonth.getMonth() - 1, 1);
+    renderEventsCalendar();
+  });
+
+  document.getElementById("events-calendar-next")?.addEventListener("click", () => {
+    currentCalendarMonth = new Date(currentCalendarMonth.getFullYear(), currentCalendarMonth.getMonth() + 1, 1);
+    renderEventsCalendar();
+  });
+
+  eventsCalendarGrid.addEventListener("click", (event) => {
+    const button = event.target.closest(".events-calendar-day");
+    if (!button) return;
+    selectedCalendarDateKey = button.dataset.date;
+    renderEventsCalendar();
+  });
+}
 
 function getCityPosition(state, cityKey) {
   const overrides = getPositionOverrides();
@@ -160,7 +359,7 @@ const lineageData = {
       { position: "1/Ace", fullName: "Keshun Nelson", lineName: "Prime Proton", photo: "", major: "Chemistry with a focus in Pre-Med", minor: "", hometown: "Milwaukee, WI", linkedIn: "" },
       { position: "2/Deuce", fullName: "Jahkari Taylor", lineName: "V.I.Pharoah", photo: "", major: "Political Science", minor: "", hometown: "Chesapeake, VA", linkedIn: "" },
       { position: "3/Tre", fullName: "Allan White", lineName: "Nocturnal Beast", photo: "", major: "Sociology", minor: "", hometown: "Mount Vernon, NY", linkedIn: "" },
-      { position: "4/H4ardcore", fullName: "Jerome Sutton III", lineName: "Steady Heart", photo: "assets/portraits/jerome-sutton-iii.png", major: "Sociology", minor: "Criminal Justice", hometown: "Chesapeake, VA", linkedIn: "" },
+      { position: "4/H4rdcore", fullName: "Jerome Sutton III", lineName: "Steady Heart", photo: "assets/portraits/jerome-sutton-iii.png", major: "Sociology", minor: "Criminal Justice", hometown: "Chesapeake, VA", linkedIn: "" },
       { position: "5/Live 5ive", fullName: "Jahkael Parker", lineName: "The Illusion", photo: "", major: "Business Management", minor: "", hometown: "Richmond, VA", linkedIn: "" },
       { position: "6/Slick 6ix", fullName: "Jaylen Johnson", lineName: "Perfect Peace", photo: "assets/portraits/jaylen-johnson.png", major: "Exercise Science with a focus in Kinesiotherapy", minor: "", hometown: "Fort Washington, MD", linkedIn: "" },
       { position: "7/Jewel", fullName: "Zachary Roberts II", lineName: "MuPhasa", photo: "", major: "Management Information Systems", minor: "", hometown: "Carson, CA", linkedIn: "" },
@@ -176,7 +375,7 @@ const lineageData = {
       { position: "1/Ace", fullName: "Aaron Fisher Jr", lineName: "Lord Frieza", photo: "", major: "Business Finance", minor: "", hometown: "Chesapeake, VA", linkedIn: "https://www.linkedin.com/in/aaron-fisher-jr-15a2a0248" },
       { position: "2/Deuce", fullName: "Lauryce Derose", lineName: "Critical Condition", photo: "", major: "Sociology", minor: "Criminal Justice", hometown: "Chicago, IL", linkedIn: "https://www.linkedin.com/in/lauryce-derose-66424027b" },
       { position: "3/Tre", fullName: "Taavon Mitchell Jr", lineName: "Pharoahgamo", photo: "", major: "Computer Science with a focus in Cybersecurity", minor: "", hometown: "Baltimore, MD", linkedIn: "https://www.linkedin.com/in/taavon-mitchell-jr-85ba23243" },
-      { position: "4/H4ardcore", fullName: "Alexander Soler", lineName: "Phlash", photo: "", major: "Social Work", minor: "", hometown: "Paterson, NJ", linkedIn: "https://www.linkedin.com/in/alexander-soler3" },
+      { position: "4/H4rdcore", fullName: "Alexander Soler", lineName: "Phlash", photo: "", major: "Social Work", minor: "", hometown: "Paterson, NJ", linkedIn: "https://www.linkedin.com/in/alexander-soler3" },
       { position: "5/Live 5ive", fullName: "Christopher Martin", lineName: "Kakarot", photo: "", major: "Exercise Science", minor: "", hometown: "Manassas, VA", linkedIn: "https://www.linkedin.com/in/chris-martin-a63640259" },
       { position: "6/Slick 6ix", fullName: "Marquice Brown-Thomas", lineName: "Son of Anarchy", photo: "", major: "Interdisciplinary Studies", minor: "", hometown: "Washington, DC", linkedIn: "https://www.linkedin.com/in/maurquice-brown-thomas-051844244" },
       { position: "7/Jewel", fullName: "Madijan Kabba", lineName: "Blood Diamond", photo: "", major: "Biology", minor: "", hometown: "Boston, MA", linkedIn: "https://www.linkedin.com/in/madijan-kabba-25a099332" },
@@ -195,7 +394,7 @@ const lineageData = {
       { position: "1/Ace", fullName: "McKinley Lowery III", lineName: "Basquiat", photo: "", major: "Business", minor: "", hometown: "Detroit, MI", linkedIn: "https://www.linkedin.com/in/mckinleyloweryiii" },
       { position: "2/Deuce", fullName: "Malik Cunningham", lineName: "Winter Soldier", photo: "", major: "Information Technology", minor: "", hometown: "Baltimore, MD", linkedIn: "https://www.linkedin.com/in/malik-cunningham-b4792b228" },
       { position: "3/Tre", fullName: "Tyreese Davis", lineName: "Koman", photo: "", major: "Early Childhood<br>Development", minor: "", hometown: "Chester, SC", linkedIn: "" },
-      { position: "4/H4ardcore", fullName: "Christian Palmer", lineName: "Split", photo: "", major: "Mass Communications", minor: "", hometown: "Halifax, VA", linkedIn: "" },
+      { position: "4/H4rdcore", fullName: "Christian Palmer", lineName: "Split", photo: "", major: "Mass Communications", minor: "", hometown: "Halifax, VA", linkedIn: "" },
       { position: "5/5ive", fullName: "Brian Peede Jr", lineName: "Rocky Balboa", photo: "", major: "Music Education", minor: "", hometown: "Hampton, VA", linkedIn: "https://www.linkedin.com/in/mr-brian-peede-585bab231" },
       { position: "6/6ix", fullName: "Shy'Keem Hussey", lineName: "Static Shock", photo: "", major: "Sociology", minor: "Criminal Justice", hometown: "Chesapeake, VA", linkedIn: "https://www.linkedin.com/in/shykeem-hussey-21a296232" },
       { position: "7/Jewel - Tail", fullName: "Christopher Price Jr", lineName: "Thanos", photo: "", major: "Business Marketing", minor: "", hometown: "Chicago, IL", linkedIn: "https://www.linkedin.com/in/christopher-price-jr-6a41ba314" },
@@ -208,7 +407,7 @@ const lineageData = {
       { position: "1/Ace", fullName: "Jahmire Westbrook", lineName: "Vantage Po1nt", photo: "", major: "Accounting", minor: "", hometown: "Neptune, NJ", linkedIn: "https://www.linkedin.com/in/jahmire-westbrook" },
       { position: "2/Deuce", fullName: "Narenzo Fleors", lineName: "unPhased Marksman", photo: "", major: "Political Science", minor: "Business Finance", hometown: "Detroit, MI", linkedIn: "https://www.linkedin.com/in/narenzofleors" },
       { position: "3/Tre", fullName: "Malcolm Warren", lineName: "Golden Glove", photo: "", major: "Computer Science", minor: "", hometown: "Richmond, VA", linkedIn: "https://www.linkedin.com/in/malcwarren404" },
-      { position: "4/H4ardcore", fullName: "Jamari Jones", lineName: "Frozone\" aka \"Virgil", photo: "", major: "Business Entrepreneurship", minor: "", hometown: "Richmond, VA", linkedIn: "https://www.linkedin.com/in/jamari-jones-4a2991288" },
+      { position: "4/H4rdcore", fullName: "Jamari Jones", lineName: "Frozone\" aka \"Virgil", photo: "", major: "Business Entrepreneurship", minor: "", hometown: "Richmond, VA", linkedIn: "https://www.linkedin.com/in/jamari-jones-4a2991288" },
       { position: "5/Live 5ive", fullName: "Jaden Johnson", lineName: "Psychotic\" aka \"Knucklehead", photo: "", major: "Computer Science and Mathematics", minor: "", hometown: "Richmond, VA", linkedIn: "https://www.linkedin.com/in/jaden-johnson-nsu" },
       { position: "6/Slick 6ix", fullName: "Tre Greaux", lineName: "Venom", photo: "", major: "Political Science", minor: "", hometown: "Atlanta, GA", linkedIn: "https://www.linkedin.com/in/tre-greaux-90a1a9277" },
       { position: "7/Jewel", fullName: "Jordan Cain", lineName: "Prince of Peace", photo: "", major: "Psychology", minor: "", hometown: "Woodbridge, VA", linkedIn: "https://www.linkedin.com/in/jordan-cain-615b762a8" },
@@ -231,7 +430,7 @@ const lineageData = {
       { position: "1/Ace", fullName: "Adarius Johnson", lineName: "K1ll Switch", photo: "assets/portraits/adarius-johnson.png", major: "Exercise Science with a focus in Kinesiotherapy", minor: "", hometown: "Portsmouth, VA", linkedIn: "https://www.linkedin.com/in/adarius-johnson-456868383" },
       { position: "2/Deuce", fullName: "Justin Claiborne", lineName: "Flu Game", photo: "assets/portraits/justin-claiborne.png", major: "Computer Science with a focus in Cybersecurity", minor: "", hometown: "Hampton, VA", linkedIn: "https://www.linkedin.com/in/justin-claiborne" },
       { position: "3/Tre", fullName: "Brandon Richardson", lineName: "Tariq St. Patrick", photo: "assets/portraits/brandon-richardson.png", major: "Business Management", minor: "Psychology", hometown: "Chester, VA", linkedIn: "" },
-      { position: "4/H4ardcore", fullName: "Dylan Bryant", lineName: "Spike Lee", photo: "assets/portraits/dylan-bryant.png", major: "Graphic Design with a focus in Fine Arts", minor: "", hometown: "Prince George's County, MD", linkedIn: "" },
+      { position: "4/H4rdcore", fullName: "Dylan Bryant", lineName: "Spike Lee", photo: "assets/portraits/dylan-bryant.png", major: "Graphic Design with a focus in Fine Arts", minor: "", hometown: "Prince George's County, MD", linkedIn: "" },
       { position: "5/Live 5ive", fullName: "Ian Thomas", lineName: "Ares", photo: "assets/portraits/ian-thomas.png", major: "Interdisciplinary Studies with a focus in Criminal Justice and Business Marketing", minor: "", hometown: "Fredricksburg, VA", linkedIn: "https://www.linkedin.com/in/ian-thomas-09186b330" },
       { position: "6/Slick 6ix", fullName: "Simeon Butler", lineName: "Pain Killer", photo: "assets/portraits/simeon-butler.png", major: "Mass Communications", minor: "Business", hometown: "Huntsville, AL", linkedIn: "" },
       { position: "7/Jewel", fullName: "Kyree Williams", lineName: "Eagle Eye", photo: "assets/portraits/kyree-williams.png", major: "Psychology", minor: "Business", hometown: "Philadelphia, PA", linkedIn: "https://www.linkedin.com/in/kyree-williams-390870383/" },
@@ -306,6 +505,17 @@ function buildLineageTerms() {
   return terms;
 }
 
+function isCropEditable(termKey) {
+  const match = /^(Spring|Fall)\s+(\d{4})$/.exec(termKey || "");
+  if (!match) return false;
+  const season = match[1];
+  const year = Number.parseInt(match[2], 10);
+  if (Number.isNaN(year)) return false;
+  if (year > 2025) return true;
+  if (year < 2025) return false;
+  return season === "Spring" || season === "Fall";
+}
+
 function buildLineageItem(termKey, details) {
   const item = document.createElement("article");
   item.className = "lineage-item";
@@ -338,6 +548,19 @@ function buildLineageItem(termKey, details) {
           const linkedInHtml = member.linkedIn
             ? `<a href="${member.linkedIn}" class="lineage-member-linkedin" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">${LINKEDIN_LOGO_SVG}</a>`
             : `<span class="lineage-member-linkedin lineage-member-linkedin-placeholder" aria-hidden="true">${LINKEDIN_LOGO_SVG}</span>`;
+          const detailItems = [
+            { label: "Major", value: major },
+            ...(minor ? [{ label: minorLabel, value: minor }] : []),
+            { label: "Hometown", value: member.hometown || "—" },
+          ]
+            .map(
+              ({ label, value }) => `
+                <div class="lineage-member-detail-item">
+                  <span class="lineage-member-detail-label">${label}</span>
+                  <span class="lineage-member-detail-value">${value}</span>
+                </div>`
+            )
+            .join("");
           bodyHtml = `
               <div class="lineage-member-col lineage-member-col-identity">
                 <span class="lineage-position-num">#${num}</span>
@@ -346,11 +569,7 @@ function buildLineageItem(termKey, details) {
                 <span class="lineage-line-name">"${member.lineName}"</span>
               </div>
               <div class="lineage-member-col lineage-member-col-details">
-                <dl class="lineage-member-details">
-                  <dt>Major</dt><dd>${major}</dd>
-                  ${minor ? `<dt>${minorLabel}</dt><dd>${minor}</dd>` : ""}
-                  <dt>Hometown</dt><dd>${member.hometown || "—"}</dd>
-                </dl>
+                <div class="lineage-member-details">${detailItems}</div>
               </div>
               <div class="lineage-member-col lineage-member-col-state">${stateMapHtml || ""}</div>
               <div class="lineage-member-col lineage-member-col-blank">${linkedInHtml}</div>`;
@@ -364,7 +583,7 @@ function buildLineageItem(termKey, details) {
               </div>`;
         }
 
-        const roleAttrs = noPhotos ? "" : ' tabindex="0" role="button"';
+        const roleAttrs = ' tabindex="0" role="button"';
         const noStateClass = noPhotos && !statePath ? " lineage-member-no-state" : "";
         const fullNameAttr = noPhotos ? ` data-full-name="${member.fullName.replace(/"/g, "&quot;")}"` : "";
         return `
@@ -521,8 +740,11 @@ function openRapSheet(termKey, memberIndex) {
   } else {
     linkedInEl.textContent = "—";
   }
+  const visualSection = modal.querySelector(".rap-sheet-visual");
   const photoWrap = modal.querySelector(".rap-sheet-photo-wrap");
   const crop = getCropValue(member.fullName);
+  const showVisualSection = member.photo && isCropEditable(termKey);
+  visualSection.hidden = !showVisualSection;
   photoWrap.innerHTML = member.photo
     ? `<img src="${member.photo}" alt="${member.fullName} headshot" class="rap-sheet-photo" width="120" height="120" loading="eager" decoding="async" style="object-position: ${crop.x}% ${crop.y}%;" />`
     : `<div class="rap-sheet-photo rap-sheet-photo-placeholder">${getInitials(member.fullName)}</div>`;
@@ -564,7 +786,7 @@ function openRapSheet(termKey, memberIndex) {
   const cropSliderX = modal.querySelector("#rap-sheet-crop-slider-x");
   const cropSliderY = modal.querySelector("#rap-sheet-crop-slider-y");
   const cropEditor = modal.querySelector(".rap-sheet-crop-editor");
-  cropEditor.hidden = !member.photo;
+  cropEditor.hidden = !showVisualSection;
   editCropBtn.setAttribute("aria-pressed", "false");
   cropSliderWrap.hidden = true;
   cropSliderX.value = crop.x;
@@ -679,6 +901,7 @@ copyCropBtn.addEventListener("click", () => {
 });
 
 document.getElementById("lineage-list").addEventListener("click", (e) => {
+  if (e.target.closest(".lineage-member-linkedin")) return;
   const editBtn = e.target.closest(".lineage-member-edit-pos");
   if (editBtn) {
     const wrap = editBtn.closest(".lineage-member-state-wrap");
@@ -718,16 +941,15 @@ document.getElementById("lineage-list").addEventListener("click", (e) => {
   }
   const member = e.target.closest(".lineage-member");
   if (!member) return;
-  if (member.classList.contains("lineage-member-no-photo")) return;
   const termKey = member.dataset.term;
   const idx = parseInt(member.dataset.memberIndex, 10);
   if (termKey != null && !isNaN(idx)) openRapSheet(termKey, idx);
 });
 document.getElementById("lineage-list").addEventListener("keydown", (e) => {
   if (e.key !== "Enter" && e.key !== " ") return;
+  if (e.target.closest(".lineage-member-linkedin")) return;
   const member = e.target.closest(".lineage-member");
   if (!member) return;
-  if (member.classList.contains("lineage-member-no-photo")) return;
   e.preventDefault();
   const termKey = member.dataset.term;
   const idx = parseInt(member.dataset.memberIndex, 10);

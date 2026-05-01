@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Epsilon Pi Chapter | Alpha Phi Alpha Fraternity, Inc.</title>
-    <link rel="icon" href="assets/chapter-logo.png" type="image/png" />
+    <link rel="icon" href="assets/favicon.png" type="image/png" />
     <meta
       name="description"
       content="Official website draft for the Epsilon Pi Chapter of Alpha Phi Alpha Fraternity, Inc., seated at Norfolk State University."
@@ -29,14 +29,26 @@
   <body>
     <header class="site-header">
       <div class="brand-wrap">
-        <img
-          class="chapter-logo"
-          src="assets/chapter-logo.png"
-          alt="Epsilon Pi Chapter logo"
-        />
-        <div>
+        <div class="brand-mark-stack">
+          <img
+            class="chapter-logo"
+            src="assets/chapter-logo.png"
+            alt="Epsilon Pi Chapter logo"
+          />
+        </div>
+        <div class="brand-copy">
           <p class="eyebrow">Alpha Phi Alpha Fraternity, Inc.</p>
-          <h1>Epsilon Pi Chapter</h1>
+          <h1>
+            <span class="brand-title-line">Epsilon Pi</span>
+            <span class="brand-title-line brand-title-line-chapter">
+              <span>Chapter</span>
+              <img
+                class="school-logo"
+                src="assets/nsu-logo-gold.png"
+                alt="Norfolk State University logo"
+              />
+            </span>
+          </h1>
           <p class="chapter-subtitle">324th Seat | Norfolk State University</p>
         </div>
       </div>
@@ -49,7 +61,6 @@
         <a href="#events" role="tab" data-tab="events" aria-selected="false">Events</a>
         <a href="#gallery" role="tab" data-tab="gallery" aria-selected="false">Gallery</a>
         <a href="#support" role="tab" data-tab="support" aria-selected="false">Support</a>
-        <a href="#alumni" role="tab" data-tab="alumni" aria-selected="false">Alumni</a>
       </nav>
     </header>
 
@@ -127,9 +138,31 @@
       <section id="events" class="panel" data-tab-panel="events" aria-hidden="true">
         <h2>Events</h2>
         <div class="grid two-col">
-          <article class="card">
-            <h3>Upcoming Events Calendar</h3>
-            <p>Share event descriptions and registration links.</p>
+          <article class="card events-calendar-card">
+            <div class="events-calendar-header">
+              <div>
+                <h3>Upcoming Events Calendar</h3>
+                <p class="events-calendar-intro">Tap a date to view chapter event details.</p>
+              </div>
+              <div class="events-calendar-controls" aria-label="Calendar month navigation">
+                <button type="button" class="events-calendar-nav" id="events-calendar-prev" aria-label="Previous month">‹</button>
+                <p class="events-calendar-month" id="events-calendar-month" aria-live="polite"></p>
+                <button type="button" class="events-calendar-nav" id="events-calendar-next" aria-label="Next month">›</button>
+              </div>
+            </div>
+            <div class="events-calendar-shell">
+              <div class="events-calendar-weekdays" aria-hidden="true">
+                <span>Sun</span>
+                <span>Mon</span>
+                <span>Tue</span>
+                <span>Wed</span>
+                <span>Thu</span>
+                <span>Fri</span>
+                <span>Sat</span>
+              </div>
+              <div class="events-calendar-grid" id="events-calendar-grid" role="grid" aria-label="Monthly event calendar"></div>
+            </div>
+            <div class="events-calendar-detail" id="events-calendar-detail" aria-live="polite"></div>
           </article>
           <article class="card">
             <h3>Past Event Highlights</h3>
@@ -146,15 +179,6 @@
           </div>
         </div>
         <div id="lineage-list" class="lineage-list" aria-live="polite"></div>
-      </section>
-
-      <section id="alumni" class="panel" data-tab-panel="alumni" aria-hidden="true">
-        <h2>Alumni Engagement</h2>
-        <ul>
-          <li>Ways alumni can stay involved</li>
-          <li>Chapter updates</li>
-          <li>Mentorship opportunities</li>
-        </ul>
       </section>
 
       <section id="support" class="panel" data-tab-panel="support" aria-hidden="true">
@@ -192,45 +216,47 @@
       <div class="rap-sheet-content">
         <button type="button" class="rap-sheet-close" aria-label="Close">×</button>
         <div class="rap-sheet-body">
-          <div class="rap-sheet-left">
-            <div class="rap-sheet-photo-wrap" data-crop-member=""></div>
-            <div class="rap-sheet-crop-editor">
-              <button type="button" class="rap-sheet-edit-crop" aria-pressed="false">Edit crop</button>
-              <div class="rap-sheet-crop-slider-wrap" hidden>
-                <label for="rap-sheet-crop-slider-x">Horizontal (0=left, 100=right)</label>
-                <input type="range" id="rap-sheet-crop-slider-x" min="0" max="100" value="50" />
-                <label for="rap-sheet-crop-slider-y">Vertical (0=top, 100=bottom)</label>
-                <input type="range" id="rap-sheet-crop-slider-y" min="0" max="100" value="35" />
-                <button type="button" class="rap-sheet-copy-crop">Copy crop values</button>
+          <div class="rap-sheet-top">
+            <div class="rap-sheet-visual">
+              <div class="rap-sheet-photo-wrap" data-crop-member=""></div>
+              <div class="rap-sheet-crop-editor">
+                <button type="button" class="rap-sheet-edit-crop" aria-pressed="false">Edit crop</button>
+                <div class="rap-sheet-crop-slider-wrap" hidden>
+                  <label for="rap-sheet-crop-slider-x">Horizontal (0=left, 100=right)</label>
+                  <input type="range" id="rap-sheet-crop-slider-x" min="0" max="100" value="50" />
+                  <label for="rap-sheet-crop-slider-y">Vertical (0=top, 100=bottom)</label>
+                  <input type="range" id="rap-sheet-crop-slider-y" min="0" max="100" value="35" />
+                  <button type="button" class="rap-sheet-copy-crop">Copy crop values</button>
+                </div>
               </div>
             </div>
-            <div class="rap-sheet-map-wrap" aria-hidden="true">
-              <div class="rap-sheet-state-container" data-state="" data-city-key="">
-                <img class="rap-sheet-state" src="" alt="" role="presentation" />
-                <img class="rap-sheet-hand-sign" src="assets/hand-sign.png" alt="" role="presentation" />
-              </div>
-              <div class="rap-sheet-map-editor">
-                <button type="button" class="rap-sheet-edit-pos" aria-pressed="false">Edit position</button>
-                <p class="rap-sheet-pos-display" aria-live="polite"></p>
-                <button type="button" class="rap-sheet-copy-pos">Copy all positions</button>
-              </div>
+            <div class="rap-sheet-info">
+              <p class="rap-sheet-position-num"></p>
+              <p class="rap-sheet-moniker"></p>
+              <h3 class="rap-sheet-name"></h3>
+              <p class="rap-sheet-line-name"></p>
+              <dl class="rap-sheet-details">
+                <dt>Major</dt>
+                <dd class="rap-sheet-major"></dd>
+                <dt class="rap-sheet-minor-label">Minor</dt>
+                <dd class="rap-sheet-minor"></dd>
+                <dt>Hometown</dt>
+                <dd class="rap-sheet-hometown"></dd>
+                <dt>LinkedIn</dt>
+                <dd class="rap-sheet-linkedin"></dd>
+              </dl>
             </div>
           </div>
-          <div class="rap-sheet-info">
-            <p class="rap-sheet-position-num"></p>
-            <p class="rap-sheet-moniker"></p>
-            <h3 class="rap-sheet-name"></h3>
-            <p class="rap-sheet-line-name"></p>
-            <dl class="rap-sheet-details">
-              <dt>Major</dt>
-              <dd class="rap-sheet-major"></dd>
-              <dt class="rap-sheet-minor-label">Minor</dt>
-              <dd class="rap-sheet-minor"></dd>
-              <dt>Hometown</dt>
-              <dd class="rap-sheet-hometown"></dd>
-              <dt>LinkedIn</dt>
-              <dd class="rap-sheet-linkedin"></dd>
-            </dl>
+          <div class="rap-sheet-map-wrap" aria-hidden="true">
+            <div class="rap-sheet-state-container" data-state="" data-city-key="">
+              <img class="rap-sheet-state" src="" alt="" role="presentation" />
+              <img class="rap-sheet-hand-sign" src="assets/hand-sign.png" alt="" role="presentation" />
+            </div>
+            <div class="rap-sheet-map-editor">
+              <button type="button" class="rap-sheet-edit-pos" aria-pressed="false">Edit position</button>
+              <p class="rap-sheet-pos-display" aria-live="polite"></p>
+              <button type="button" class="rap-sheet-copy-pos">Copy all positions</button>
+            </div>
           </div>
         </div>
       </div>

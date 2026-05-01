@@ -40,8 +40,20 @@ main,
 
 .brand-wrap {
   display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+
+.brand-mark-stack {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.brand-copy {
+  min-width: 0;
+  position: relative;
 }
 
 .chapter-logo {
@@ -51,6 +63,25 @@ main,
   border: 2px solid rgba(201, 154, 46, 0.5);
   object-fit: cover;
   background: var(--panel-alt);
+}
+
+.school-logo {
+  width: 104px;
+  height: auto;
+  display: block;
+  opacity: 0.95;
+  filter: drop-shadow(0 0 10px rgba(201, 154, 46, 0.15));
+  margin-left: 0.5rem;
+}
+
+.brand-title-line {
+  display: block;
+}
+
+.brand-title-line-chapter {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 0.65rem;
 }
 
 .brand-wrap h1 {
@@ -64,6 +95,10 @@ main,
 .chapter-subtitle {
   margin: 0;
   color: var(--gold-soft);
+}
+
+.chapter-subtitle {
+  white-space: nowrap;
 }
 
 .main-nav {
@@ -185,6 +220,243 @@ main {
 
 .card p {
   color: var(--text);
+}
+
+.events-calendar-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.events-calendar-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.events-calendar-intro {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+}
+
+.events-calendar-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.35rem 0.45rem;
+  background: rgba(201, 154, 46, 0.08);
+  border: 1px solid rgba(201, 154, 46, 0.18);
+  border-radius: 999px;
+}
+
+.events-calendar-month {
+  margin: 0;
+  min-width: 8.5rem;
+  text-align: center;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--gold-soft);
+}
+
+.events-calendar-nav {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid rgba(201, 154, 46, 0.25);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--gold-soft);
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.events-calendar-nav:hover {
+  background: rgba(201, 154, 46, 0.18);
+  border-color: rgba(201, 154, 46, 0.45);
+  color: var(--text);
+}
+
+.events-calendar-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.events-calendar-weekdays,
+.events-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.events-calendar-weekdays span {
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.events-calendar-day,
+.events-calendar-spacer {
+  aspect-ratio: 1 / 1;
+}
+
+.events-calendar-spacer {
+  border-radius: 0.8rem;
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.events-calendar-day {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.025);
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.events-calendar-day:hover {
+  transform: translateY(-1px);
+  border-color: rgba(201, 154, 46, 0.35);
+  background: rgba(201, 154, 46, 0.08);
+}
+
+.events-calendar-day:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.events-calendar-day-number {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.events-calendar-day.has-event {
+  border-color: rgba(201, 154, 46, 0.28);
+  background:
+    radial-gradient(circle at bottom left, rgba(201, 154, 46, 0.17), transparent 48%),
+    rgba(255, 255, 255, 0.03);
+}
+
+.events-calendar-day.is-selected {
+  border-color: var(--gold);
+  background:
+    linear-gradient(180deg, rgba(201, 154, 46, 0.22), rgba(201, 154, 46, 0.08)),
+    rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 0 0 1px rgba(240, 213, 143, 0.22);
+}
+
+.events-calendar-day-today {
+  position: absolute;
+  top: 0.4rem;
+  left: 0.45rem;
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: rgba(240, 213, 143, 0.95);
+}
+
+.events-calendar-event-count {
+  position: absolute;
+  left: 0.45rem;
+  bottom: 0.42rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.15rem;
+  height: 1.15rem;
+  padding: 0 0.28rem;
+  border-radius: 999px;
+  background: rgba(201, 154, 46, 0.18);
+  color: var(--gold-soft);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.events-calendar-detail {
+  min-height: 12rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background:
+    linear-gradient(135deg, rgba(201, 154, 46, 0.12), transparent 45%),
+    rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.events-calendar-detail-date {
+  margin: 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.events-calendar-detail-list {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 0.85rem;
+}
+
+.events-calendar-event {
+  padding: 0.85rem 0.9rem;
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.events-calendar-event h4 {
+  margin: 0;
+  color: var(--gold-soft);
+  font-size: 1rem;
+}
+
+.events-calendar-event-meta {
+  margin: 0.3rem 0 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.85rem;
+}
+
+.events-calendar-event p {
+  margin: 0.45rem 0 0;
+}
+
+.events-calendar-event-link {
+  display: inline-flex;
+  margin-top: 0.65rem;
+  color: var(--gold-soft);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.events-calendar-event-link:hover {
+  color: var(--text);
+}
+
+.events-calendar-empty {
+  display: grid;
+  gap: 0.35rem;
+  place-items: start;
+  min-height: 100%;
+  align-content: center;
+}
+
+.events-calendar-empty strong {
+  color: var(--gold-soft);
+  font-size: 1rem;
+}
+
+.events-calendar-empty p {
+  margin: 0;
+  color: var(--muted);
 }
 
 .leadership-year {
@@ -512,15 +784,19 @@ main {
 
 .lineage-member-no-photo .lineage-full-name {
   font-size: 1.14rem;
+  line-height: 1.2;
 }
 
 .lineage-member-no-photo .lineage-line-name {
   font-size: 1.02rem;
+  line-height: 1.25;
 }
 
 .lineage-member-no-photo .lineage-member-details {
-  font-size: 0.98rem;
-  gap: 1.6rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem 1.25rem;
+  width: 100%;
 }
 
 .lineage-member-no-photo .lineage-member-linkedin svg {
@@ -652,33 +928,35 @@ main {
 }
 
 .lineage-member-details {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 1.4rem 2rem;
   margin: 0;
-  font-size: 0.82rem;
-  align-items: baseline;
 }
 
-.lineage-member-details dt {
+.lineage-member-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+  min-width: 0;
+}
+
+.lineage-member-detail-label {
   color: var(--muted);
-  font-weight: 500;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.lineage-member-details dd {
-  margin: 0;
+.lineage-member-detail-value {
   color: var(--gold-soft);
+  font-size: 0.98rem;
+  line-height: 1.3;
   overflow-wrap: break-word;
   word-break: break-word;
 }
 
 /* Desktop only (min-width: 841px) - isolate from tablet/mobile */
 @media (min-width: 841px) {
-  .lineage-member-no-photo .lineage-member-details {
-    grid-template-columns: auto minmax(220px, 1fr);
-  }
-
-  .lineage-member-no-photo .lineage-member-details dd {
+  .lineage-member-detail-value {
     word-break: normal;
   }
 
@@ -897,12 +1175,19 @@ main {
 }
 
 .rap-sheet-body {
-  display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
 }
 
-.rap-sheet-left {
+.rap-sheet-top {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.rap-sheet-visual {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -918,6 +1203,7 @@ main {
 .rap-sheet-map-wrap {
   width: var(--state-map-width, 173px);
   flex-shrink: 0;
+  align-self: flex-start;
 }
 
 .rap-sheet-state-container {
@@ -1095,6 +1381,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
+  min-width: 0;
 }
 
 .rap-sheet-position-num {
@@ -1155,8 +1442,24 @@ main {
 }
 
 @media (max-width: 600px) {
-  .rap-sheet-body {
+  .rap-sheet-top {
     grid-template-columns: 1fr;
+  }
+
+  .main-nav {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    justify-items: center;
+    row-gap: 0.7rem;
+    column-gap: 0.55rem;
+    width: 100%;
+    padding-inline: 0.55rem;
+  }
+
+  .main-nav a {
+    width: 100%;
+    text-align: center;
+    padding-inline: 0.35rem;
   }
 }
 
@@ -1223,6 +1526,7 @@ main {
 
   .brand-wrap {
     align-items: flex-start;
+    gap: 0.9rem;
   }
 
   .chapter-logo {
@@ -1230,8 +1534,34 @@ main {
     height: 68px;
   }
 
+  .brand-copy {
+    padding-right: 0;
+  }
+
+  .school-logo {
+    display: none;
+  }
+
+  .brand-title-line-chapter {
+    display: block;
+  }
+
   .charter-list {
     columns: 1;
+  }
+
+  .events-calendar-header {
+    flex-direction: column;
+  }
+
+  .events-calendar-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .events-calendar-month {
+    min-width: 0;
+    flex: 1;
   }
 
   .site-header,
@@ -1335,10 +1665,10 @@ main {
   .lineage-member-no-photo .lineage-line-name { font-size: 0.94rem; }
   .lineage-member-no-photo .lineage-member-col-details { max-width: 260px; }
   .lineage-member-no-photo .lineage-member-details {
-    font-size: 0.9rem;
-    grid-template-columns: auto minmax(140px, 1fr);
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
   }
-  .lineage-member-no-photo .lineage-member-details dd { word-break: normal; }
+  .lineage-member-no-photo .lineage-member-detail-value { word-break: normal; }
 
   .lineage-line-pic {
     width: 240px;
@@ -1361,85 +1691,102 @@ main {
     margin: 1.5rem 0;
   }
 
-  /* Spring 2024: 3 columns on phone - state + linkedin stacked in col 4 */
+  .rap-sheet-content {
+    padding: 1.25rem 1rem 1.5rem;
+  }
+
+  .rap-sheet-visual {
+    align-items: center;
+  }
+
+  .rap-sheet-photo-wrap,
+  .rap-sheet-crop-editor,
+  .rap-sheet-map-wrap {
+    width: min(100%, 220px);
+  }
+
+  .rap-sheet-photo-wrap {
+    justify-content: center;
+  }
+
+  .rap-sheet-map-wrap {
+    margin-inline: auto;
+  }
+
+  /* Mobile lineage: keep the row compact and move the richer map treatment into the modal */
+  .lineage-member {
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+    padding: 0.8rem 0.9rem;
+  }
+
+  .lineage-member .person-photo {
+    display: none;
+  }
+
+  .lineage-member .lineage-member-meta {
+    gap: 0.22rem;
+  }
+
   .lineage-member-no-photo,
   .lineage-member-no-photo.lineage-member-no-state {
-    grid-template-columns: min-content 1fr auto;
-    grid-template-rows: auto;
-    gap: 0.5rem 0.6rem;
-    align-items: center;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.7rem;
+    align-items: start;
+    padding: 0.9rem 1rem;
+    cursor: pointer;
   }
 
-  .lineage-member-no-photo .lineage-member-col-identity { grid-column: 1; grid-row: 1; }
-  .lineage-member-no-photo .lineage-member-col-details { grid-column: 2; grid-row: 1; margin-left: 1.5rem; }
-  .lineage-member-no-photo .lineage-member-col-state { grid-column: 3; grid-row: 1; flex-direction: column; align-self: start; }
-  .lineage-member-no-photo[data-full-name="Kaion Hamilton III"] .lineage-member-col-state { align-self: center; }
-  .lineage-member-no-photo .lineage-member-col-blank { grid-column: 3; grid-row: 1; align-self: end; justify-content: flex-start; }
-
-  .lineage-member-no-photo.lineage-member-no-state .lineage-member-col-details { grid-column: 2; margin-left: 1.5rem; }
-  .lineage-member-no-photo.lineage-member-no-state .lineage-member-col-state { display: none; }
-  .lineage-member-no-photo.lineage-member-no-state .lineage-member-col-blank { grid-column: 3; grid-row: 1; }
-
-  .lineage-member-no-photo .lineage-member-state-wrap,
-  .lineage-member-no-photo .lineage-member-state-map {
-    width: 130px;
-    height: 108px;
-  }
-  /* Spring 2022 - Malik Cunningham: nudge Maryland right and stack LinkedIn under state (phone) */
-  .lineage-member-no-photo[data-full-name="Malik Cunningham"] .lineage-member-col-state {
-    align-self: start;
-    margin-left: 4.5rem;
-  }
-  .lineage-member-no-photo[data-full-name="Malik Cunningham"] .lineage-member-state-wrap,
-  .lineage-member-no-photo[data-full-name="Malik Cunningham"] .lineage-member-state-map {
-    width: 170px;
-    height: 140px;
-    margin-left: 0.6rem;
-  }
-  .lineage-member-no-photo[data-full-name="Malik Cunningham"] .lineage-member-col-blank {
-    grid-column: 3;
+  .lineage-member-no-photo .lineage-member-col-identity {
+    grid-column: 1;
     grid-row: 1;
-    align-self: end;
-    justify-content: center;
-    align-items: center;
-    margin-top: 0;
-    margin-right: 0;
-    margin-left: 2.5rem;
-    width: 130px;
-    text-align: center;
-  }
-  .lineage-member-no-photo[data-full-name="Malik Cunningham"] .lineage-member-col-blank .lineage-member-linkedin {
-    margin-top: 0.35rem;
   }
 
-  .lineage-member-no-photo .lineage-member-state-wrap {
-    margin-left: -0.75rem;
-    margin-top: 0.2rem;
+  .lineage-member-no-photo .lineage-member-col-details {
+    grid-column: 1;
+    grid-row: 2;
+    margin-left: 0;
+    max-width: none;
   }
 
-  .lineage-member-no-photo .lineage-member-state-map .lineage-member-phi {
-    width: 17px;
+  .lineage-member-no-photo .lineage-member-col-state {
+    display: none;
   }
 
-  .lineage-member-no-photo {
-    padding: 0.6rem 0.75rem;
-    gap: 0.75rem;
+  .lineage-member-no-photo .lineage-member-col-blank {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
   }
 
-  .lineage-member-no-photo .lineage-position-num { font-size: 0.95rem; }
-  .lineage-member-no-photo .lineage-position-name { font-size: 0.84rem; }
-  .lineage-member-no-photo .lineage-full-name { font-size: 0.98rem; }
-  .lineage-member-no-photo .lineage-line-name { font-size: 0.86rem; }
-  .lineage-member-no-photo .lineage-member-col-details { max-width: 230px; }
+  .lineage-member-no-photo:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .lineage-member-no-photo .lineage-position-num { font-size: 0.98rem; }
+  .lineage-member-no-photo .lineage-position-name { font-size: 0.86rem; }
+  .lineage-member-no-photo .lineage-full-name { font-size: 1.08rem; }
+  .lineage-member-no-photo .lineage-line-name { font-size: 0.92rem; }
   .lineage-member-no-photo .lineage-member-details {
-    font-size: 0.82rem;
-    grid-template-columns: auto minmax(130px, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem 0.9rem;
   }
-  .lineage-member-no-photo .lineage-member-details dd { word-break: normal; }
+
+  .lineage-member-no-photo .lineage-member-detail-value {
+    font-size: 0.92rem;
+    line-height: 1.4;
+    word-break: normal;
+  }
+
+  .lineage-member-no-photo .lineage-member-linkedin {
+    margin-top: 0.15rem;
+  }
 
   .lineage-member-no-photo .lineage-member-linkedin svg {
     width: auto;
-    height: 16px;
+    height: 17px;
   }
 
   .lineage-term-btn {
@@ -1464,14 +1811,7 @@ main {
   }
 
   .lineage-member {
-    padding: 0.5rem 0.6rem;
-    grid-template-columns: 72px 1fr;
-    gap: 0.65rem;
-  }
-
-  .lineage-member .person-photo {
-    width: 72px;
-    height: 72px;
+    padding: 0.8rem 0.9rem;
   }
 
   .main-nav a {
@@ -1488,18 +1828,21 @@ main {
     width: min(100% - 0.75rem, var(--max-width));
   }
 
-  .lineage-member-state-wrap,
-  .lineage-member-state-map {
-    width: 176px;
-    height: 146px;
+  .lineage-member-no-photo,
+  .lineage-member-no-photo.lineage-member-no-state {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.6rem;
   }
 
-  .lineage-member-state-map .lineage-member-phi {
-    width: 23px;
+  .lineage-member-no-photo .lineage-member-col-details {
+    grid-column: 1;
   }
 
-  .lineage-member-no-photo .lineage-member-edit-pos {
-    font-size: 0.78rem;
-    padding: 0.35rem 0.5rem;
+  .lineage-member-no-photo .lineage-member-details {
+    grid-template-columns: 1fr;
+  }
+
+  .lineage-member-no-photo .lineage-member-detail-value {
+    font-size: 0.9rem;
   }
 }
