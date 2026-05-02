@@ -238,23 +238,63 @@ function getEventsForDate(dateKey) {
   return eventsCalendarData.filter((event) => event.date === dateKey);
 }
 
+// Ice Cold Tuesday content. Keyed by date — add a new entry each Tuesday
+// with `video` (path under epsilon-pi-site/) and `caption`. Tuesdays without
+// an entry still show the "Ice Cold Tuesday" badge in the day's detail.
+const iceColdTuesdayContent = {
+  "2026-05-05": {
+    video: "assets/videos/ict-2026-05-05-cain-greaux.mov",
+    poster: "",
+    caption:
+      "The greatest lessons in college don't come from a syllabus, they come from life.\n\nBro. Cain & Bro. Greaux speak on what they've learned beyond the classroom as they prepare to graduate. From discipline to navigating real-world pressure.",
+  },
+};
+
+function isSchoolYearTuesday(date) {
+  const m = date.getMonth();
+  return date.getDay() === 2 && m !== 5 && m !== 6;
+}
+
+function renderIceColdTuesdayCard(dateKey, date) {
+  const content = iceColdTuesdayContent[dateKey];
+  let body = "";
+  if (content && content.video) {
+    const posterAttr = content.poster ? ` poster="${content.poster}"` : "";
+    body += `
+      <div class="events-calendar-ict-video">
+        <video controls playsinline preload="metadata"${posterAttr}>
+          <source src="${content.video}" type="video/mp4" />
+          <source src="${content.video}" type="video/quicktime" />
+          Your browser doesn't support embedded video. <a href="${content.video}">Download the clip</a>.
+        </video>
+      </div>
+    `;
+  }
+  if (content && content.caption) {
+    const paragraphs = content.caption
+      .split(/\n\s*\n/)
+      .map((p) => `<p>${p.replace(/\n/g, "<br />")}</p>`)
+      .join("");
+    body += `<div class="events-calendar-ict-caption">${paragraphs}</div>`;
+  }
+  if (!body) {
+    body = `<p class="events-calendar-ict-caption events-calendar-ict-caption--empty">A new Ice Cold Tuesday drop is on the way. Check back soon.</p>`;
+  }
+  return `
+    <article class="events-calendar-event events-calendar-event--ict">
+      <h4><span class="events-calendar-event-tag" aria-hidden="true">❄</span> Ice Cold Tuesday</h4>
+      ${body}
+    </article>
+  `;
+}
+
 function renderEventsCalendarDetail(dateKey) {
   if (!eventsCalendarDetail) return;
 
   const events = getEventsForDate(dateKey);
   const date = new Date(`${dateKey}T12:00:00`);
   const formattedDate = calendarDetailFormatter.format(date);
-
-  if (!events.length) {
-    eventsCalendarDetail.innerHTML = `
-      <p class="events-calendar-detail-date">${formattedDate}</p>
-      <div class="events-calendar-empty">
-        <strong>No chapter events posted</strong>
-        <p>Select another highlighted date or add an event to the calendar data in <code>script.js</code>.</p>
-      </div>
-    `;
-    return;
-  }
+  const isICT = isSchoolYearTuesday(date);
 
   const eventCards = events
     .map((event) => {
@@ -263,9 +303,11 @@ function renderEventsCalendarDetail(dateKey) {
       const link = event.linkUrl
         ? `<a class="events-calendar-event-link" href="${event.linkUrl}" target="_blank" rel="noopener noreferrer">${event.linkLabel || "View details"}</a>`
         : "";
+      const tag = event.category === "service" ? "Service" : "Event";
+      const tagClass = event.category === "service" ? "is-service" : "is-event";
       return `
         <article class="events-calendar-event">
-          <h4>${event.title}</h4>
+          <h4><span class="events-calendar-event-tag ${tagClass}">${tag}</span> ${event.title}</h4>
           ${meta}
           <p>${event.description}</p>
           ${link}
@@ -274,9 +316,25 @@ function renderEventsCalendarDetail(dateKey) {
     })
     .join("");
 
+  let inner = "";
+  if (events.length) {
+    inner += eventCards;
+  } else if (!isICT) {
+    inner += `
+      <div class="events-calendar-empty">
+        <strong>No chapter events posted</strong>
+        <p>Select another highlighted date to view scheduled events.</p>
+      </div>
+    `;
+  }
+
+  if (isICT) {
+    inner += renderIceColdTuesdayCard(dateKey, date);
+  }
+
   eventsCalendarDetail.innerHTML = `
     <p class="events-calendar-detail-date">${formattedDate}</p>
-    <div class="events-calendar-detail-list">${eventCards}</div>
+    <div class="events-calendar-detail-list">${inner}</div>
   `;
 }
 

@@ -518,8 +518,10 @@ main {
   right: 0;
   height: 38%;
   pointer-events: none;
-  background:
-    linear-gradient(180deg, #ffffff 0%, #eaf4ff 55%, #cfe3f8 100%);
+  background: var(
+    --ice-cap-fill,
+    linear-gradient(180deg, #ffffff 0%, #eaf4ff 55%, #cfe3f8 100%)
+  );
   clip-path: polygon(
     0% 0%, 100% 0%, 100% 55%,
     94% 80%, 90% 55%, 84% 92%, 78% 58%,
@@ -531,25 +533,117 @@ main {
   z-index: 1;
 }
 
-/* When ICT also has an event/service tint, keep the category color on the
-   bottom and let the ice cap ride on top. */
+/* Ice cap takes on the day's category color when an event/service is also
+   scheduled, so the icy crown still signals what's happening that Tuesday. */
 .events-calendar-day.is-ict.cat-event {
-  background:
-    linear-gradient(180deg, rgba(160, 210, 255, 0.28) 0 38%, rgba(217, 159, 81, 0.18) 38%);
+  --ice-cap-fill: linear-gradient(180deg, #fff7e6 0%, #f3c98a 60%, #d99f51 100%);
+  background: rgba(217, 159, 81, 0.16);
+  border-color: rgba(217, 159, 81, 0.42);
 }
 .events-calendar-day.is-ict.cat-service {
-  background:
-    linear-gradient(180deg, rgba(160, 210, 255, 0.28) 0 38%, rgba(98, 178, 165, 0.18) 38%);
+  --ice-cap-fill: linear-gradient(180deg, #f0fbf8 0%, #b2e2d4 55%, #62b2a5 100%);
+  background: rgba(98, 178, 165, 0.16);
+  border-color: rgba(98, 178, 165, 0.45);
 }
 .events-calendar-day.is-ict.cat-both {
-  background:
-    linear-gradient(180deg, rgba(160, 210, 255, 0.28) 0 38%, transparent 38%),
-    linear-gradient(135deg, rgba(98, 178, 165, 0.22) 0 50%, rgba(217, 159, 81, 0.22) 50% 100%);
+  --ice-cap-fill: linear-gradient(
+    90deg,
+    #f0fbf8 0%, #62b2a5 50%,
+    #f3c98a 50%, #d99f51 100%
+  );
+  background: linear-gradient(
+    135deg,
+    rgba(98, 178, 165, 0.22) 0 50%,
+    rgba(217, 159, 81, 0.22) 50% 100%
+  );
+  border-color: rgba(201, 154, 46, 0.5);
 }
 
 .events-calendar-day.is-ict .events-calendar-day-number {
   position: relative;
   z-index: 2;
+}
+
+/* Detail-panel: Ice Cold Tuesday card */
+.events-calendar-event--ict {
+  background:
+    linear-gradient(180deg, rgba(160, 210, 255, 0.16), rgba(60, 110, 160, 0.06));
+  border-color: rgba(180, 220, 255, 0.4);
+}
+
+.events-calendar-event--ict h4 {
+  color: #d6eaff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.events-calendar-event-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.18rem 0.55rem;
+  border-radius: 999px;
+  font-family: "Inter", sans-serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.events-calendar-event-tag.is-event {
+  background: rgba(217, 159, 81, 0.22);
+  color: #f3c98a;
+}
+
+.events-calendar-event-tag.is-service {
+  background: rgba(98, 178, 165, 0.22);
+  color: #b2e2d4;
+}
+
+.events-calendar-event--ict .events-calendar-event-tag {
+  background: transparent;
+  color: #cfe3f8;
+  font-size: 1rem;
+  padding: 0;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.events-calendar-ict-video {
+  margin: 0.65rem 0 0.75rem;
+  border-radius: 0.7rem;
+  overflow: hidden;
+  background: #000;
+  border: 1px solid rgba(180, 220, 255, 0.22);
+}
+
+.events-calendar-ict-video video {
+  display: block;
+  width: 100%;
+  max-height: 70vh;
+  background: #000;
+}
+
+.events-calendar-ict-caption {
+  margin-top: 0.4rem;
+  color: var(--gold-soft);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.events-calendar-ict-caption p {
+  margin: 0 0 0.55rem;
+}
+
+.events-calendar-ict-caption p:last-child {
+  margin-bottom: 0;
+}
+
+.events-calendar-ict-caption--empty {
+  color: var(--muted);
+  font-style: italic;
 }
 
 /* Tabs panel note pointing back to the calendar on Home. */
