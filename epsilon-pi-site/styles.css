@@ -1504,18 +1504,20 @@ main {
 .support-us {
   width: min(100% - 2rem, var(--max-width));
   margin-inline: auto;
-  padding: 1.5rem 0 2rem;
+  padding: 1.75rem 0 2rem;
   text-align: center;
-  background: var(--gold);
-  color: #0c0d0f;
-  margin-top: 0;
+  background: var(--panel);
+  border: 1px solid rgba(201, 154, 46, 0.35);
+  border-radius: 1rem;
+  color: var(--gold-soft);
+  margin-top: 1.5rem;
 }
 
 .support-us-title {
-  margin: 0 0 0.75rem;
+  margin: 0 0 1rem;
   font-family: "Cinzel", Georgia, serif;
   font-size: 1.25rem;
-  color: #0c0d0f;
+  color: var(--gold);
   letter-spacing: 0.06em;
   font-weight: 700;
 }
@@ -1528,7 +1530,7 @@ main {
 }
 
 .support-us-link {
-  color: #0c0d0f;
+  color: var(--gold);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
