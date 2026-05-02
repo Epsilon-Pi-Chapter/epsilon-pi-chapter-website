@@ -959,6 +959,7 @@ document.getElementById("lineage-list").addEventListener("keydown", (e) => {
 // Tab switching: show only the active panel
 const tabLinks = document.querySelectorAll('.main-nav [role="tab"]');
 const panels = document.querySelectorAll('[data-tab-panel]');
+const validTabs = Array.from(tabLinks).map((link) => link.dataset.tab);
 
 function showTab(tabId) {
   tabLinks.forEach((link) => {
@@ -972,11 +973,28 @@ function showTab(tabId) {
   });
 }
 
+function getTabFromUrl() {
+  const path = window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
+  const hash = window.location.hash.replace(/^#/, '').toLowerCase();
+  if (validTabs.includes(path)) return path;
+  if (validTabs.includes(hash)) return hash;
+  return 'home';
+}
+
 tabLinks.forEach((link) => {
   link.addEventListener('click', (e) => {
     e.preventDefault();
-    showTab(link.dataset.tab);
+    const tabId = link.dataset.tab;
+    showTab(tabId);
+    const newPath = tabId === 'home' ? '/' : `/${tabId}`;
+    if (window.location.pathname !== newPath) {
+      window.history.pushState({ tab: tabId }, '', newPath);
+    }
   });
 });
 
-showTab('home');
+window.addEventListener('popstate', () => {
+  showTab(getTabFromUrl());
+});
+
+showTab(getTabFromUrl());
