@@ -65,23 +65,55 @@
     </header>
 
     <main>
-      <section id="home" class="panel hero-panel" data-tab-panel="home" aria-hidden="false">
-        <div>
-          <h2>Welcome Message</h2>
-          <p>
-            Welcome to the official Epsilon Pi Chapter website. This space is designed to
-            share our chapter's mission, leadership, impact, and legacy.
-          </p>
-          <div class="chip-row">
-            <span class="chip">Chapter Overview</span>
-            <span class="chip">Mission & Values</span>
-            <span class="chip">Announcements</span>
-            <span class="chip">Upcoming Events</span>
+      <section id="home" class="panel" data-tab-panel="home" aria-hidden="false">
+        <div class="hero-panel">
+          <div>
+            <h2>Welcome Message</h2>
+            <p>
+              Welcome to the official Epsilon Pi Chapter website. This space is designed to
+              share our chapter's mission, leadership, impact, and legacy.
+            </p>
+            <div class="chip-row">
+              <span class="chip">Chapter Overview</span>
+              <span class="chip">Mission & Values</span>
+              <span class="chip">Announcements</span>
+              <span class="chip">Upcoming Events</span>
+            </div>
+          </div>
+          <div class="photo-placeholder" role="img" aria-label="Featured chapter photo placeholder">
+            Featured Chapter Image
           </div>
         </div>
-        <div class="photo-placeholder" role="img" aria-label="Featured chapter photo placeholder">
-          Featured Chapter Image
-        </div>
+        <article class="card events-calendar-card events-calendar-home">
+          <div class="events-calendar-header">
+            <div>
+              <h3>Chapter Calendar</h3>
+              <p class="events-calendar-intro">
+                <span class="events-calendar-legend-item events-calendar-legend-event"><span class="events-calendar-legend-swatch" aria-hidden="true"></span>Event</span>
+                <span class="events-calendar-legend-item events-calendar-legend-service"><span class="events-calendar-legend-swatch" aria-hidden="true"></span>Service</span>
+                <span class="events-calendar-legend-item events-calendar-legend-today"><span class="events-calendar-legend-swatch" aria-hidden="true"></span>Today</span>
+              </p>
+            </div>
+            <div class="events-calendar-controls" aria-label="Calendar month navigation">
+              <button type="button" class="events-calendar-nav" id="events-calendar-prev" aria-label="Previous month">‹</button>
+              <p class="events-calendar-month" id="events-calendar-month" aria-live="polite"></p>
+              <button type="button" class="events-calendar-nav" id="events-calendar-next" aria-label="Next month">›</button>
+            </div>
+          </div>
+          <div class="events-calendar-shell" id="events-calendar-shell">
+            <div class="events-calendar-weekdays" aria-hidden="true">
+              <span>Sun</span>
+              <span>Mon</span>
+              <span>Tue</span>
+              <span>Wed</span>
+              <span>Thu</span>
+              <span>Fri</span>
+              <span>Sat</span>
+            </div>
+            <div class="events-calendar-grid" id="events-calendar-grid" role="grid" aria-label="Monthly event calendar"></div>
+          </div>
+          <div class="events-calendar-detail" id="events-calendar-detail" aria-live="polite"></div>
+        </article>
       </section>
 
       <section id="history" class="panel" data-tab-panel="history" aria-hidden="true">
@@ -141,38 +173,11 @@
 
       <section id="events" class="panel" data-tab-panel="events" aria-hidden="true">
         <h2>Events</h2>
-        <div class="grid two-col">
-          <article class="card events-calendar-card">
-            <div class="events-calendar-header">
-              <div>
-                <h3>Upcoming Events Calendar</h3>
-                <p class="events-calendar-intro">Tap a date to view chapter event details.</p>
-              </div>
-              <div class="events-calendar-controls" aria-label="Calendar month navigation">
-                <button type="button" class="events-calendar-nav" id="events-calendar-prev" aria-label="Previous month">‹</button>
-                <p class="events-calendar-month" id="events-calendar-month" aria-live="polite"></p>
-                <button type="button" class="events-calendar-nav" id="events-calendar-next" aria-label="Next month">›</button>
-              </div>
-            </div>
-            <div class="events-calendar-shell">
-              <div class="events-calendar-weekdays" aria-hidden="true">
-                <span>Sun</span>
-                <span>Mon</span>
-                <span>Tue</span>
-                <span>Wed</span>
-                <span>Thu</span>
-                <span>Fri</span>
-                <span>Sat</span>
-              </div>
-              <div class="events-calendar-grid" id="events-calendar-grid" role="grid" aria-label="Monthly event calendar"></div>
-            </div>
-            <div class="events-calendar-detail" id="events-calendar-detail" aria-live="polite"></div>
-          </article>
-          <article class="card">
-            <h3>Past Event Highlights</h3>
-            <p>Add photos, recaps, and chapter impact outcomes.</p>
-          </article>
-        </div>
+        <p class="events-tab-note">The live chapter calendar lives on the <a href="#home" data-tab-link="home">Home</a> page. This space is reserved for past event recaps and photo highlights.</p>
+        <article class="card">
+          <h3>Past Event Highlights</h3>
+          <p>Add photos, recaps, and chapter impact outcomes.</p>
+        </article>
       </section>
 
       <section id="lineage" class="panel" data-tab-panel="lineage" aria-hidden="true">

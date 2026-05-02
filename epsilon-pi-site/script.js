@@ -24,9 +24,13 @@ const officersData = [
 ];
 
 // Update this list to add or revise upcoming events shown on the monthly calendar.
+// `category` controls the calendar tint: "service" (community/mentorship)
+// or "event" (chapter / fellowship / business). Days with both render a
+// diagonal split.
 const eventsCalendarData = [
   {
     date: "2026-04-25",
+    category: "event",
     title: "Brotherhood Cookout",
     time: "1:00 PM",
     location: "Student Center Lawn",
@@ -36,6 +40,7 @@ const eventsCalendarData = [
   },
   {
     date: "2026-04-28",
+    category: "service",
     title: "Study Hall and Mentorship Night",
     time: "6:30 PM",
     location: "Brown Hall, Room 214",
@@ -43,6 +48,7 @@ const eventsCalendarData = [
   },
   {
     date: "2026-05-03",
+    category: "service",
     title: "Community Cleanup",
     time: "9:00 AM",
     location: "Downtown Norfolk",
@@ -52,6 +58,7 @@ const eventsCalendarData = [
   },
   {
     date: "2026-05-10",
+    category: "event",
     title: "Mother's Day Appreciation Brunch",
     time: "11:30 AM",
     location: "Campus Dining Hall",
@@ -59,6 +66,7 @@ const eventsCalendarData = [
   },
   {
     date: "2026-05-18",
+    category: "event",
     title: "Leadership Transition Meeting",
     time: "7:00 PM",
     location: "Chapter Meeting Room",
@@ -204,7 +212,7 @@ const calendarDetailFormatter = new Intl.DateTimeFormat("en-US", {
   year: "numeric",
 });
 
-const todaysDateKey = formatDateKey(new Date());
+let todaysDateKey = formatDateKey(new Date());
 let currentCalendarMonth = getInitialCalendarMonth();
 let selectedCalendarDateKey = getInitialSelectedDate();
 
@@ -221,6 +229,7 @@ function getInitialCalendarMonth() {
 }
 
 function getInitialSelectedDate() {
+  todaysDateKey = formatDateKey(new Date());
   if (eventsCalendarData.some((event) => event.date === todaysDateKey)) return todaysDateKey;
   return eventsCalendarData[0]?.date || todaysDateKey;
 }
@@ -274,12 +283,34 @@ function renderEventsCalendarDetail(dateKey) {
 function renderEventsCalendar() {
   if (!eventsCalendarGrid || !eventsCalendarMonth) return;
 
+  // Recompute "today" each render so the highlight rolls forward day-to-day.
+  todaysDateKey = formatDateKey(new Date());
+
   const monthStart = new Date(currentCalendarMonth.getFullYear(), currentCalendarMonth.getMonth(), 1);
   const monthEnd = new Date(currentCalendarMonth.getFullYear(), currentCalendarMonth.getMonth() + 1, 0);
   const firstWeekday = monthStart.getDay();
   const totalDays = monthEnd.getDate();
+  const monthIdx = monthStart.getMonth(); // 0=Jan ... 5=Jun, 6=Jul
 
   eventsCalendarMonth.textContent = calendarMonthFormatter.format(monthStart);
+
+  const shell = document.getElementById("events-calendar-shell");
+  if (shell) {
+    const isSummer = monthIdx === 5 || monthIdx === 6;
+    shell.classList.toggle("is-summer-break", isSummer);
+    let overlay = shell.querySelector(".events-calendar-summer-break");
+    if (isSummer) {
+      if (!overlay) {
+        overlay = document.createElement("div");
+        overlay.className = "events-calendar-summer-break";
+        overlay.setAttribute("aria-hidden", "true");
+        shell.appendChild(overlay);
+      }
+      overlay.textContent = "Summer Break";
+    } else if (overlay) {
+      overlay.remove();
+    }
+  }
 
   const cells = [];
   for (let i = 0; i < firstWeekday; i += 1) {
@@ -292,17 +323,27 @@ function renderEventsCalendar() {
     const events = getEventsForDate(dateKey);
     const isSelected = dateKey === selectedCalendarDateKey;
     const isToday = dateKey === todaysDateKey;
+
+    const cats = new Set(events.map((e) => e.category || "event"));
+    const hasService = cats.has("service");
+    const hasEvent = cats.has("event");
+    let categoryClass = "";
+    if (hasService && hasEvent) categoryClass = "cat-both";
+    else if (hasService) categoryClass = "cat-service";
+    else if (hasEvent) categoryClass = "cat-event";
+
     const classes = [
       "events-calendar-day",
       events.length ? "has-event" : "",
+      categoryClass,
       isSelected ? "is-selected" : "",
+      isToday ? "is-today" : "",
     ]
       .filter(Boolean)
       .join(" ");
     const countBadge = events.length
       ? `<span class="events-calendar-event-count">${events.length}</span>`
       : "";
-    const todayMarker = isToday ? '<span class="events-calendar-day-today" aria-hidden="true"></span>' : "";
 
     cells.push(`
       <button
@@ -311,9 +352,8 @@ function renderEventsCalendar() {
         data-date="${dateKey}"
         role="gridcell"
         aria-pressed="${isSelected}"
-        aria-label="${calendarDetailFormatter.format(date)}${events.length ? `, ${events.length} event${events.length > 1 ? "s" : ""}` : ", no events"}"
+        aria-label="${calendarDetailFormatter.format(date)}${isToday ? ", today" : ""}${events.length ? `, ${events.length} event${events.length > 1 ? "s" : ""}` : ", no events"}"
       >
-        ${todayMarker}
         <span class="events-calendar-day-number">${day}</span>
         ${countBadge}
       </button>
@@ -322,6 +362,18 @@ function renderEventsCalendar() {
 
   eventsCalendarGrid.innerHTML = cells.join("");
   renderEventsCalendarDetail(selectedCalendarDateKey);
+  scheduleMidnightCalendarRefresh();
+}
+
+let midnightRefreshTimer = null;
+function scheduleMidnightCalendarRefresh() {
+  if (midnightRefreshTimer) clearTimeout(midnightRefreshTimer);
+  const now = new Date();
+  const nextMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 5);
+  const ms = Math.max(60_000, nextMidnight.getTime() - now.getTime());
+  midnightRefreshTimer = setTimeout(() => {
+    renderEventsCalendar();
+  }, ms);
 }
 
 if (eventsCalendarGrid) {

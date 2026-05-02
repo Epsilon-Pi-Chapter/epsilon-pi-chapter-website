@@ -299,9 +299,40 @@ main {
 }
 
 .events-calendar-shell {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
+}
+
+.events-calendar-summer-break {
+  position: absolute;
+  inset: 2.4rem 0 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  font-family: "Cinzel", Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(2.2rem, 7vw, 3.8rem);
+  letter-spacing: 0.08em;
+  color: var(--gold-soft);
+  opacity: 0.16;
+  text-transform: uppercase;
+  text-shadow: 0 2px 24px rgba(201, 154, 46, 0.35);
+  white-space: nowrap;
+  z-index: 0;
+}
+
+.events-calendar-shell.is-summer-break .events-calendar-grid {
+  position: relative;
+  z-index: 1;
+}
+
+.events-calendar-shell.is-summer-break .events-calendar-day {
+  background: rgba(255, 255, 255, 0.012);
+  border-color: rgba(255, 255, 255, 0.04);
 }
 
 .events-calendar-weekdays,
@@ -360,29 +391,108 @@ main {
   font-weight: 700;
 }
 
-.events-calendar-day.has-event {
-  border-color: rgba(201, 154, 46, 0.28);
-  background:
-    radial-gradient(circle at bottom left, rgba(201, 154, 46, 0.17), transparent 48%),
-    rgba(255, 255, 255, 0.03);
+/* Faint category tints applied to date blocks. */
+.events-calendar-day.cat-event {
+  border-color: rgba(217, 159, 81, 0.42);
+  background: rgba(217, 159, 81, 0.16);
+}
+
+.events-calendar-day.cat-service {
+  border-color: rgba(98, 178, 165, 0.45);
+  background: rgba(98, 178, 165, 0.16);
+}
+
+/* Diagonal split when a day has both a service AND an event. */
+.events-calendar-day.cat-both {
+  border-color: rgba(201, 154, 46, 0.5);
+  background: linear-gradient(
+    135deg,
+    rgba(98, 178, 165, 0.22) 0 50%,
+    rgba(217, 159, 81, 0.22) 50% 100%
+  );
 }
 
 .events-calendar-day.is-selected {
   border-color: var(--gold);
-  background:
-    linear-gradient(180deg, rgba(201, 154, 46, 0.22), rgba(201, 154, 46, 0.08)),
-    rgba(255, 255, 255, 0.05);
-  box-shadow: inset 0 0 0 1px rgba(240, 213, 143, 0.22);
+  box-shadow: inset 0 0 0 1px rgba(240, 213, 143, 0.4), 0 0 0 1px rgba(201, 154, 46, 0.55);
 }
 
-.events-calendar-day-today {
-  position: absolute;
-  top: 0.4rem;
-  left: 0.45rem;
-  width: 0.42rem;
-  height: 0.42rem;
-  border-radius: 50%;
-  background: rgba(240, 213, 143, 0.95);
+/* Today: gold ring + soft glow. Auto-rolls forward each day via JS. */
+.events-calendar-day.is-today {
+  border-color: var(--gold);
+  box-shadow:
+    inset 0 0 0 1.5px var(--gold),
+    0 0 14px rgba(201, 154, 46, 0.45);
+}
+
+.events-calendar-day.is-today .events-calendar-day-number {
+  color: var(--gold-soft);
+}
+
+.events-calendar-day.is-today.is-selected {
+  box-shadow:
+    inset 0 0 0 1.5px var(--gold),
+    0 0 18px rgba(201, 154, 46, 0.6);
+}
+
+/* Calendar legend on the home calendar header. */
+.events-calendar-home .events-calendar-intro {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 1rem;
+  align-items: center;
+  margin: 0.45rem 0 0;
+}
+
+.events-calendar-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.events-calendar-legend-swatch {
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 0.22rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.events-calendar-legend-event .events-calendar-legend-swatch {
+  background: rgba(217, 159, 81, 0.45);
+  border-color: rgba(217, 159, 81, 0.7);
+}
+
+.events-calendar-legend-service .events-calendar-legend-swatch {
+  background: rgba(98, 178, 165, 0.45);
+  border-color: rgba(98, 178, 165, 0.7);
+}
+
+.events-calendar-legend-today .events-calendar-legend-swatch {
+  background: transparent;
+  border: 1.5px solid var(--gold);
+  box-shadow: 0 0 6px rgba(201, 154, 46, 0.6);
+}
+
+/* Tabs panel note pointing back to the calendar on Home. */
+.events-tab-note {
+  margin: 0 0 1.25rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.events-tab-note a {
+  color: var(--gold-soft);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(240, 213, 143, 0.35);
+}
+
+.events-tab-note a:hover {
+  color: var(--gold);
 }
 
 .events-calendar-event-count {
