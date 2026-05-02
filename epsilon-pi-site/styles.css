@@ -2134,10 +2134,98 @@ main {
 }
 
 /* ============================================ */
+/* Founding & Charter Cards (History page)      */
+/* ============================================ */
+.history-grid {
+  gap: 1.75rem;
+  margin-bottom: 2.25rem;
+}
+
+.history-card {
+  position: relative;
+  padding: 1.25rem 1.4rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--line);
+  border-left: 3px solid rgba(201, 154, 46, 0.55);
+  border-radius: 0.65rem;
+}
+
+.history-card-title {
+  font-family: "Cinzel", Georgia, serif;
+  color: var(--gold);
+  font-size: 1.4rem;
+  margin: 0 0 0.55rem 0;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+
+.history-card-lead {
+  margin: 0 0 0.85rem 0;
+  color: var(--gold-soft);
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.history-meta-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.history-meta-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  color: var(--gold-soft);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.history-meta-label {
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.72rem;
+  font-weight: 600;
+  min-width: 64px;
+}
+
+.history-meta-value {
+  color: var(--gold-soft);
+}
+
+.history-card .charter-list {
+  margin-top: 0.25rem;
+}
+
+.history-card .charter-list li {
+  color: var(--gold-soft);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 600px) {
+  .history-card {
+    padding: 1rem 1.1rem;
+  }
+  .history-card-title {
+    font-size: 1.2rem;
+  }
+  .history-meta-list li,
+  .history-card .charter-list li {
+    font-size: 0.9rem;
+  }
+}
+
+/* ============================================ */
 /* Awards & Achievements Timeline (History page) */
 /* ============================================ */
 .achievements-section {
-  margin-top: 2rem;
+  margin-top: 0.5rem;
 }
 
 .achievements-title {
