@@ -435,12 +435,8 @@ main {
     0 0 18px rgba(201, 154, 46, 0.6);
 }
 
-/* Calendar legend on the home calendar header. */
-.events-calendar-home {
-  margin-top: 1.75rem;
-}
-
-.events-calendar-home .events-calendar-intro {
+/* Calendar legend on the calendar card header. */
+.events-calendar-card .events-calendar-intro {
   display: flex;
   flex-wrap: wrap;
   gap: 0.55rem 1rem;
@@ -626,6 +622,26 @@ main {
   background: #000;
 }
 
+.events-calendar-ict-ig {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0.1rem 0 0.6rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f58529 0%, #dd2a7b 50%, #8134af 100%);
+  color: #fff;
+  text-decoration: none;
+  font-family: "Inter", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.events-calendar-ict-ig:hover {
+  filter: brightness(1.08);
+}
+
 .events-calendar-ict-caption {
   margin-top: 0.4rem;
   color: var(--gold-soft);
@@ -644,24 +660,6 @@ main {
 .events-calendar-ict-caption--empty {
   color: var(--muted);
   font-style: italic;
-}
-
-/* Tabs panel note pointing back to the calendar on Home. */
-.events-tab-note {
-  margin: 0 0 1.25rem;
-  color: var(--muted);
-  font-size: 0.95rem;
-}
-
-.events-tab-note a {
-  color: var(--gold-soft);
-  font-weight: 700;
-  text-decoration: none;
-  border-bottom: 1px solid rgba(240, 213, 143, 0.35);
-}
-
-.events-tab-note a:hover {
-  color: var(--gold);
 }
 
 .events-calendar-event-count {

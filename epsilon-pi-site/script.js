@@ -242,9 +242,11 @@ function getEventsForDate(dateKey) {
 // with `video` (path under epsilon-pi-site/) and `caption`. Tuesdays without
 // an entry still show the "Ice Cold Tuesday" badge in the day's detail.
 const iceColdTuesdayContent = {
-  "2026-05-05": {
-    video: "assets/videos/ict-2026-05-05-cain-greaux.mov",
+  "2026-04-28": {
+    video: "assets/videos/ict-2026-04-28-cain-greaux.mp4",
     poster: "",
+    // Optional: paste an Instagram Reel URL here to add a "Watch on Instagram" link.
+    instagramUrl: "",
     caption:
       "The greatest lessons in college don't come from a syllabus, they come from life.\n\nBro. Cain & Bro. Greaux speak on what they've learned beyond the classroom as they prepare to graduate. From discipline to navigating real-world pressure.",
   },
@@ -260,14 +262,24 @@ function renderIceColdTuesdayCard(dateKey, date) {
   let body = "";
   if (content && content.video) {
     const posterAttr = content.poster ? ` poster="${content.poster}"` : "";
+    const isMov = /\.mov($|\?)/i.test(content.video);
+    const sources = isMov
+      ? `<source src="${content.video}" type="video/quicktime" />`
+      : `<source src="${content.video}" type="video/mp4" />`;
     body += `
       <div class="events-calendar-ict-video">
         <video controls playsinline preload="metadata"${posterAttr}>
-          <source src="${content.video}" type="video/mp4" />
-          <source src="${content.video}" type="video/quicktime" />
+          ${sources}
           Your browser doesn't support embedded video. <a href="${content.video}">Download the clip</a>.
         </video>
       </div>
+    `;
+  }
+  if (content && content.instagramUrl) {
+    body += `
+      <a class="events-calendar-ict-ig" href="${content.instagramUrl}" target="_blank" rel="noopener noreferrer">
+        Watch this Reel on Instagram →
+      </a>
     `;
   }
   if (content && content.caption) {
