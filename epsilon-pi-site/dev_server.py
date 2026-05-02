@@ -116,13 +116,15 @@ class DevServerHandler(SimpleHTTPRequestHandler):
             if index_fallback.exists():
                 requested = index_fallback
 
+        # Auto-reload via RELOAD_SNIPPET injection is intentionally disabled:
+        # it polled every second and force-reloaded the page on any file mtime
+        # change, which made the live preview unusable for inspection while
+        # the user or merged tasks were touching files. Manual refresh is the
+        # workflow now. Kept the /__codex_reload__ endpoint for backward
+        # compatibility (returns 200, no client polls it).
         if requested.is_file() and requested.suffix.lower() in {".html", ".htm"}:
             raw = requested.read_text(encoding="utf-8")
-            if "</body>" in raw:
-                content = raw.replace("</body>", f"{RELOAD_SNIPPET}\n</body>", 1)
-            else:
-                content = f"{raw}\n{RELOAD_SNIPPET}"
-            encoded = content.encode("utf-8")
+            encoded = raw.encode("utf-8")
 
             self.send_response(HTTPStatus.OK)
             self.send_header("Content-Type", "text/html; charset=utf-8")
