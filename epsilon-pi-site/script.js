@@ -341,10 +341,6 @@ function renderEventsCalendar() {
     ]
       .filter(Boolean)
       .join(" ");
-    const countBadge = events.length
-      ? `<span class="events-calendar-event-count">${events.length}</span>`
-      : "";
-
     cells.push(`
       <button
         type="button"
@@ -355,7 +351,6 @@ function renderEventsCalendar() {
         aria-label="${calendarDetailFormatter.format(date)}${isToday ? ", today" : ""}${events.length ? `, ${events.length} event${events.length > 1 ? "s" : ""}` : ", no events"}"
       >
         <span class="events-calendar-day-number">${day}</span>
-        ${countBadge}
       </button>
     `);
   }

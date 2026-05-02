@@ -436,6 +436,10 @@ main {
 }
 
 /* Calendar legend on the home calendar header. */
+.events-calendar-home {
+  margin-top: 1.75rem;
+}
+
 .events-calendar-home .events-calendar-intro {
   display: flex;
   flex-wrap: wrap;
