@@ -5,16 +5,18 @@ const eventsCalendarMonth = document.getElementById("events-calendar-month");
 const eventsCalendarDetail = document.getElementById("events-calendar-detail");
 
 const officersData = [
-  { role: "President", name: "Kaion N. Hamilton, III", photo: "assets/portraits/kaion-hamilton-iii.png" },
-  { role: "Vice-President", name: "Jahkari N. Taylor", photo: "" },
-  { role: "Corresponding Secretary", name: "Jaylen L. Johnson", photo: "assets/portraits/jaylen-johnson.png" },
-  { role: "Recording Secretary", name: "Malcolm J. Warren", photo: "assets/portraits/malcolm-warren.png" },
-  { role: "Treasurer", name: "Xavier J. Spindle", photo: "" },
-  { role: "Chapter Dean", name: "Jordan A. Cain", photo: "" },
-  { role: "Historian", name: "Jerome Sutton, III", photo: "assets/portraits/jerome-sutton-iii.png" },
-  { role: "Associate Editor of the Sphinx", name: "Keshun Nelson", photo: "assets/portraits/keshun-nelson.png" },
-  { role: "Parliamentarian", name: "Khamani Battiste", photo: "assets/portraits/khamani-battiste.png" },
-  { role: "Sergeant-At-Arms", name: "Allan J. White", photo: "" },
+  { role: "Chapter President", name: "Jahkari N. Taylor", photo: "" },
+  { role: "1st Vice President", name: "Nyles Ferguson", photo: "assets/portraits/nyles-ferguson.png" },
+  { role: "2nd Vice President", name: "Khamani Battiste", photo: "assets/portraits/khamani-battiste.png" },
+  { role: "Recording Secretary", name: "Allan J. White", photo: "" },
+  { role: "Corresponding Secretary", name: "Ian Thomas", photo: "assets/portraits/ian-thomas.png" },
+  { role: "Treasurer", name: "Joseph Hargett", photo: "assets/portraits/joseph-hargett.png" },
+  { role: "Chapter Dean of Membership", name: "Jahkael Parker", photo: "" },
+  { role: "Sergeant-At-Arms", name: "Adarius Johnson", photo: "assets/portraits/adarius-johnson.png" },
+  { role: "Editor of the Sphinx", name: "Simeon Butler", photo: "assets/portraits/simeon-butler.png" },
+  { role: "Historian", name: "Brett Andrews, Jr", photo: "assets/portraits/brett-andrews-jr.png" },
+  { role: "Parliamentarian", name: "Jaleel Drummond", photo: "assets/portraits/jaleel-drummond.png" },
+  { role: "Chaplain", name: "Jaylen L. Johnson", photo: "assets/portraits/jaylen-johnson.png" },
   { role: "Chapter Advisor", name: "Dr. Leon Rousen", photo: "assets/portraits/leon-rousen.png" },
 ];
 
@@ -1813,6 +1815,14 @@ document.getElementById("lineage-list").addEventListener("keydown", (e) => {
 // To add a new year: copy a block, change the year, leadership, and awards.
 // Awards can be a plain string, or an object { text, brother } to credit a specific brother.
 const achievementsData = [
+  {
+    year: "2026",
+    leadership: [],
+    awards: [
+      "Charles H. Wesley Award",
+      "Eastern Region Brother of the Year",
+    ],
+  },
   {
     year: "2024/2025",
     leadership: [],
