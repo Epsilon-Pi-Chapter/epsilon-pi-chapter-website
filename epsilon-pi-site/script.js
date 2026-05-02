@@ -355,6 +355,8 @@ function getCityPosition(state, cityKey) {
 const lineageData = {
   "Spring 2025": {
     lineName: "The 10 Conditions of the New Age aka Project X",
+    chapterDean: "Lauryce Derose",
+    chapterPharaoh: "Jordan Moody",
     members: [
       { position: "1/Ace", fullName: "Keshun Nelson", lineName: "Prime Proton", photo: "", major: "Chemistry with a focus in Pre-Med", minor: "", hometown: "Milwaukee, WI", linkedIn: "" },
       { position: "2/Deuce", fullName: "Jahkari Taylor", lineName: "V.I.Pharoah", photo: "", major: "Political Science", minor: "", hometown: "Chesapeake, VA", linkedIn: "" },
@@ -370,6 +372,8 @@ const lineageData = {
   },
   "Spring 2023": {
     lineName: "New World Order aka Always Follow Suit",
+    chapterDean: "Jared Jackson",
+    chapterPharaoh: "Leon Mosley Jr.",
     noHeadshots: true,
     members: [
       { position: "1/Ace", fullName: "Aaron Fisher Jr", lineName: "Lord Frieza", photo: "", major: "Business Finance", minor: "", hometown: "Chesapeake, VA", linkedIn: "https://www.linkedin.com/in/aaron-fisher-jr-15a2a0248" },
@@ -389,6 +393,8 @@ const lineageData = {
   },
   "Spring 2022": {
     lineName: "The 7 Revolutionaries of War",
+    chapterDean: "Charles Thompson Jr.",
+    chapterPharaoh: "Leon Mosley Jr.",
     noHeadshots: true,
     members: [
       { position: "1/Ace", fullName: "McKinley Lowery III", lineName: "Basquiat", photo: "", major: "Business", minor: "", hometown: "Detroit, MI", linkedIn: "https://www.linkedin.com/in/mckinleyloweryiii" },
@@ -402,6 +408,8 @@ const lineageData = {
   },
   "Spring 2024": {
     lineName: "12 Degrees Below Zero aka Sons of the New World aka Skii Club",
+    chapterDean: "Christopher Martin",
+    chapterPharaoh: "Jordan Moody",
     noHeadshots: true,
     members: [
       { position: "1/Ace", fullName: "Jahmire Westbrook", lineName: "Vantage Po1nt", photo: "", major: "Accounting", minor: "", hometown: "Neptune, NJ", linkedIn: "https://www.linkedin.com/in/jahmire-westbrook" },
@@ -420,6 +428,8 @@ const lineageData = {
   },
   "Spring 2026": {
     lineName: "The 11 Virtues of P.E.A.C.E. aka DedicationBoyz aka 26 Jumpstreet",
+    chapterDean: "Jordan Cain",
+    chapterPharaoh: "Kaion Hamilton III",
     linePictures: [
       "assets/line-photos/spring-2026-1.png",
       "assets/line-photos/spring-2026-2.png",
@@ -438,6 +448,724 @@ const lineageData = {
       { position: "9/Notorios 9ine", fullName: "Nyles Ferguson", lineName: "Mister Terrific", photo: "assets/portraits/nyles-ferguson.png", major: "Political Science", minor: "", hometown: "Chesapeake, VA", linkedIn: "https://www.linkedin.com/in/nyles-ferguson-45b254321/" },
       { position: "10/Dime", fullName: "Brett Andrews Jr", lineName: "Man of Steel", photo: "assets/portraits/brett-andrews-jr.png", major: "Double Major in Computer Engineering Technology and Electronics Engineering Technology", minor: "", hometown: "Atlanta, GA", linkedIn: "https://www.linkedin.com/in/brett-andrews-norfolk-state" },
       { position: "11/Fly E11even - Tail", fullName: "Joseph Hargett", lineName: "Hail Mary", photo: "assets/portraits/joseph-hargett.png", major: "Business Marketing", minor: "", hometown: "Williamston, NC", linkedIn: "https://www.linkedin.com/in/joseph-hargett/" },
+    ],
+  },
+  "Spring 2021": {
+    lineName: "THE REAL IS BACK aka The 9 Worthies aka N.I.P",
+    chapterDean: "Dominic Jordan",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Brandon Myrthil", lineName: "Menace to Society", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Leon Mosley", lineName: "Iron Man", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Justin Carr", lineName: "The Joker", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Master Turntine", lineName: "Silent Intellect", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Jared Jackson", lineName: "ScarPhace", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Kenneth Goodall", lineName: "SnowPhall", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Nathan Foster", lineName: "The Reclamation", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "Trent Grant", lineName: "F8te Defied", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "9", fullName: "Charles Thompson", lineName: "Phrozen Prodigy", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 2019": {
+    lineName: "5 Points of Power aka New Era aka Phrozen Genesis",
+    chapterDean: "Kyle Archie",
+    chapterPharaoh: "Malcolm Anderson",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Kory Wells", lineName: "Suntzu", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Ari Weems", lineName: "Arkimedes", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Anthony Renyolds", lineName: "The Diplomat", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Jeremiah O'Bryant", lineName: "Ice-o-lated", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Dominique Jordan", lineName: "Phree Smoke", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 2018": {
+    lineName: "Legacy of the Light aka Reconciliation Resurgence aka Flawless Chaos",
+    chapterDean: "Antwaun Hopkins",
+    chapterPharaoh: "Kashaun Freeman",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Jordan Salary", lineName: "Gods Heart", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Tormè DeVauxbray", lineName: "Hidden Warrior", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Johnthan Beckett Jr.", lineName: "John Got it", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Malik Mccoy", lineName: "Eye of the Storm", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Myron Simon", lineName: "Born Sinna", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Marcus Cooper", lineName: "Views from the 6th", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Kyle Archie", lineName: "Savage Warfare", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 2017": {
+    lineName: "The 11 Apostles of Light aka The Last Descendants of the Chaos aka Watch The Throne",
+    chapterDean: "Darius Ferguson",
+    chapterPharaoh: "Antwan Bynum",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Malcolm Anderson", lineName: "Chosen One", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Devin Jefferson", lineName: "Soul Survivor", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Eric Murphy", lineName: "MC Light", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Joshua Marshetelli", lineName: "Hannibal", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Aaron Jones", lineName: "Cold War", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Larry Whitaker Jr", lineName: "Alchemy", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Shawn Smith", lineName: "Key Component", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "Nathaniel Oppong", lineName: "Black Panther", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "11", fullName: "Jaylen Hobdy", lineName: "Pharaoh of War", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "12", fullName: "Jalen Mask", lineName: "Executive Decision", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "13", fullName: "Travion Capers", lineName: "De Ja Vu", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 2016": {
+    lineName: "The Reconciliation aka 7 Years of Famine",
+    chapterDean: "Cedric Claud",
+    chapterPharaoh: "Christopher Spriggs",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "De'Von Booker", lineName: "Full Metal Jackets", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Kashaun Freeman", lineName: "The Soul of Thutmose the Third", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Antwaun Hopkins", lineName: "The Revenant", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Edward Meadows", lineName: "The Blood of Thoth", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Christopher Crawford", lineName: "Phresh Prince", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Trey McClendon", lineName: "Golden Eye 006", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Dymitrous Byrd", lineName: "Case Closed", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 2015": {
+    lineName: "The Braves of a King aka Pharaoh's Rampage",
+    chapterDean: "Robin Jolley Jr.",
+    chapterPharaoh: "Malcom Perry",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Calvin Brown", lineName: "Inception", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Joshua Haynes", lineName: "Fear Factor", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "William Scott", lineName: "Phearless Pharoah", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Christian McFall", lineName: "Undisputed", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Antwan Bynum", lineName: "Illmatic", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Gary Night", lineName: "General Ice", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Ryan Turner", lineName: "Forsceen Prophecy", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "Billy Scott", lineName: "Mastermind", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "9", fullName: "Blair Reid", lineName: "TNT The Notorious Tut", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "10", fullName: "Jeremy Barnette", lineName: "Cutting Edge", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "12", fullName: "Twan Davis", lineName: "Shock Treatment", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "13", fullName: "Alexander Hinton", lineName: "Public Enemy", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "14", fullName: "Mike Smith", lineName: "The Rebelations", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 2014": {
+    lineName: "Trials by Fire aka Fahrenheit 9/11",
+    chapterDean: "Amory Tasby",
+    chapterPharaoh: "Dashaun Vance",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Paris Diaz", lineName: "Diplomatic Immunity", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Steven Smalts", lineName: "Iron Heart", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Allen Simon", lineName: "Livewire", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Bruce Truitt", lineName: "Frozen Fortitude", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Andre Pickett", lineName: "Atlas", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Malcolm Perry", lineName: "Organized Chaos", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Cedrick Claude", lineName: "Bane", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "Christopher Thompson", lineName: "Apocalypse", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "9", fullName: "Brandon Wells", lineName: "Silent Storm", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 2013": {
+    lineName: "Takeover aka 15 Weapons of Mass Destruction",
+    chapterDean: "William Boyd",
+    chapterPharaoh: "Michael Smart",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Deshane Vance", lineName: "Faces of Death", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Leron Smith", lineName: "Leon Ice", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Kendrick Eps", lineName: "Frozen Deception", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Korbet Clark", lineName: "Odessys the Prophet", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Davay Lineman", lineName: "Tephlon Don", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Bejamin Osoba", lineName: "Mission Impossible", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Robin Jolly Jr.", lineName: "Rampage", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "Christopher Spriggs", lineName: "MVP (Most Valuable Pharoah)", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "9", fullName: "Christopher Picket", lineName: "Death Sentence", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "10", fullName: "Keeble Hawthorn Jr.", lineName: "The Immortal", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "11", fullName: "Richard Tran", lineName: "The God Father", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "12", fullName: "Shane Dawson", lineName: "Mr. Invincible", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "13", fullName: "Jonathan Amos", lineName: "Achilles", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "14", fullName: "Nathaniel Mungo", lineName: "Death Comes in 3s", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "15", fullName: "Joel Fudge", lineName: "The Finale", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 2011": {
+    lineName: "The Blueprint aka By Any Means Necessary",
+    chapterDean: "Willie R. Smith III",
+    chapterPharaoh: "Darius Ferguson",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Amory Tasby", lineName: "Death Before Dishonor", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Brandon Johnson", lineName: "Rock Nation", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Michael Smart", lineName: "Prince of Kemet", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Kenneth Smith Jr.", lineName: "Growing Painz", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "William Boyd", lineName: "Ether", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Karl Massenburg", lineName: "Man of Honor", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Christopher Bowie", lineName: "The Omen", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "Carl Burnett Jr.", lineName: "Heart of the City", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "9", fullName: "Marcus Dodson", lineName: "The Unsung Hero", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "10", fullName: "Juan Lascano", lineName: "Talented Tenth", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "11", fullName: "Ryan Newsome", lineName: "Invictus the II", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 2010": {
+    lineName: "The Egyptian Asylums aka Hot Heads aka 8 Ways to Die",
+    chapterDean: "Matthew Onajafe",
+    chapterPharaoh: "Trevante Jenkins",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Rashad Patterson", lineName: "Death of Anubis", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Dwight Tennison Jr.", lineName: "DePhiant", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Antwan Hicks", lineName: "Suicidal", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Martin Armstead", lineName: "Kaged Kong", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Raymond Spence", lineName: "Ice-O-Tonic", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Cedric King", lineName: "Enemy of State", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "Charles Perkins", lineName: "Death Row", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Fall 2007": {
+    lineName: "Gorilla MAPHIA (Men About Professionalism, Honor, Integrity, and Ambition) aka NWA (Necessary Work of Alpha) aka Welcome to the Lumber Yard",
+    chapterDean: "Robert Colin Stephens",
+    chapterPharaoh: "Marques Ellis",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Tejay Lord", lineName: "Da Patron", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Marcus Harley", lineName: "The Hitman", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Timothy Russell", lineName: "Cold Capo", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Paul McFall IV", lineName: "Donnie Brascoe", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Steven Dent", lineName: "Made Man", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Steve Parker Jr.", lineName: "Lucky Luciano", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Mathew Onojafe", lineName: "Don Corleone", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "Brandon Williams", lineName: "Gusto", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "9", fullName: "Stevon Armstead", lineName: "Paid In Phull", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "10", fullName: "Carlos Segarra", lineName: "Mr. Perphect", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "11", fullName: "Stefon Alexander", lineName: "Stak Bundlez", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "12", fullName: "Myson Xavier Way", lineName: "Political Assassin", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "13", fullName: "Trevante Jenkins", lineName: "The GoodPhella", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "14", fullName: "Jesus \"Zeus\" Cambell", lineName: "The Kingpin", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "15", fullName: "Julius McCormack", lineName: "Noriega", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "16", fullName: "Darius Ferguson", lineName: "Battle Royale", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Fall 2006": {
+    lineName: "The Notorious Reign",
+    chapterDean: "Quinell Watson",
+    chapterPharaoh: "Kevin Hall",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Dovarius Peoples", lineName: "Nocturnal", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Maamen Cook", lineName: "The Enigma", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Jason Tolliver", lineName: "Phrozen Phire", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Kendall Moody", lineName: "Jack Phrost", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Brian Gay", lineName: "Living Legend", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Darrius Robinson", lineName: "The Sin-ICE-ster", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "James Edwards III", lineName: "Jewel Shocka", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "Willie R. Smith III", lineName: "PsychosICE", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Fall 2005": {
+    lineName: "11 War Chronicles aka TNT (Trials n Tribulations)",
+    chapterDean: "Rahman Swain",
+    chapterPharaoh: "Brandon \"Bo\" Jackson",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Vincent Shuler Jr.", lineName: "Golden Dragon", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Dwayne M. Littlejohn", lineName: "Golden Apprentice", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "William L. Davis Jr.", lineName: "Golden Minister", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Ryan J. Maull", lineName: "Golden Knight", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Robert Colin Stephens", lineName: "Golden Warrior", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Keith A.C. Freeman", lineName: "Golden Legacy", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Jelaun K. Newsome", lineName: "Golden Alchemist", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "David L. Cross Jr.", lineName: "Golden Storm", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "9", fullName: "Kevin Shabazz", lineName: "Golden Pharaoh", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "10", fullName: "Dominic J. Garner", lineName: "Golden Child", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "11", fullName: "Alexander Smith-Johnson", lineName: "Golden Lion", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Fall 2004": {
+    lineName: "State of Emergency aka B.S.T (Blood, Sweat, and Tears)",
+    chapterDean: "Brandon \"Bo\" Jackson",
+    chapterPharaoh: "Mickey Armstrong",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Kevin Hall", lineName: "Brain Phreeze", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Dropped Dead and Gone", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Quinell Watson", lineName: "Professor Ice", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Dwight Jarrett", lineName: "Reasonable Doubt", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Jared Holmes", lineName: "EXTRAordinary", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Marquis Ellis", lineName: "Guerilla P.I.M.P.", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "Raymond Dawsoniak", lineName: "Chill Factor", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "9", fullName: "Corey Brown", lineName: "Bananaz", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "10", fullName: "Jamaal Ali Richardson", lineName: "King Kong", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 2004": {
+    lineName: "The Sons of Messiah",
+    chapterDean: "Mike Wilkins",
+    chapterPharaoh: "Tony Davenport Jr.",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Wes Wesson", lineName: "Short Circuit", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Johnathan Branch", lineName: "Black Out", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Kirk Houston Jr.", lineName: "Christian Egyptian", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Rahman Swain", lineName: "The Golden Story", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Darren Bowens", lineName: "The Negotiator", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "John Johnson", lineName: "Breathe Easy", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Robert Looper III", lineName: "The Eye of Ra", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Fall 2003": {
+    lineName: "The Light aka Chilluminati",
+    chapterDean: "Bryant Hall",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Torrey Watkins", lineName: "Major Payne", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Dale Barfield", lineName: "Iron Monkey", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Charles Powell", lineName: "Phather Time", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Mickey Armstrong", lineName: "Whisperz", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Brandon \"Bo\" Jackson", lineName: "Young Gunna", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Preston Brinkley", lineName: "Makaveli", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Christoph Jenkins", lineName: "Exodus", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "William White", lineName: "Silverback", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "9", fullName: "Kevin Tatum", lineName: "Lumberjack", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "10", fullName: "Jason Parker", lineName: "The Trilogy", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 2003": {
+    lineName: "Gorilla Warfare",
+    chapterDean: "Jamaal Anderson",
+    chapterPharaoh: "Damion Wilson",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Marvin Randall", lineName: "Braveheart", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Mike Wilkins", lineName: "The Grim Reaper", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Mike Archer", lineName: "Don Da Da", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Will Keowan", lineName: "Main Event", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Mike Washington", lineName: "Steel Reserve", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 2002": {
+    lineName: "New Alpha Order",
+    chapterDean: "Tony Davenport Jr.",
+    chapterPharaoh: "Damion Wilson",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Aaron Scales", lineName: "Enemy Mind", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Robert Simmons", lineName: "Ghostface", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Wayne Andrews", lineName: "Black ICE", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Nathaniel Hopkins", lineName: "Chillmatic", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Andre Taylor", lineName: "The SacrifICE", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Bryant Hall", lineName: "Armageddon", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 2001": {
+    lineName: "The Art of War",
+    chapterDean: "James M. Riddick Jr.",
+    chapterPharaoh: "Ronald Copeland",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Victor Clark", lineName: "Maximus", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Damion Wilson", lineName: "Nightcrawler", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Dropped Dead and Gone", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Derick Rothwell", lineName: "Keyser Soze", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Kyle Grove", lineName: "The Game", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Nathaniel Watkins", lineName: "Shinobi", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Fall 2000": {
+    lineName: "Hostile Takeover",
+    chapterDean: "James M. Riddick Jr.",
+    chapterPharaoh: "Ronald Copeland",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Dropped Dead and Gone", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Dropped Dead and Gone", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Kenneth (Brad) Austin II", lineName: "Immovable Object", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Jason Diggs", lineName: "Irresistible Force", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Tony Davenport", lineName: "Terminal Velocity", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Kevin Montgomery", lineName: "The Phenom", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Joseph Patrick II", lineName: "King Beef", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "Jamaal Anderson", lineName: "Final Destination", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Fall 1999": {
+    lineName: "Legacy of Rage",
+    chapterDean: "Clinton Copeland",
+    chapterPharaoh: "Douglas Johnson",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Syril (Mike) Gillies", lineName: "Chaos", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "George (Ernest) Davis", lineName: "The Riddler", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Dante Silmon", lineName: "Fatal Fury", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "James Riddick Jr.", lineName: "Killah Instinct", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Ronald Copeland", lineName: "The Last Dragon", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Fall 1998": {
+    lineName: "Frozen Tundra",
+    chapterDean: "Omar Wandera",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Jasper Lewis", lineName: "Iceburg Slim", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Samuel Watkins", lineName: "Battle Cat", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Eternally Remembered", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Clinton Copeland", lineName: "Stone Cold", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Douglas Johnson", lineName: "Big SeXXXy", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Rondell Davis", lineName: "Icestorm", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Kenneth Vaughan", lineName: "Beowulf", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Fall 1997": {
+    lineName: "Disciples Of Discipline aka X-Clan",
+    chapterDean: "Austin Jackson",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Kevin Bradby", lineName: "Attila the Hun and Southern Comfort", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Nathaniel Barfield", lineName: "Shaka Zulu and Ironman", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Anthony Sutton", lineName: "Hannibal and Demolitian Man", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Kevin Cogdell", lineName: "Ahkenaton and Deathwish", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Winston Hylton", lineName: "Senworset and Cardiac Arrest", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "William (BJ) Butler", lineName: "Tutankhamen and Brooklyn Dodger", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Omar Wandera", lineName: "Jihad and Silent Rage", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 1997": {
+    lineName: "Tribulation",
+    chapterDean: "Frank Manley",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Vernard Hinton", lineName: "Caleb", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Fall 1995": {
+    lineName: "The Last Of A Legacy",
+    chapterDean: "John McNeil Jr.",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Maurice Odom", lineName: "Ice Breaker II", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Dropped Dead and Gone", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Roland Adams", lineName: "Wolverine II", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Jason Compton", lineName: "Bigg Poppa", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Austin Jackson", lineName: "Minister X", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Kirk Callwood", lineName: "MadLion, Imhotep, & Chief Rocker", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Maurice Hawkins", lineName: "Mouth O Mighty, Worst Nightmare & Hawk Diesel", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "Marvin Collins", lineName: "Rata-Tat-Tat (Resigned From Fraternity)", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "9", fullName: "Zeno Hines", lineName: "High Stepper", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "10", fullName: "Lorenzo Briggs", lineName: "Fall Guy", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "11", fullName: "Travis Ames", lineName: "Cohesion", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "12", fullName: "Anthony Brown", lineName: "911", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "13", fullName: "DeShawn Anderson", lineName: "Line Backer", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "14", fullName: "Corey Jackson", lineName: "The Chief", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "15", fullName: "Eugene Ward", lineName: "Disclosure", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "16", fullName: "Frank Manley", lineName: "The Keeper", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Fall 1993": {
+    lineName: "The Wallbreakers",
+    chapterDean: "Jarrell Watson (Mu Pi Chapter)",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Tracy Stokes", lineName: "Choir Boy", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Dana Tynes", lineName: "Ice Breaker", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Quinton Moss", lineName: "Ambassador", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Samuel Jones", lineName: "Confusion", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Aubrey Ricks", lineName: "Double Vision", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Jeffrey Dortch", lineName: "The Surgeon", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Robert Stokes", lineName: "Curfew", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "Derrick Blair", lineName: "Smooth", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "9", fullName: "Quincy Stewart", lineName: "Batman", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "10", fullName: "Reginald Bush", lineName: "Sexual Chocolate", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "11", fullName: "Franklin Blackmon", lineName: "Officer & a Gentleman", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "12", fullName: "John McNeill", lineName: "Joker Duce", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "13", fullName: "Armando Wyatt", lineName: "Debonair", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "14", fullName: "Thomas Meyers", lineName: "I-95", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Fall 1992": {
+    lineName: "X-Men aka The Dirty Dozen",
+    chapterDean: "Clarence Bishop",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Raleigh Harsley", lineName: "Bishop", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Reggie Ford", lineName: "Wolverine", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Michael Johns", lineName: "Gambler", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Stacey Gillus", lineName: "Infinity", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Goddard Robinson", lineName: "Hurricane", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Randy Cooper", lineName: "Warpath", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Elias \"OX\" Oxdien III", lineName: "The Mac Perfolus", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "Alvin Wilson II", lineName: "Bleek", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "9", fullName: "Adonis Mason", lineName: "Thor", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "10", fullName: "Clifford Davis", lineName: "Godfather", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "11", fullName: "Joe L. Mason Jr.", lineName: "Mr. Loverman", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "12", fullName: "Demetris Milbourne", lineName: "Ruff, Rugged and Raw", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 1991": {
+    lineName: "New Jack Swing",
+    chapterDean: "Anthony \"Slap\" Jackson",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Emmanull \"Nate\" Thomas", lineName: "Little Caesar", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Allison \"Bad Joe\" Trotman", lineName: "Little Big Man", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Shoan Harper", lineName: "Wonder Twin #1", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Lavon Harper", lineName: "Wonder Twin #2", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Corey D. Walker", lineName: "Total Package", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Robert Perkins", lineName: "Grumpy", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "James Dance", lineName: "Hollywood", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "Henry Morris", lineName: "Sir Henry", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "9", fullName: "Antonio Brown", lineName: "Merlin", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "10", fullName: "Ernest Ellis", lineName: "Quiet Storm", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "11", fullName: "Tyrone \"Tye\" Gillins", lineName: "Iceman", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "12", fullName: "Dennis Spady", lineName: "Honner", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "13", fullName: "Benedict Spady", lineName: "K-Sweat", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "14", fullName: "James \"Bobby\" Smith", lineName: "B-Love", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "15", fullName: "Anthony Simmons", lineName: "Smooth and Debonaire", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "16", fullName: "Jonathan Banks", lineName: "Vision", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "17", fullName: "Bryan D. Cuffee", lineName: "Dirty Pierre III", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 1990": {
+    lineName: "NEXUS",
+    chapterDean: "Lester L. Arnold",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Shelly Thomas", lineName: "Time Keeper", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Rendell Green", lineName: "Chinaman", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Desmond Prillamen", lineName: "MLK", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Jeff Norfleet", lineName: "Politician", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Rod Morris", lineName: "Mardi Gras", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "William (BJ) Jones", lineName: "Pit Bull", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Clarence (Broozer) Bishop", lineName: "Fred Flintstone", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "Timothy D. Goler", lineName: "Eight Ball", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "9", fullName: "Calvin Logan", lineName: "M.C. Poet", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "10", fullName: "Nathan \"Lumpy\" Lumpkin", lineName: "Beach Bum", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "11", fullName: "Arthur Smith", lineName: "Astro", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "12", fullName: "David Lewis", lineName: "Backdoor", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Fall 1988": {
+    lineName: "THE UNTOUCHABLES",
+    chapterDean: "Grant H. Coleman III",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "John W. Newsome III", lineName: "Spark Plug", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Marcus Logan", lineName: "Mouse", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Erwin Garcia", lineName: "Juggernaut", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Arthur (Artie) Jarrett Jr.", lineName: "Q-Bert", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Victor (Vic) Patterson", lineName: "Sleepy", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Dropped Dead and Gone", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Anthony (Slap) M. Jackson", lineName: "Invictus", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "Jonathan Beckett", lineName: "Old Man", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "9", fullName: "Domonic A. Bearfield", lineName: "Verbose", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "10", fullName: "Joshua Aycott", lineName: "Sampson", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "11", fullName: "Darrell Beale", lineName: "Dollar Bill", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "12", fullName: "Bradford (Brad) Hardy", lineName: "Heavy D II", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "13", fullName: "Ronald (Ron) Harris", lineName: "Skeletor II", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Fall 1987": {
+    lineName: "NOMIEN DUBIUM (Nine the Hard Way)",
+    chapterDean: "James Diggs",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Charles H. Brinkley", lineName: "FYI", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Juandiego R. Wade", lineName: "Heavy D", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Russell Stewart", lineName: "Mission Impossible", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Grant H. Coleman III", lineName: "Dirty Pierre II & Gibraltar", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Mark S. Askew", lineName: "Entrepreneur", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Kevin M. Holmes", lineName: "Boy Wonder", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Warren Fowler", lineName: "Cro", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "Lester L. Arnold", lineName: "Deputy Dawg & LA Law", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "9", fullName: "Ollie Elazier", lineName: "Skeletor", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 1986": {
+    lineName: "CONTRAS",
+    chapterDean: "Reginald Black",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Perry Seawright", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Terry James Staten", lineName: "Khadafy", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Dwayne (Pop) Tillman", lineName: "Black Panther", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Dwight Rawlins", lineName: "Castro", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Aarion Durante' Benton", lineName: "Khomeini", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Ricardo M. Daniels", lineName: "Idi-Amin", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Benjamin (Bennie) Spady III", lineName: "Mario", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "Anthony K. Butler", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 1985": {
+    lineName: "PANDAVA BROTHERS (Egyptian Gods)",
+    chapterDean: "Brian White",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Al Lawson", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Glen Murray", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Pernell Jordan", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Jerome (Bump) Moses", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Dropped Dead and Gone", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Steven A. Butler", lineName: "Thoth", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Dropped Dead and Gone", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "Dropped Dead and Gone", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "9", fullName: "Dropped Dead and Gone", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "10", fullName: "Dropped Dead and Gone", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Fall 1984": {
+    lineName: "THE NOMADS",
+    chapterDean: "Jeffery D. Freeland",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Gregory A. Davis", lineName: "Tiny Giant", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Dropped Dead and Gone", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "George Freeman", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Vincent Mohr", lineName: "Jason", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "John Curtis Small", lineName: "Smallbusters", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "William C. White", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Greg Willis", lineName: "Cosmos & Gismo", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "9", fullName: "James E. Banks", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Fall 1983": {
+    lineName: "",
+    chapterDean: "Marvin Burch",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Dropped Dead and Gone", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Frank Nelson", lineName: "H Master", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "James Diggs", lineName: "Total Chaos & Grandfather", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Trevin Jones", lineName: "Mellow Madness", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Michael Webb", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Vincent Boulden", lineName: "Golden Boulden", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Winthrop Love Maduro", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 1983": {
+    lineName: "SPHINX",
+    chapterDean: "Mark Bartlett",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Leon Booker", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Jeffery Garrett", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Kelvin Lloyd", lineName: "The Rock", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Keith O'Neal France", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Larry Brown", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Anthony Goodman", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Michael Webb", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Fall 1982": {
+    lineName: "PHARAOHS",
+    chapterDean: "Mark Bartlett",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Dennis Wade", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Ronnie Akers", lineName: "Cadillac", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Jacques Walden", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Julian Jackson", lineName: "Ramases", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Mark Webb", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Curtis Bunn", lineName: "Moses", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Fall 1981": {
+    lineName: "PANACEA",
+    chapterDean: "Ronnie Bagley",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Jeffrey (JD) Freeland", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Tyrone Wyche", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Dropped Dead and Gone", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Melvin Jones", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Fred (Freddie Gee) Gore", lineName: "Achilles", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Derek (Nick) Lambert", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Dropped Dead and Gone", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "Marvin Burch", lineName: "Fahrenheit", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "9", fullName: "Greg Rawls", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "10", fullName: "Anthony (Killroy) Hall", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "11", fullName: "Dropped Dead and Gone", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "12", fullName: "Dropped Dead and Gone", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "13", fullName: "Dropped Dead and Gone", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "14", fullName: "Dropped Dead and Gone", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "15", fullName: "Dropped Dead and Gone", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "16", fullName: "Dropped Dead and Gone", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 1980": {
+    lineName: "CONGO",
+    chapterDean: "Harry Sykes",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Hubert (Ronnie) E. Bagley Jr.", lineName: "Sargent Psycho", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Kim S. Mosely", lineName: "Tumble Weed & Inch Worm", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Marc E. Davenport", lineName: "Houdini", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 1979": {
+    lineName: "NURU",
+    chapterDean: "Charles E. Johnson",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Karl Stokes", lineName: "Hannabal", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Leon Garnette", lineName: "Omar", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "French Pope Jr.", lineName: "Pharoah", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Harry Sykes", lineName: "Akhenaton", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Mark (BJ) Bartlett", lineName: "Tut", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 1978": {
+    lineName: "NEW BREED",
+    chapterDean: "Gerald Mason",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Charles E. Johnson", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Dennis McCraw", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Don Carson", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Al Williams", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Gary Clemmons", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Fall 1975": {
+    lineName: "GENESIS EIGHT",
+    chapterDean: "Samuel C. Gregory",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Linwood Thomas Daughtrey", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "William Dallas Carter", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Anthony Sizemore", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Reginald K. Hunt", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Dennis Wormley", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Milton J. Bailey", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Wiley Powell", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "Dennis Cooke", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 1967": {
+    lineName: "MAGNIFICENT 7",
+    chapterDean: "Lee H. Barnes",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Dennis Ray Winston", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "James Oswell Bowser", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Eugene Roland Ford", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Leon Herbert Jordan", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Marvin Leathers", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "Robert Gregory Rose", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Johnnie Ervin Thomas", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+    ],
+  },
+  "Spring 1965": {
+    lineName: "",
+    noHeadshots: true,
+    members: [
+      { position: "1", fullName: "Charles Henry Williams", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "2", fullName: "Clarence Titus Catchings", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "3", fullName: "Robert Henry Copeland", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "4", fullName: "Joseph Allen Ford", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "5", fullName: "Randolph Tynes Gray", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "6", fullName: "James Hill", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "7", fullName: "Clarence Lee Lewis", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "8", fullName: "Horace Roland Pratt", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
+      { position: "9", fullName: "William Tyler Russell Jr.", lineName: "", photo: "", major: "", minor: "", hometown: "", linkedIn: "" },
     ],
   },
 };
@@ -490,19 +1218,124 @@ function renderOfficers() {
   officerContainer.innerHTML = markup;
 }
 
-const LINEAGE_EXCLUDED = new Set(["Spring 2012", "Spring 2020"]);
+const LINEAGE_TERM_ORDER = [
+  "Spring 2026", "Spring 2025", "Spring 2024", "Spring 2023", "Spring 2022",
+  "Spring 2021", "Spring 2019", "Spring 2018", "Spring 2017", "Spring 2016",
+  "Spring 2015", "Spring 2014", "Spring 2013", "Spring 2011", "Spring 2010",
+  "Fall 2007", "Fall 2006", "Fall 2005", "Fall 2004", "Spring 2004",
+  "Fall 2003", "Spring 2003", "Spring 2002", "Spring 2001", "Fall 2000",
+  "Fall 1999", "Fall 1998", "Fall 1997", "Spring 1997", "Fall 1995",
+  "Fall 1993", "Fall 1992", "Spring 1991", "Spring 1990", "Fall 1988",
+  "Fall 1987", "Spring 1986", "Spring 1985", "Fall 1984", "Fall 1983",
+  "Spring 1983", "Fall 1982", "Fall 1981", "Spring 1980", "Spring 1979",
+  "Spring 1978", "Fall 1975", "Spring 1967", "Spring 1965",
+];
 
 function buildLineageTerms() {
-  const terms = [];
-  for (let year = 2026; year >= 2007; year -= 1) {
-    if (year === 2007) {
-      terms.push({ season: "Fall", year });
-      break;
+  return LINEAGE_TERM_ORDER.map((termKey) => {
+    const [season, yearStr] = termKey.split(" ");
+    return { season, year: Number.parseInt(yearStr, 10) };
+  });
+}
+
+function normalizeBrotherName(name) {
+  if (!name) return "";
+  return name.toLowerCase().trim().replace(/\s+/g, " ").replace(/[.,]/g, "");
+}
+
+function brotherNameKeys(name) {
+  if (!name) return [];
+  const base = normalizeBrotherName(name);
+  if (!base) return [];
+  const keys = [base];
+  const noSuffix = base.replace(/\s+(jr|sr|ii|iii|iv|v)$/, "");
+  if (noSuffix !== base) keys.push(noSuffix);
+  const noMid = noSuffix.replace(/\s+[a-z](?=\s)/g, "");
+  if (noMid !== noSuffix) keys.push(noMid);
+  return keys;
+}
+
+const LEADER_ALIASES = new Map([
+  ["dominic jordan", "Dominique Jordan"],
+  ["cedric claud", "Cedrick Claude"],
+  ["robin jolley jr", "Robin Jolly Jr."],
+  ["malcom perry", "Malcolm Perry"],
+  ["dashaun vance", "Deshane Vance"],
+  ["matthew onajafe", "Mathew Onojafe"],
+  ["marques ellis", "Marquis Ellis"],
+  ["john mcneil jr", "John McNeill"],
+  ["clarence bishop", "Clarence (Broozer) Bishop"],
+  ["anthony \"slap\" jackson", "Anthony (Slap) M. Jackson"],
+  ["jeffery d freeland", "Jeffrey (JD) Freeland"],
+  ["mark bartlett", "Mark (BJ) Bartlett"],
+  ["ronnie bagley", "Hubert (Ronnie) E. Bagley Jr."],
+]);
+
+const NAME_INDEX = new Map();
+
+function buildNameIndex() {
+  NAME_INDEX.clear();
+  Object.entries(lineageData).forEach(([term, details]) => {
+    if (!details || !details.members) return;
+    details.members.forEach((member, idx) => {
+      const fn = member.fullName;
+      if (!fn || fn === "Dropped Dead and Gone" || fn === "Eternally Remembered") return;
+      brotherNameKeys(fn).forEach((key) => {
+        if (!NAME_INDEX.has(key)) NAME_INDEX.set(key, { term, idx });
+      });
+    });
+  });
+}
+
+function findBrother(name) {
+  if (!name) return null;
+  const aliasKey = normalizeBrotherName(name);
+  if (LEADER_ALIASES.has(aliasKey)) {
+    const aliasTarget = LEADER_ALIASES.get(aliasKey);
+    for (const key of brotherNameKeys(aliasTarget)) {
+      if (NAME_INDEX.has(key)) return NAME_INDEX.get(key);
     }
-    const springKey = `Spring ${year}`;
-    if (!LINEAGE_EXCLUDED.has(springKey)) terms.push({ season: "Spring", year });
   }
-  return terms;
+  for (const key of brotherNameKeys(name)) {
+    if (NAME_INDEX.has(key)) return NAME_INDEX.get(key);
+  }
+  return null;
+}
+
+function escapeHtmlAttr(value) {
+  return String(value).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function renderLeaderName(name) {
+  if (!name) return "";
+  const match = findBrother(name);
+  if (match) {
+    return `<button type="button" class="lineage-leader-link" data-target-term="${escapeHtmlAttr(match.term)}" data-target-name="${escapeHtmlAttr(name)}">${name}</button>`;
+  }
+  return `<span class="lineage-leader-name">${name}</span>`;
+}
+
+function jumpToBrother(targetTerm, targetName) {
+  if (!targetTerm) return;
+  showLineageTerm(targetTerm);
+  const aliasKey = normalizeBrotherName(targetName);
+  const resolvedName = LEADER_ALIASES.get(aliasKey) || targetName;
+  const wantedKeys = new Set([...brotherNameKeys(targetName), ...brotherNameKeys(resolvedName)]);
+  requestAnimationFrame(() => {
+    const rows = lineageContainer.querySelectorAll(".lineage-member");
+    let target = null;
+    rows.forEach((row) => {
+      if (target) return;
+      const rowName = row.dataset.fullName || "";
+      const rowKeys = brotherNameKeys(rowName);
+      if (rowKeys.some((k) => wantedKeys.has(k))) target = row;
+    });
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "center" });
+      target.classList.add("lineage-member-highlight");
+      window.setTimeout(() => target.classList.remove("lineage-member-highlight"), 2600);
+    }
+  });
 }
 
 function isCropEditable(termKey) {
@@ -525,7 +1358,10 @@ function buildLineageItem(termKey, details) {
     const memberClass = noPhotos ? "lineage-member lineage-member-no-photo" : "lineage-member";
     const roster = details.members
       .map((member, idx) => {
-        const [num, positionName] = member.position.includes("/") ? member.position.split("/", 2) : [member.position, ""];
+        const positionRaw = member.position || "";
+        const [num, positionName] = positionRaw.includes("/") ? positionRaw.split("/", 2) : [positionRaw, ""];
+        const positionNameHtml = positionName ? `<span class="lineage-position-name">${positionName}</span>` : "";
+        const lineNameHtml = member.lineName ? `<span class="lineage-line-name">"${member.lineName}"</span>` : "";
         const photoHtml = noPhotos ? "" : getPhotoMarkup(member.fullName, member.photo, `${member.fullName} headshot`, null, 100);
 
         let bodyHtml;
@@ -564,9 +1400,9 @@ function buildLineageItem(termKey, details) {
           bodyHtml = `
               <div class="lineage-member-col lineage-member-col-identity">
                 <span class="lineage-position-num">#${num}</span>
-                <span class="lineage-position-name">${positionName}</span>
+                ${positionNameHtml}
                 <span class="lineage-full-name">${member.fullName}</span>
-                <span class="lineage-line-name">"${member.lineName}"</span>
+                ${lineNameHtml}
               </div>
               <div class="lineage-member-col lineage-member-col-details">
                 <div class="lineage-member-details">${detailItems}</div>
@@ -577,15 +1413,15 @@ function buildLineageItem(termKey, details) {
           bodyHtml = `
               <div class="lineage-member-meta">
                 <span class="lineage-position-num">#${num}</span>
-                <span class="lineage-position-name">${positionName}</span>
+                ${positionNameHtml}
                 <span class="lineage-full-name">${member.fullName}</span>
-                <span class="lineage-line-name">"${member.lineName}"</span>
+                ${lineNameHtml}
               </div>`;
         }
 
         const roleAttrs = ' tabindex="0" role="button"';
         const noStateClass = noPhotos && !statePath ? " lineage-member-no-state" : "";
-        const fullNameAttr = noPhotos ? ` data-full-name="${member.fullName.replace(/"/g, "&quot;")}"` : "";
+        const fullNameAttr = ` data-full-name="${(member.fullName || "").replace(/"/g, "&quot;")}"`;
         return `
             <li class="${memberClass}${noStateClass}" data-term="${termKey}" data-member-index="${idx}"${fullNameAttr}${roleAttrs}>
               ${photoHtml}
@@ -605,9 +1441,18 @@ function buildLineageItem(termKey, details) {
         </div>
       </div>`;
     }
+    const lineNameP = details.lineName ? `<p class="lineage-term-line-name">${details.lineName}</p>` : "";
+    const deanRow = details.chapterDean
+      ? `<p class="lineage-leader-row"><span class="lineage-leader-label">Chapter Dean (Most Honorable and Noble):</span> ${renderLeaderName(details.chapterDean)}</p>`
+      : "";
+    const pharaohRow = details.chapterPharaoh
+      ? `<p class="lineage-leader-row"><span class="lineage-leader-label">Chapter Pharaoh (Chapter President):</span> ${renderLeaderName(details.chapterPharaoh)}</p>`
+      : "";
     item.innerHTML = `
       <h3>${termKey}</h3>
-      <p>${details.lineName}</p>
+      ${lineNameP}
+      ${deanRow}
+      ${pharaohRow}
       ${linePicsHtml}
       <ul class="lineage-roster">${roster}</ul>
     `;
@@ -648,6 +1493,7 @@ function showLineageTerm(termKey) {
 }
 
 function renderLineage() {
+  buildNameIndex();
   const terms = buildLineageTerms();
   populateLineageMenu();
 
@@ -901,6 +1747,13 @@ copyCropBtn.addEventListener("click", () => {
 });
 
 document.getElementById("lineage-list").addEventListener("click", (e) => {
+  const leaderLink = e.target.closest(".lineage-leader-link");
+  if (leaderLink) {
+    e.preventDefault();
+    e.stopPropagation();
+    jumpToBrother(leaderLink.dataset.targetTerm, leaderLink.dataset.targetName);
+    return;
+  }
   if (e.target.closest(".lineage-member-linkedin")) return;
   const editBtn = e.target.closest(".lineage-member-edit-pos");
   if (editBtn) {
