@@ -1153,9 +1153,9 @@ function renderAchievements() {
   container.innerHTML = achievementsData
     .map((entry) => {
       const leadershipHtml = entry.leadership && entry.leadership.length
-        ? `<p class="achievement-leadership">${entry.leadership
-            .map((l) => `<span class="achievement-leader-role">${l.role}:</span> <span class="achievement-leader-name">${l.name}</span>`)
-            .join(' <span class="achievement-leader-sep">·</span> ')}</p>`
+        ? `<div class="achievement-leadership">${entry.leadership
+            .map((l) => `<div class="achievement-leader"><span class="achievement-leader-role">${l.role}:</span> <span class="achievement-leader-name">${l.name}</span></div>`)
+            .join("")}</div>`
         : "";
       const awardsHtml = entry.awards
         .map((award) => {

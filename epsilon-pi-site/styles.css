@@ -162,11 +162,16 @@ main {
 }
 
 .panel ul {
-  color: var(--text);
+  color: var(--gold-soft);
 }
 
 .panel ul li {
   margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.panel ul li::marker {
+  color: var(--gold);
 }
 
 .photo-placeholder {
@@ -210,12 +215,15 @@ main {
 
 .card {
   background: var(--panel-alt);
+  border: 1px solid var(--line);
   border-radius: 1rem;
   padding: 1.25rem;
 }
 
 .card h3 {
   color: var(--gold-soft);
+  font-family: "Cinzel", Georgia, serif;
+  letter-spacing: 0.04em;
 }
 
 .card p {
@@ -461,8 +469,11 @@ main {
 
 .leadership-year {
   margin: 0 0 1.5rem;
-  font-size: 1rem;
-  color: var(--muted);
+  font-size: 0.95rem;
+  color: var(--gold-soft);
+  font-style: italic;
+  letter-spacing: 0.02em;
+  opacity: 0.9;
 }
 
 .officer-cards {
@@ -1903,10 +1914,16 @@ main {
 }
 
 .achievement-leadership {
+  margin: 0 0 0.65rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.achievement-leader {
   font-style: italic;
   color: var(--gold-soft);
   font-size: 0.85rem;
-  margin: 0 0 0.65rem 0;
   opacity: 0.9;
   line-height: 1.4;
 }
@@ -1918,11 +1935,7 @@ main {
   font-size: 0.72rem;
   font-weight: 600;
   font-style: normal;
-}
-
-.achievement-leader-sep {
-  color: var(--muted);
-  margin: 0 0.2rem;
+  margin-right: 0.25rem;
 }
 
 .achievement-list {
