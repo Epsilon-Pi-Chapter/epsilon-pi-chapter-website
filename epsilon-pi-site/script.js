@@ -246,7 +246,7 @@ const iceColdTuesdayContent = {
     video: "assets/videos/ict-2026-04-28-cain-greaux.mp4",
     poster: "",
     // Optional: paste an Instagram Reel URL here to add a "Watch on Instagram" link.
-    instagramUrl: "",
+    instagramUrl: "https://www.instagram.com/reel/DXrwc-ckSv0/",
     caption:
       "The greatest lessons in college don't come from a syllabus, they come from life.\n\nBro. Cain & Bro. Greaux speak on what they've learned beyond the classroom as they prepare to graduate. From discipline to navigating real-world pressure.",
   },
