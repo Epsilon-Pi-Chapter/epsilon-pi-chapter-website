@@ -2184,3 +2184,37 @@ window.addEventListener('popstate', () => {
 });
 
 showTab(getTabFromUrl());
+
+// Copy chapter email to clipboard with a brief confirmation.
+document.querySelectorAll('[data-copy]').forEach((btn) => {
+  btn.addEventListener('click', async () => {
+    const text = btn.getAttribute('data-copy') || '';
+    if (!text) return;
+    const label = btn.querySelector('.support-copy-label');
+    const original = label ? label.textContent : '';
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'absolute';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+      btn.classList.add('is-copied');
+      if (label) label.textContent = 'Copied!';
+      setTimeout(() => {
+        btn.classList.remove('is-copied');
+        if (label) label.textContent = original;
+      }, 1800);
+    } catch (err) {
+      if (label) label.textContent = 'Press & hold to copy';
+      setTimeout(() => { if (label) label.textContent = original; }, 2000);
+    }
+  });
+});
