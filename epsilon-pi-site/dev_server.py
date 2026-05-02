@@ -11,7 +11,8 @@ from urllib.parse import unquote, urlparse
 
 
 ROOT = Path(__file__).resolve().parent
-PORT = 8000
+PORT = int(os.environ.get("PORT", "8000"))
+HOST = os.environ.get("HOST", "127.0.0.1")
 POLL_SECONDS = 1.0
 WATCH_EXTENSIONS = {
     ".html",
@@ -107,6 +108,14 @@ class DevServerHandler(SimpleHTTPRequestHandler):
                     requested = index_file
                     break
 
+        # SPA fallback: if the path doesn't resolve to a real file and isn't
+        # an asset (no file extension), serve index.html so client-side routing
+        # in script.js can handle it (matches vercel.json rewrite in production).
+        if not requested.exists() and not requested.suffix:
+            index_fallback = ROOT / "index.html"
+            if index_fallback.exists():
+                requested = index_fallback
+
         if requested.is_file() and requested.suffix.lower() in {".html", ".htm"}:
             raw = requested.read_text(encoding="utf-8")
             if "</body>" in raw:
@@ -140,8 +149,8 @@ class DevServerHandler(SimpleHTTPRequestHandler):
 
 def main() -> None:
     os.chdir(ROOT)
-    server = ThreadingHTTPServer(("127.0.0.1", PORT), DevServerHandler)
-    print(f"Codex dev server running at http://127.0.0.1:{PORT}")
+    server = ThreadingHTTPServer((HOST, PORT), DevServerHandler)
+    print(f"Codex dev server running at http://{HOST}:{PORT}")
     try:
         server.serve_forever()
     except KeyboardInterrupt:

@@ -956,6 +956,227 @@ document.getElementById("lineage-list").addEventListener("keydown", (e) => {
   if (termKey != null && !isNaN(idx)) openRapSheet(termKey, idx);
 });
 
+// Awards & Achievements timeline (newest to oldest)
+// To add a new year: copy a block, change the year, leadership, and awards.
+// Awards can be a plain string, or an object { text, brother } to credit a specific brother.
+const achievementsData = [
+  {
+    year: "2024/2025",
+    leadership: [],
+    awards: [
+      "VACAPAF Brother Of The Year",
+      "Eastern Region Brother Of The Year",
+      "National Step Show Champions",
+    ],
+  },
+  {
+    year: "2022/2023",
+    leadership: [],
+    awards: [
+      "VACAPAF & Eastern Region College Chapter Of The Year",
+      "VACAPAF & Eastern Region College Chapter With The Highest GPA",
+      "VACAPAF & Eastern Region Scholars Bowl Winner",
+      "VACAPAF & Eastern Region Charles H. Wesley Award",
+    ],
+  },
+  {
+    year: "2021/2022",
+    leadership: [],
+    awards: [
+      "VACAPAF Unconditional Service Award",
+      "VACAPAF Scholars Bowl Winner",
+    ],
+  },
+  {
+    year: "2021",
+    leadership: [{ role: "Whistle", name: "Ari Weems" }],
+    awards: ["Norfolk State University Homecoming Stroll Of Champions"],
+  },
+  {
+    year: "2019",
+    leadership: [{ role: "Chapter President", name: "Marcus Cooper" }],
+    awards: ["VACAPAF College Chapter Of The Year"],
+  },
+  {
+    year: "2018",
+    leadership: [
+      { role: "Chapter President", name: "Kashaun Freeman" },
+      { role: "Step Master", name: "Joshua Marshatelli" },
+    ],
+    awards: [
+      "VACAPAF College Chapter Of The Year",
+      "Eastern Regional College Chapter Of The Year",
+      "Norfolk State University Homecoming Step Show Champions",
+    ],
+  },
+  {
+    year: "2014",
+    leadership: [{ role: "Step Master", name: "Laron Smith" }],
+    awards: [
+      "VACAPAF Step Show Champions",
+      "Eastern Regional Step Show Champions",
+      "Norfolk State University Homecoming Step Show Champions",
+    ],
+  },
+  {
+    year: "2011",
+    leadership: [{ role: "Step Master", name: "Antione Hicks" }],
+    awards: ["Hampden-Sydney Homecoming Step Show Champions"],
+  },
+  {
+    year: "2010",
+    leadership: [{ role: "Step Master", name: "Xavier Way" }],
+    awards: [
+      "VACAPAF Step Show Champions",
+      "Eastern Regional Step Show Champions",
+    ],
+  },
+  {
+    year: "2008",
+    leadership: [{ role: "Step Master", name: "Jesus Campbell" }],
+    awards: [
+      "VACAPAF Step Show Champions",
+      "Eastern Regional Step Show Champions",
+      { text: "VACAPAF Oratorical Champion", brother: "Bro. Alexander Smith-Johnson" },
+      { text: "Eastern Regional Oratorical Champion", brother: "Bro. Alexander Smith-Johnson" },
+      "ODU Stomp The Yard Step Show Champions",
+      "University Of District Of Columbia Homecoming Step Show Champions",
+      "George Mason Homecoming Step Show Champions",
+    ],
+  },
+  {
+    year: "2007",
+    leadership: [
+      { role: "Chapter President", name: "Kevin Hall" },
+      { role: "Step Master", name: "Ryan Maull" },
+    ],
+    awards: [
+      "VACAPAF College Chapter Of The Year",
+      { text: "VACAPAF College Brother Of The Year", brother: "Bro. Jelaun Newsome" },
+      "Eastern Regional College Chapter Of The Year",
+      { text: "Regional College Brother Of The Year", brother: "Bro. Jelaun Newsome" },
+      "National College Chapter Of The Year",
+      { text: "National College Brother Of The Year", brother: "Bro. Jelaun Newsome" },
+      "VACAPAF Step Show Champions",
+      "Eastern Regional Step Show Champions",
+      "ODU Stomp The Yard Step Show Champions",
+    ],
+  },
+  {
+    year: "2006",
+    leadership: [
+      { role: "Chapter President", name: "Brandon Jackson" },
+      { role: "Step Master", name: "Robert Looper III" },
+    ],
+    awards: [
+      "VACAPAF College Chapter Of The Year",
+      "Eastern Regional College Chapter Of The Year",
+      "Centennial College Chapter Of The Year",
+      "VACAPAF Step Show Champions",
+      "Eastern Regional Step Show Champions",
+      "Norfolk State University Homecoming Step Show Champions",
+      "Centennial Step Show Champions",
+      "Step Correct Step Show Champions",
+    ],
+  },
+  {
+    year: "2005",
+    leadership: [{ role: "Step Master", name: "Robert Looper" }],
+    awards: [
+      "VACAPAF College Chapter Of The Year",
+      "Eastern Regional College Chapter Of The Year",
+      "VACAPAF Step Show Champions",
+      "Eastern Regional Step Show Champions",
+      "Norfolk State University Homecoming Step Show Champions",
+    ],
+  },
+  {
+    year: "2004",
+    leadership: [{ role: "Step Master", name: "Robert Looper III" }],
+    awards: [
+      "VACAPAF Step Show Champions",
+      "Eastern Regional Step Show Champions",
+      "Norfolk State University Homecoming Step Show Champions",
+    ],
+  },
+  {
+    year: "2002",
+    leadership: [{ role: "Step Master", name: "Tony Davenport" }],
+    awards: [
+      "VACAPAF College Chapter Of The Year",
+      "Eastern Regional College Chapter Of The Year",
+      "Norfolk State University Homecoming Step Show Champions",
+    ],
+  },
+  {
+    year: "2001",
+    leadership: [{ role: "Step Master", name: "Tony Davenport" }],
+    awards: [
+      "VACAPAF College Chapter Of The Year",
+      "Eastern Regional College Chapter Of The Year",
+      "National College Chapter Of The Year",
+      "Norfolk State University Homecoming Step Show Champions",
+    ],
+  },
+  {
+    year: "2000",
+    leadership: [],
+    awards: [
+      "VACAPAF College Chapter Of The Year",
+      "Eastern Regional College Chapter Of The Year",
+      "National GPA Award Recipients",
+      "National College Chapter Of The Year",
+    ],
+  },
+  {
+    year: "1999",
+    leadership: [],
+    awards: [
+      "VACAPAF College Chapter Of The Year",
+      "Eastern Regional College Chapter Of The Year",
+      "National Scholars Bowl Champion",
+    ],
+  },
+  {
+    year: "1998",
+    leadership: [],
+    awards: [
+      "VACAPAF College Chapter Of The Year",
+      "Eastern Regional College Chapter Of The Year",
+    ],
+  },
+];
+
+function renderAchievements() {
+  const container = document.getElementById("achievements-timeline");
+  if (!container) return;
+  container.innerHTML = achievementsData
+    .map((entry) => {
+      const leadershipHtml = entry.leadership && entry.leadership.length
+        ? `<p class="achievement-leadership">${entry.leadership
+            .map((l) => `<span class="achievement-leader-role">${l.role}:</span> <span class="achievement-leader-name">${l.name}</span>`)
+            .join(' <span class="achievement-leader-sep">·</span> ')}</p>`
+        : "";
+      const awardsHtml = entry.awards
+        .map((award) => {
+          if (typeof award === "string") {
+            return `<li class="achievement-item">${award}</li>`;
+          }
+          return `<li class="achievement-item">${award.text}<span class="achievement-brother">${award.brother}</span></li>`;
+        })
+        .join("");
+      return `
+        <article class="achievement-year">
+          <h4 class="achievement-year-title">${entry.year}</h4>
+          ${leadershipHtml}
+          <ul class="achievement-list">${awardsHtml}</ul>
+        </article>
+      `;
+    })
+    .join("");
+}
+renderAchievements();
+
 // Tab switching: show only the active panel
 const tabLinks = document.querySelectorAll('.main-nav [role="tab"]');
 const panels = document.querySelectorAll('[data-tab-panel]');

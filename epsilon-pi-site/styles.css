@@ -1846,3 +1846,129 @@ main {
     font-size: 0.9rem;
   }
 }
+
+/* ============================================ */
+/* Awards & Achievements Timeline (History page) */
+/* ============================================ */
+.achievements-section {
+  margin-top: 2rem;
+}
+
+.achievements-title {
+  font-family: "Cinzel", Georgia, serif;
+  color: var(--gold);
+  font-size: 1.5rem;
+  letter-spacing: 0.06em;
+  margin: 0 0 1.5rem 0;
+  text-align: center;
+  font-weight: 700;
+}
+
+.achievements-timeline {
+  position: relative;
+  padding: 0.5rem 0 0.5rem 1.75rem;
+  border-left: 2px solid rgba(201, 154, 46, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.achievement-year {
+  position: relative;
+  padding: 1rem 1.1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--line);
+  border-radius: 0.65rem;
+}
+
+.achievement-year::before {
+  content: "";
+  position: absolute;
+  left: -2.1rem;
+  top: 1.2rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 4px var(--bg), 0 0 0 5px rgba(201, 154, 46, 0.5);
+}
+
+.achievement-year-title {
+  font-family: "Cinzel", Georgia, serif;
+  color: var(--gold);
+  font-size: 1.4rem;
+  margin: 0 0 0.35rem 0;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+
+.achievement-leadership {
+  font-style: italic;
+  color: var(--gold-soft);
+  font-size: 0.85rem;
+  margin: 0 0 0.65rem 0;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+.achievement-leader-role {
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.achievement-leader-sep {
+  color: var(--muted);
+  margin: 0 0.2rem;
+}
+
+.achievement-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.achievement-item {
+  color: var(--gold-soft);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.achievement-item::marker {
+  color: var(--gold);
+}
+
+.achievement-brother {
+  display: block;
+  font-style: italic;
+  color: var(--gold);
+  font-size: 0.82rem;
+  margin-top: 0.2rem;
+  opacity: 0.95;
+}
+
+@media (max-width: 600px) {
+  .achievements-timeline {
+    padding-left: 1.25rem;
+  }
+  .achievement-year {
+    padding: 0.85rem 0.9rem;
+  }
+  .achievement-year::before {
+    left: -1.6rem;
+    width: 0.65rem;
+    height: 0.65rem;
+    top: 1.05rem;
+  }
+  .achievement-year-title {
+    font-size: 1.2rem;
+  }
+  .achievement-item {
+    font-size: 0.9rem;
+  }
+}
