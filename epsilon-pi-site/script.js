@@ -332,10 +332,15 @@ function renderEventsCalendar() {
     else if (hasService) categoryClass = "cat-service";
     else if (hasEvent) categoryClass = "cat-event";
 
+    // Ice Cold Tuesday: every Tuesday during the school year (skip Jun/Jul).
+    const isSchoolYearMonth = monthIdx !== 5 && monthIdx !== 6;
+    const isIceColdTuesday = isSchoolYearMonth && date.getDay() === 2;
+
     const classes = [
       "events-calendar-day",
       events.length ? "has-event" : "",
       categoryClass,
+      isIceColdTuesday ? "is-ict" : "",
       isSelected ? "is-selected" : "",
       isToday ? "is-today" : "",
     ]
@@ -348,8 +353,9 @@ function renderEventsCalendar() {
         data-date="${dateKey}"
         role="gridcell"
         aria-pressed="${isSelected}"
-        aria-label="${calendarDetailFormatter.format(date)}${isToday ? ", today" : ""}${events.length ? `, ${events.length} event${events.length > 1 ? "s" : ""}` : ", no events"}"
+        aria-label="${calendarDetailFormatter.format(date)}${isToday ? ", today" : ""}${isIceColdTuesday ? ", Ice Cold Tuesday" : ""}${events.length ? `, ${events.length} event${events.length > 1 ? "s" : ""}` : ", no events"}"
       >
+        ${isIceColdTuesday ? '<span class="events-calendar-ice-cap" aria-hidden="true"></span>' : ""}
         <span class="events-calendar-day-number">${day}</span>
       </button>
     `);

@@ -481,6 +481,77 @@ main {
   box-shadow: 0 0 6px rgba(201, 154, 46, 0.6);
 }
 
+.events-calendar-legend-ict .events-calendar-legend-swatch {
+  position: relative;
+  background: linear-gradient(180deg, rgba(180, 220, 255, 0.45), rgba(120, 170, 220, 0.18));
+  border-color: rgba(190, 225, 255, 0.55);
+  overflow: hidden;
+}
+
+.events-calendar-legend-ict .events-calendar-legend-swatch::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  background: linear-gradient(180deg, #f6fbff 0%, #d6eaff 100%);
+  clip-path: polygon(
+    0 0, 100% 0, 100% 65%,
+    88% 95%, 78% 60%, 66% 90%,
+    52% 60%, 40% 95%, 28% 60%,
+    14% 90%, 0 60%
+  );
+}
+
+/* Ice Cold Tuesday: frosty tint + a dripping ice cap on top of the cell. */
+.events-calendar-day.is-ict {
+  background: linear-gradient(180deg, rgba(160, 210, 255, 0.18), rgba(100, 150, 200, 0.08));
+  border-color: rgba(180, 220, 255, 0.4);
+  overflow: hidden;
+}
+
+.events-calendar-ice-cap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 38%;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, #ffffff 0%, #eaf4ff 55%, #cfe3f8 100%);
+  clip-path: polygon(
+    0% 0%, 100% 0%, 100% 55%,
+    94% 80%, 90% 55%, 84% 92%, 78% 58%,
+    70% 85%, 62% 55%, 54% 95%, 46% 60%,
+    38% 88%, 30% 55%, 22% 90%, 14% 60%,
+    7% 82%, 0% 55%
+  );
+  filter: drop-shadow(0 1px 1px rgba(60, 110, 160, 0.35));
+  z-index: 1;
+}
+
+/* When ICT also has an event/service tint, keep the category color on the
+   bottom and let the ice cap ride on top. */
+.events-calendar-day.is-ict.cat-event {
+  background:
+    linear-gradient(180deg, rgba(160, 210, 255, 0.28) 0 38%, rgba(217, 159, 81, 0.18) 38%);
+}
+.events-calendar-day.is-ict.cat-service {
+  background:
+    linear-gradient(180deg, rgba(160, 210, 255, 0.28) 0 38%, rgba(98, 178, 165, 0.18) 38%);
+}
+.events-calendar-day.is-ict.cat-both {
+  background:
+    linear-gradient(180deg, rgba(160, 210, 255, 0.28) 0 38%, transparent 38%),
+    linear-gradient(135deg, rgba(98, 178, 165, 0.22) 0 50%, rgba(217, 159, 81, 0.22) 50% 100%);
+}
+
+.events-calendar-day.is-ict .events-calendar-day-number {
+  position: relative;
+  z-index: 2;
+}
+
 /* Tabs panel note pointing back to the calendar on Home. */
 .events-tab-note {
   margin: 0 0 1.25rem;
