@@ -1820,7 +1820,7 @@ const achievementsData = [
     leadership: [],
     awards: [
       "Charles H. Wesley Award",
-      "Eastern Region Brother of the Year",
+      { text: "Eastern Region Brother of the Year", brother: "Bro. Jaden Johnson" },
     ],
   },
   {
