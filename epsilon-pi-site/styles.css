@@ -95,10 +95,18 @@ main,
 .chapter-subtitle {
   margin: 0;
   color: var(--gold-soft);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
 }
 
 .chapter-subtitle {
   white-space: nowrap;
+  text-transform: none;
+  letter-spacing: 0.04em;
+  font-style: italic;
+  opacity: 0.9;
 }
 
 .main-nav {
@@ -146,9 +154,10 @@ main {
   margin-top: 0;
   margin-bottom: 1rem;
   font-family: "Cinzel", Georgia, serif;
-  color: var(--gold-soft);
-  letter-spacing: 0.03em;
+  color: var(--gold);
+  letter-spacing: 0.06em;
   font-size: 1.5rem;
+  font-weight: 700;
 }
 
 .hero-panel {
@@ -221,9 +230,12 @@ main {
 }
 
 .card h3 {
-  color: var(--gold-soft);
+  margin-top: 0;
+  color: var(--gold);
   font-family: "Cinzel", Georgia, serif;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  font-size: 1.25rem;
 }
 
 .card p {
@@ -423,8 +435,11 @@ main {
 
 .events-calendar-event h4 {
   margin: 0;
-  color: var(--gold-soft);
+  font-family: "Cinzel", Georgia, serif;
+  color: var(--gold);
   font-size: 1rem;
+  letter-spacing: 0.06em;
+  font-weight: 700;
 }
 
 .events-calendar-event-meta {
@@ -726,8 +741,11 @@ main {
 
 .lineage-item h3 {
   margin: 0;
-  font-size: 1rem;
-  color: var(--gold-soft);
+  font-family: "Cinzel", Georgia, serif;
+  font-size: 1.1rem;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  font-weight: 700;
 }
 
 .lineage-item p {
@@ -1411,7 +1429,9 @@ main {
 .rap-sheet-name {
   font-family: "Cinzel", Georgia, serif;
   font-size: 1.25rem;
-  color: var(--gold-soft);
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  font-weight: 700;
   margin: 0.5rem 0 0;
 }
 
@@ -1494,8 +1514,10 @@ main {
 .support-us-title {
   margin: 0 0 0.75rem;
   font-family: "Cinzel", Georgia, serif;
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   color: #0c0d0f;
+  letter-spacing: 0.06em;
+  font-weight: 700;
 }
 
 .support-us-links {
