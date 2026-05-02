@@ -774,6 +774,7 @@ main {
 
 .lineage-leader-name {
   color: var(--text);
+  font-size: 0.88rem;
 }
 
 .lineage-leader-link {
@@ -782,6 +783,7 @@ main {
   padding: 0;
   margin: 0;
   font: inherit;
+  font-size: 0.88rem;
   color: var(--gold);
   cursor: pointer;
   text-decoration: underline;

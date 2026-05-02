@@ -1445,10 +1445,10 @@ function buildLineageItem(termKey, details) {
     }
     const lineNameP = details.lineName ? `<p class="lineage-term-line-name">${details.lineName}</p>` : "";
     const deanRow = details.chapterDean
-      ? `<p class="lineage-leader-row"><span class="lineage-leader-label">Chapter Dean (Most Honorable and Noble):</span> ${renderLeaderName(details.chapterDean)}</p>`
+      ? `<p class="lineage-leader-row"><span class="lineage-leader-label">Dean of Membership:</span> ${renderLeaderName(details.chapterDean)}</p>`
       : "";
     const pharaohRow = details.chapterPharaoh
-      ? `<p class="lineage-leader-row"><span class="lineage-leader-label">Chapter Pharaoh (Chapter President):</span> ${renderLeaderName(details.chapterPharaoh)}</p>`
+      ? `<p class="lineage-leader-row"><span class="lineage-leader-label">Chapter President:</span> ${renderLeaderName(details.chapterPharaoh)}</p>`
       : "";
     item.innerHTML = `
       <h3>${termKey}</h3>
