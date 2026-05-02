@@ -1160,6 +1160,35 @@ main {
   font-style: italic;
 }
 
+.lineage-term-line-name {
+  margin: 0.35rem 0 0.65rem;
+  font-size: 1.18rem;
+  color: var(--gold-soft);
+  font-family: "Cinzel", Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+
+.lineage-line-segment {
+  color: inherit;
+  font-style: italic;
+}
+
+.lineage-aka {
+  display: inline-block;
+  color: var(--gold);
+  font-family: "Cinzel", Georgia, serif;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: lowercase;
+  font-size: 0.78em;
+  margin: 0 0.5em;
+  vertical-align: 0.05em;
+}
+
 .lineage-member-summary {
   display: block;
   margin-top: 0.35rem;

@@ -361,10 +361,11 @@ const lineageData = {
   "Spring 2025": {
     lineName: "The 10 Conditions of the New Age aka Project X",
     chapterDean: "Lauryce Derose",
-    chapterPharaoh: "Jordan Moody",
+    chapterPharaoh: "Jordan D Moody",
+    noHeadshots: true,
     members: [
       { position: "1/Ace", fullName: "Keshun Nelson", lineName: "Prime Proton", photo: "", major: "Chemistry with a focus in Pre-Med", minor: "", hometown: "Milwaukee, WI", linkedIn: "" },
-      { position: "2/Deuce", fullName: "Jahkari Taylor", lineName: "V.I.Pharoah", photo: "", major: "Political Science", minor: "", hometown: "Chesapeake, VA", linkedIn: "" },
+      { position: "2/Deuce", fullName: "Jahkari Taylor", lineName: "V.I.P.", photo: "", major: "Political Science", minor: "", hometown: "Chesapeake, VA", linkedIn: "" },
       { position: "3/Tre", fullName: "Allan White", lineName: "Nocturnal Beast", photo: "", major: "Sociology", minor: "", hometown: "Mount Vernon, NY", linkedIn: "" },
       { position: "4/H4rdcore", fullName: "Jerome Sutton III", lineName: "Steady Heart", photo: "assets/portraits/jerome-sutton-iii.png", major: "Sociology", minor: "Criminal Justice", hometown: "Chesapeake, VA", linkedIn: "" },
       { position: "5/Live 5ive", fullName: "Jahkael Parker", lineName: "The Illusion", photo: "", major: "Business Management", minor: "", hometown: "Richmond, VA", linkedIn: "" },
@@ -414,7 +415,7 @@ const lineageData = {
   "Spring 2024": {
     lineName: "12 Degrees Below Zero aka Sons of the New World aka Skii Club",
     chapterDean: "Christopher Martin",
-    chapterPharaoh: "Jordan Moody",
+    chapterPharaoh: "Jordan D Moody",
     noHeadshots: true,
     members: [
       { position: "1/Ace", fullName: "Jahmire Westbrook", lineName: "Vantage Po1nt", photo: "", major: "Accounting", minor: "", hometown: "Neptune, NJ", linkedIn: "https://www.linkedin.com/in/jahmire-westbrook" },
@@ -1347,6 +1348,21 @@ function escapeHtmlAttr(value) {
   return String(value).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
+// Splits a line name on " aka " (case-insensitive) and renders each segment
+// with a gold "aka" between them. `quoted` wraps each segment in curly quotes.
+function formatLineName(text, { quoted = false } = {}) {
+  if (!text) return "";
+  const segments = String(text)
+    .split(/\s+aka\s+/i)
+    .map((s) => s.replace(/["“”]/g, "").trim())
+    .filter(Boolean);
+  if (segments.length === 0) return "";
+  const wrap = (s) => (quoted ? `“${s}”` : s);
+  return segments
+    .map((s) => `<span class="lineage-line-segment">${wrap(s)}</span>`)
+    .join('<span class="lineage-aka">aka</span>');
+}
+
 function renderLeaderName(name) {
   if (!name) return "";
   const match = findBrother(name);
@@ -1402,7 +1418,7 @@ function buildLineageItem(termKey, details) {
         const positionRaw = member.position || "";
         const [num, positionName] = positionRaw.includes("/") ? positionRaw.split("/", 2) : [positionRaw, ""];
         const positionNameHtml = positionName ? `<span class="lineage-position-name">${positionName}</span>` : "";
-        const lineNameHtml = member.lineName ? `<span class="lineage-line-name">"${member.lineName}"</span>` : "";
+        const lineNameHtml = member.lineName ? `<span class="lineage-line-name">${formatLineName(member.lineName, { quoted: true })}</span>` : "";
         const photoHtml = noPhotos ? "" : getPhotoMarkup(member.fullName, member.photo, `${member.fullName} headshot`, null, 100);
 
         let bodyHtml;
@@ -1482,7 +1498,7 @@ function buildLineageItem(termKey, details) {
         </div>
       </div>`;
     }
-    const lineNameP = details.lineName ? `<p class="lineage-term-line-name">${details.lineName}</p>` : "";
+    const lineNameP = details.lineName ? `<p class="lineage-term-line-name">${formatLineName(details.lineName)}</p>` : "";
     const deanRow = details.chapterDean
       ? `<p class="lineage-leader-row"><span class="lineage-leader-label">Dean of Membership:</span> ${renderLeaderName(details.chapterDean)}</p>`
       : "";
