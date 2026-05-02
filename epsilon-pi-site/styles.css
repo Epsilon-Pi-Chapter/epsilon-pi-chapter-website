@@ -774,7 +774,9 @@ main {
 
 .lineage-leader-name {
   color: var(--text);
-  font-size: 0.88rem;
+  font-size: 0.95rem;
+  font-family: "Cinzel", Georgia, serif;
+  letter-spacing: 0.04em;
 }
 
 .lineage-leader-link {
@@ -783,7 +785,9 @@ main {
   padding: 0;
   margin: 0;
   font: inherit;
-  font-size: 0.88rem;
+  font-size: 0.95rem;
+  font-family: "Cinzel", Georgia, serif;
+  letter-spacing: 0.04em;
   color: var(--gold);
   cursor: pointer;
   text-decoration: underline;
