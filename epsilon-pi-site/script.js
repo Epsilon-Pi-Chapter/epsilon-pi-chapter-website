@@ -4,20 +4,23 @@ const eventsCalendarGrid = document.getElementById("events-calendar-grid");
 const eventsCalendarMonth = document.getElementById("events-calendar-month");
 const eventsCalendarDetail = document.getElementById("events-calendar-detail");
 
+// Officers: leave `email` blank to auto-derive firstname.middleinitial.lastname@spartans.nsu.edu
+// Set `email: null` to skip (e.g. faculty advisor). Set `email: "custom@..."` to override.
+// `linkedIn` is optional — leave blank to hide the LinkedIn icon.
 const officersData = [
-  { role: "Chapter President", name: "Jahkari N. Taylor", photo: "" },
-  { role: "1st Vice President", name: "Nyles Ferguson", photo: "assets/portraits/nyles-ferguson.png" },
-  { role: "2nd Vice President", name: "Khamani Battiste", photo: "assets/portraits/khamani-battiste.png" },
-  { role: "Recording Secretary", name: "Allan J. White", photo: "" },
-  { role: "Corresponding Secretary", name: "Ian Thomas", photo: "assets/portraits/ian-thomas.png" },
-  { role: "Treasurer", name: "Joseph Hargett", photo: "assets/portraits/joseph-hargett.png" },
-  { role: "Chapter Dean of Membership", name: "Jahkael Parker", photo: "" },
-  { role: "Sergeant-At-Arms", name: "Adarius Johnson", photo: "assets/portraits/adarius-johnson.png" },
-  { role: "Editor of the Sphinx", name: "Simeon Butler", photo: "assets/portraits/simeon-butler.png" },
-  { role: "Historian", name: "Brett Andrews, Jr", photo: "assets/portraits/brett-andrews-jr.png" },
-  { role: "Parliamentarian", name: "Jaleel Drummond", photo: "assets/portraits/jaleel-drummond.png" },
-  { role: "Chaplain", name: "Jaylen L. Johnson", photo: "assets/portraits/jaylen-johnson.png" },
-  { role: "Chapter Advisor", name: "Dr. Leon Rousen", photo: "assets/portraits/leon-rousen.png" },
+  { role: "Chapter President", name: "Jahkari N. Taylor", photo: "", email: "", linkedIn: "" },
+  { role: "1st Vice President", name: "Nyles Ferguson", photo: "assets/portraits/nyles-ferguson.png", email: "", linkedIn: "" },
+  { role: "2nd Vice President", name: "Khamani Battiste", photo: "assets/portraits/khamani-battiste.png", email: "", linkedIn: "" },
+  { role: "Recording Secretary", name: "Allan J. White", photo: "", email: "", linkedIn: "" },
+  { role: "Corresponding Secretary", name: "Ian Thomas", photo: "assets/portraits/ian-thomas.png", email: "", linkedIn: "" },
+  { role: "Treasurer", name: "Joseph Hargett", photo: "assets/portraits/joseph-hargett.png", email: "", linkedIn: "" },
+  { role: "Chapter Dean of Membership", name: "Jahkael Parker", photo: "", email: "", linkedIn: "" },
+  { role: "Sergeant-At-Arms", name: "Adarius Johnson", photo: "assets/portraits/adarius-johnson.png", email: "", linkedIn: "" },
+  { role: "Editor of the Sphinx", name: "Simeon Butler", photo: "assets/portraits/simeon-butler.png", email: "", linkedIn: "" },
+  { role: "Historian", name: "Brett Andrews, Jr", photo: "assets/portraits/brett-andrews-jr.png", email: "", linkedIn: "" },
+  { role: "Parliamentarian", name: "Jaleel Drummond", photo: "assets/portraits/jaleel-drummond.png", email: "", linkedIn: "" },
+  { role: "Chaplain", name: "Jaylen L. Johnson", photo: "assets/portraits/jaylen-johnson.png", email: "", linkedIn: "" },
+  { role: "Chapter Advisor", name: "Dr. Leon Rousen", photo: "assets/portraits/leon-rousen.png", email: null, linkedIn: "" },
 ];
 
 // Update this list to add or revise upcoming events shown on the monthly calendar.
@@ -1200,10 +1203,44 @@ function getOfficerPhotoMarkup(name, photo, altLabel) {
   return `<div class="officer-photo-placeholder" aria-hidden="true">${getInitials(name)}</div>`;
 }
 
+const ENVELOPE_ICON_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>';
+
+// Build firstname.middleinitial.lastname@spartans.nsu.edu, stripping titles
+// (Dr., Mr.) and suffixes (Jr, II, III). Returns "" if name is unusable.
+function defaultOfficerEmail(name) {
+  if (!name) return "";
+  const parts = name
+    .replace(/,/g, " ")
+    .split(/\s+/)
+    .map((s) => s.replace(/\.$/, "").trim())
+    .filter(Boolean)
+    .filter((s) => !/^(Dr|Mr|Mrs|Ms|Prof)$/i.test(s))
+    .filter((s) => !/^(Jr|Sr|II|III|IV)$/i.test(s));
+  if (parts.length === 0) return "";
+  return parts.join(".").toLowerCase() + "@spartans.nsu.edu";
+}
+
+function getOfficerEmail(officer) {
+  if (officer.email === null) return null;
+  if (officer.email && officer.email.trim()) return officer.email.trim();
+  return defaultOfficerEmail(officer.name);
+}
+
 function renderOfficers() {
   const markup = officersData
-    .map(
-      (officer) => `
+    .map((officer) => {
+      const email = getOfficerEmail(officer);
+      const linkedIn = officer.linkedIn && officer.linkedIn.trim();
+      const emailHtml = email
+        ? `<a class="officer-contact-link officer-contact-email" href="mailto:${email}" aria-label="Email ${officer.name}" title="${email}">${ENVELOPE_ICON_SVG}</a>`
+        : "";
+      const linkedInHtml = linkedIn
+        ? `<a class="officer-contact-link officer-contact-linkedin" href="${linkedIn}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile of ${officer.name}">${LINKEDIN_LOGO_SVG}</a>`
+        : "";
+      const contactsHtml = emailHtml || linkedInHtml
+        ? `<div class="officer-contacts">${emailHtml}${linkedInHtml}</div>`
+        : "";
+      return `
         <article class="officer-card">
           <div class="officer-photo-wrap">
             ${getOfficerPhotoMarkup(officer.name, officer.photo, `${officer.name} headshot`)}
@@ -1211,10 +1248,12 @@ function renderOfficers() {
           <div class="officer-info">
             <p class="officer-role">${officer.role}</p>
             <h3 class="officer-name">${officer.name}</h3>
+            <span class="officer-divider" aria-hidden="true"></span>
+            ${contactsHtml}
           </div>
         </article>
-      `,
-    )
+      `;
+    })
     .join("");
 
   officerContainer.innerHTML = markup;
