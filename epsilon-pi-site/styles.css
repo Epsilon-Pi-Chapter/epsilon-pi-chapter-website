@@ -2031,15 +2031,18 @@ main {
 }
 
 .support-us {
-  width: min(100% - 2rem, var(--max-width));
-  margin-inline: auto;
-  padding: 1.75rem 0 2rem;
+  /* Full-bleed inverted bottom panel: light cream-gold background with
+     dark text/icons, sitting flush against the viewport edges below the
+     dark page content. */
+  width: 100%;
+  max-width: none;
+  margin: 2rem 0 0;
+  padding: 2rem 1.5rem 2.25rem;
   text-align: center;
-  background: var(--panel);
-  border: 1px solid rgba(201, 154, 46, 0.35);
-  border-radius: 1rem;
-  color: var(--gold-soft);
-  margin-top: 1.5rem;
+  background: var(--gold-soft);
+  border: none;
+  border-radius: 0;
+  color: #0a0a0a;
 }
 
 /* Donations / Support tab content */
@@ -2167,7 +2170,7 @@ main {
   margin: 0 0 1rem;
   font-family: "Cinzel", Georgia, serif;
   font-size: 1.25rem;
-  color: var(--gold);
+  color: #0a0a0a;
   letter-spacing: 0.06em;
   font-weight: 700;
 }
@@ -2180,7 +2183,7 @@ main {
 }
 
 .support-us-link {
-  color: var(--gold);
+  color: #0a0a0a;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -2189,7 +2192,7 @@ main {
 }
 
 .support-us-link:hover {
-  opacity: 0.8;
+  opacity: 0.7;
   transform: scale(1.1);
 }
 
