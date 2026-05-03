@@ -1467,11 +1467,18 @@ main {
 @media (min-width: 841px) {
   .lineage-member-detail-value {
     word-break: normal;
+    overflow-wrap: normal;
+  }
+
+  /* Let each grid cell grow to fit its longest word so long majors like
+     "Business Entrepreneurship" don't break mid-word. */
+  .lineage-member-no-photo .lineage-member-details {
+    grid-template-columns: repeat(2, minmax(min-content, 1fr));
   }
 
   .lineage-member-no-photo .lineage-member-col-details {
     min-width: 260px;
-    max-width: 420px;
+    max-width: 460px;
   }
 
   .lineage-member-no-photo .lineage-member-col-state {

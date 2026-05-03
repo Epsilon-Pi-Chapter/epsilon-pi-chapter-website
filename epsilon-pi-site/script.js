@@ -1609,7 +1609,9 @@ function buildLineageItem(termKey, details) {
             { label: majorLabel, value: majorValueHtml },
             ...(focus ? [{ label: "Focus", value: focus }] : []),
             ...(minor ? [{ label: "Minor", value: minor }] : []),
-            { label: "Hometown", value: member.hometown || "—" },
+            ...(member.hometown && member.hometown.trim()
+              ? [{ label: "Hometown", value: member.hometown }]
+              : []),
           ]
             .map(
               ({ label, value }) => `
