@@ -1254,9 +1254,17 @@ main {
 .lineage-member-no-photo .lineage-member-details {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-areas:
+    "major   minor"
+    "focus   hometown";
   gap: 0.85rem 1.25rem;
   width: 100%;
 }
+
+.lineage-member-detail-item--major    { grid-area: major; }
+.lineage-member-detail-item--minor    { grid-area: minor; }
+.lineage-member-detail-item--focus    { grid-area: focus; }
+.lineage-member-detail-item--hometown { grid-area: hometown; }
 
 /* Each major in a double-major list renders on its own line, no bullet. */
 .lineage-member-major-line {
@@ -1281,7 +1289,7 @@ main {
   height: 24px;
 }
 .lineage-member-linkedin-wordmark.lineage-member-linkedin-placeholder {
-  opacity: 0.25;
+  opacity: 0.5;
 }
 
 @media (min-width: 841px) {

@@ -1605,17 +1605,20 @@ function buildLineageItem(termKey, details) {
           const majorValueHtml = majors
             .map((m) => `<span class="lineage-member-major-line">${m}</span>`)
             .join("");
+          // Each item gets a fixed grid-area name so that Major, Minor,
+          // Focus, and Hometown always land in the same cell across every
+          // card — Hometown stays in the bottom-right slot even when other
+          // fields are absent. Empty values render as em-dash.
           const detailItems = [
-            { label: majorLabel, value: majorValueHtml },
-            ...(focus ? [{ label: "Focus", value: focus }] : []),
-            ...(minor ? [{ label: "Minor", value: minor }] : []),
-            ...(member.hometown && member.hometown.trim()
-              ? [{ label: "Hometown", value: member.hometown }]
-              : []),
+            { label: majorLabel, value: majorValueHtml, area: "major" },
+            { label: "Focus", value: focus || "", area: "focus", hideIfEmpty: true },
+            { label: "Minor", value: minor || "", area: "minor", hideIfEmpty: true },
+            { label: "Hometown", value: member.hometown || "—", area: "hometown" },
           ]
+            .filter((item) => !(item.hideIfEmpty && !item.value))
             .map(
-              ({ label, value }) => `
-                <div class="lineage-member-detail-item">
+              ({ label, value, area }) => `
+                <div class="lineage-member-detail-item lineage-member-detail-item--${area}">
                   <span class="lineage-member-detail-label">${label}</span>
                   <span class="lineage-member-detail-value">${value}</span>
                 </div>`
