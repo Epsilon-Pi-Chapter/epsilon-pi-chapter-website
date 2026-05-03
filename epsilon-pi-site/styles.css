@@ -66,13 +66,13 @@ main,
   background: var(--panel-alt);
 }
 
-/* NSU tower is absolutely positioned in the header so it floats above the
-   Gallery tab in the nav row below. Gallery is the 7th of 8 tabs, so its
-   horizontal center sits at (6.5 / 8) = 81.25% of the header width. */
+/* NSU tower hovers in the header above the gap between the Gallery (7th)
+   and Support (8th) tabs. Midpoint of those tab centers = (6.5 + 7.5) / 2
+   / 8 = 87.5% of the header width. */
 .school-logo {
   position: absolute;
-  top: 1.4rem;
-  left: 81.25%;
+  top: 2.4rem;
+  left: 87.5%;
   transform: translateX(-50%);
   width: 96px;
   height: auto;
