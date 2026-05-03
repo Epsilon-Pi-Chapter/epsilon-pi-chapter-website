@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 
 const BASE = import.meta.env.BASE_URL;
 const CHAPTER_LOGO = `${BASE}assets/chapter-logo.png`;
+const NSU_LOGO = `${BASE}assets/nsu-logo-gold.png`;
 
 export const SITE_TABS = [
   'Home',
@@ -111,6 +112,17 @@ export function SiteShell({
                 324th Seat | Norfolk State University
               </p>
             </div>
+            <img
+              src={NSU_LOGO}
+              alt=""
+              style={{
+                width: 30,
+                height: 30,
+                objectFit: 'contain',
+                flexShrink: 0,
+                opacity: 0.95,
+              }}
+            />
           </div>
 
           {/* Nav grid — matches mobile 4-col wrap */}

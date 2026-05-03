@@ -1,25 +1,10 @@
 import { PhoneFrame } from '../parts/PhoneFrame';
 import { SiteShell } from '../parts/SiteShell';
 import { Cursor } from '../parts/Cursor';
+import { spring2026Line as MEMBERS, lineageTerms as TERMS } from '../../../data/chapter-data';
 
 const BASE = import.meta.env.BASE_URL;
-
-const TERMS = ['Spring 2026', 'Spring 2024', 'Spring 2023', 'Spring 2022', 'Fall 2021', 'Spring 2021'];
 const ACTIVE_TERM = 'Spring 2026';
-
-const MEMBERS = [
-  { num: '1', pos: 'Ace', name: 'Adarius Johnson', line: 'K1ll Switch', photo: 'adarius-johnson.png', major: 'Exercise Science w/ focus in Kinesiotherapy' },
-  { num: '2', pos: 'Deuce', name: 'Justin Claiborne', line: 'Flu Game', photo: 'justin-claiborne.png', major: 'Computer Science w/ focus in Cybersecurity' },
-  { num: '3', pos: 'Tre', name: 'Brandon Richardson', line: 'Tariq St. Patrick', photo: 'brandon-richardson.png', major: 'Business Management · Minor: Psychology' },
-  { num: '4', pos: 'H4rdcore', name: 'Dylan Bryant', line: 'Spike Lee', photo: 'dylan-bryant.png', major: 'Graphic Design w/ focus in Fine Arts' },
-  { num: '5', pos: 'Live 5ive', name: 'Ian Thomas', line: 'Ares', photo: 'ian-thomas.png', major: 'Interdisciplinary Studies (CJ & Marketing)' },
-  { num: '6', pos: 'Slick 6ix', name: 'Simeon Butler', line: 'Pain Killer', photo: 'simeon-butler.png', major: 'Mass Communications · Minor: Business' },
-  { num: '7', pos: 'Jewel', name: 'Kyree Williams', line: 'Eagle Eye', photo: 'kyree-williams.png', major: 'Psychology · Minor: Business' },
-  { num: '8', pos: '8Ball', name: 'Jaleel Drummond', line: 'Creed', photo: 'jaleel-drummond.png', major: 'Social Work' },
-  { num: '9', pos: 'Notorious 9ine', name: 'Nyles Ferguson', line: 'Mister Terrific', photo: 'nyles-ferguson.png', major: 'Political Science' },
-  { num: '10', pos: 'Dime', name: 'Brett Andrews, Jr.', line: 'Man of Steel', photo: 'brett-andrews-jr.png', major: 'Computer Engineering Technology' },
-  { num: '11', pos: 'Fly E11even — Tail', name: 'Joseph Hargett', line: 'Hail Mary', photo: 'joseph-hargett.png', major: 'Business Marketing' },
-];
 
 export function Scene2() {
   return (

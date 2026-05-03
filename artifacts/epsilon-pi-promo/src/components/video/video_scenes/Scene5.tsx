@@ -2,13 +2,9 @@ import { motion } from 'framer-motion';
 import { PhoneFrame } from '../parts/PhoneFrame';
 import { SiteShell } from '../parts/SiteShell';
 import { Cursor } from '../parts/Cursor';
+import { achievements as ACHIEVEMENTS, charterMembers } from '../../../data/chapter-data';
 
-const ACHIEVEMENTS: { year: string; awards: string[] }[] = [
-  { year: '2026', awards: ['Charles H. Wesley Award', 'Eastern Region Brother of the Year — Bro. Jaden Johnson'] },
-  { year: '2024/2025', awards: ['VACAPAF Brother Of The Year', 'Eastern Region Brother Of The Year', 'National Step Show Champions'] },
-  { year: '2022/2023', awards: ['VACAPAF & Eastern Region College Chapter Of The Year', 'VACAPAF & Eastern Region Charles H. Wesley Award'] },
-  { year: '2021/2022', awards: ['VACAPAF Unconditional Service Award', 'VACAPAF Scholars Bowl Winner'] },
-];
+const CHARTER_MEMBERS_LINE = charterMembers.join(', ');
 
 export function Scene5() {
   return (
@@ -82,7 +78,7 @@ export function Scene5() {
                 15 Visionaries
               </p>
               <p style={{ margin: 0, fontSize: 7, color: '#f0d58f', lineHeight: 1.4 }}>
-                Andrew Blackburn, Vincent Blue, Willie Booth, William Brothers, Nathaniel Bynum, Berkley Chandler, Eugene Davis, Melvin C. Fallis Jr., James F. Gay, William Gray, Zane Gray, Ralph Hill, James Howard, Claywood Jones, Winston Nottingham
+                {CHARTER_MEMBERS_LINE}
               </p>
             </article>
 

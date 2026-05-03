@@ -2,24 +2,9 @@ import { motion } from 'framer-motion';
 import { PhoneFrame } from '../parts/PhoneFrame';
 import { SiteShell } from '../parts/SiteShell';
 import { Cursor } from '../parts/Cursor';
+import { officers as OFFICERS } from '../../../data/chapter-data';
 
 const BASE = import.meta.env.BASE_URL;
-
-const OFFICERS = [
-  { role: 'Chapter President', name: 'Jahkari N. Taylor', photo: '' },
-  { role: '1st Vice President', name: 'Nyles Ferguson', photo: 'nyles-ferguson.png' },
-  { role: '2nd Vice President', name: 'Khamani Battiste', photo: 'khamani-battiste.png' },
-  { role: 'Recording Secretary', name: 'Allan J. White', photo: '' },
-  { role: 'Corresponding Secretary', name: 'Ian Thomas', photo: 'ian-thomas.png' },
-  { role: 'Treasurer', name: 'Joseph Hargett', photo: 'joseph-hargett.png' },
-  { role: 'Chapter Dean of Membership', name: 'Jahkael Parker', photo: '' },
-  { role: 'Sergeant-At-Arms', name: 'Adarius Johnson', photo: 'adarius-johnson.png' },
-  { role: 'Editor of the Sphinx', name: 'Simeon Butler', photo: 'simeon-butler.png' },
-  { role: 'Historian', name: 'Brett Andrews, Jr.', photo: 'brett-andrews-jr.png' },
-  { role: 'Parliamentarian', name: 'Jaleel Drummond', photo: 'jaleel-drummond.png' },
-  { role: 'Chaplain', name: 'Jaylen L. Johnson', photo: 'jaylen-johnson.png' },
-  { role: 'Chapter Advisor', name: 'Dr. Leon Rousen', photo: 'leon-rousen.png' },
-];
 
 export function Scene4() {
   return (
