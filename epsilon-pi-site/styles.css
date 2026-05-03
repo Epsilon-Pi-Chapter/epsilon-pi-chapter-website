@@ -1233,6 +1233,14 @@ main {
   width: 100%;
 }
 
+/* Each major in a double-major list renders on its own line, no bullet. */
+.lineage-member-major-line {
+  display: block;
+}
+.lineage-member-major-line + .lineage-member-major-line {
+  margin-top: 0.15rem;
+}
+
 .lineage-member-no-photo .lineage-member-linkedin svg {
   width: 14px;
   height: 14px;

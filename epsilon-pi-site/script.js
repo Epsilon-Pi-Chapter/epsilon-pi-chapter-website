@@ -179,10 +179,17 @@ function parseHometown(hometown) {
 }
 
 function getMajorMinorDisplay(member) {
-  let major = member.major || "—";
+  // `major` may be a string ("Chemistry"), a string with a focus phrase
+  // ("Chemistry with a focus in Pre-Med"), or an array for double majors
+  // (["Computer Engineering Technology", "Electronics Engineering Technology"]).
+  // Returns `majors` as an array (1+ entries), plus optional `focus` and `minor`.
+  let majors = ["—"];
   let focus = "";
   const minor = member.minor || "";
-  if (member.major) {
+  if (Array.isArray(member.major)) {
+    majors = member.major.filter(Boolean);
+    if (!majors.length) majors = ["—"];
+  } else if (member.major) {
     const lower = member.major.toLowerCase();
     let idx = -1;
     let token = "";
@@ -194,11 +201,13 @@ function getMajorMinorDisplay(member) {
       idx = lower.indexOf(token);
     }
     if (idx !== -1) {
-      major = member.major.substring(0, idx).trim();
+      majors = [member.major.substring(0, idx).trim()];
       focus = member.major.substring(idx + token.length).trim();
+    } else {
+      majors = [member.major];
     }
   }
-  return { major, focus, minor };
+  return { majors, focus, minor };
 }
 
 const LINKEDIN_LOGO_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#c99a2e"/><path fill="#0a0a0a" d="M6.94 8.5a1.69 1.69 0 1 1 0-3.38 1.69 1.69 0 0 1 0 3.38ZM5.5 9.75h2.88V19H5.5V9.75Zm5.13 0h2.76v1.26h.04c.38-.72 1.32-1.48 2.72-1.48 2.91 0 3.45 1.92 3.45 4.41V19h-2.88v-4.4c0-1.05-.02-2.4-1.46-2.4-1.46 0-1.69 1.14-1.69 2.32V19h-2.88V9.75Z"/></svg>';
@@ -588,7 +597,7 @@ const lineageData = {
       { position: "7/Jewel", fullName: "Kyree Williams", lineName: "Eagle Eye", photo: "assets/portraits/kyree-williams.png", major: "Psychology", minor: "Business", hometown: "Philadelphia, PA", linkedIn: "https://www.linkedin.com/in/kyree-williams-390870383/" },
       { position: "8/8Ball", fullName: "Jaleel Drummond", lineName: "Creed", photo: "assets/portraits/jaleel-drummond.png", major: "Social Work", minor: "", hometown: "Philadelphia, PA", linkedIn: "" },
       { position: "9/Notorious 9ine", fullName: "Nyles Ferguson", lineName: "Mister Terrific", photo: "assets/portraits/nyles-ferguson.png", major: "Political Science", minor: "", hometown: "Chesapeake, VA", linkedIn: "https://www.linkedin.com/in/nyles-ferguson-45b254321/" },
-      { position: "10/Dime", fullName: "Brett Andrews, Jr.", lineName: "Man of Steel", photo: "assets/portraits/brett-andrews-jr.png", major: "Double Major in Computer Engineering Technology and Electronics Engineering Technology", minor: "", hometown: "Atlanta, GA", linkedIn: "https://www.linkedin.com/in/brett-andrews-norfolk-state" },
+      { position: "10/Dime", fullName: "Brett Andrews, Jr.", lineName: "Man of Steel", photo: "assets/portraits/brett-andrews-jr.png", major: ["Computer Engineering Technology", "Electronics Engineering Technology"], minor: "", hometown: "Atlanta, GA", linkedIn: "https://www.linkedin.com/in/brett-andrews-norfolk-state" },
       { position: "11/Fly E11even - Tail", fullName: "Joseph Hargett", lineName: "Hail Mary", photo: "assets/portraits/joseph-hargett.png", major: "Business Marketing", minor: "", hometown: "Williamston, NC", linkedIn: "https://www.linkedin.com/in/joseph-hargett/" },
     ],
   },
@@ -619,7 +628,7 @@ const lineageData = {
       { position: "2/Deuce", fullName: "Ari Weems", lineName: "Arkimedes", photo: "", major: "Optical Engineering", minor: "Electrical Engineering", hometown: "Baltimore, MD", linkedIn: "https://www.linkedin.com/in/ari-weems-40b387208/" },
       { position: "3/Tre", fullName: "Anthony Renyolds", lineName: "The Diplomat", photo: "", major: "Business Marketing", minor: "", hometown: "Baltimore, MD", linkedIn: "https://www.linkedin.com/in/anthony-reynolds-13287a1b0/" },
       { position: "4/H4rdcore", fullName: "Jeremiah O'Bryant", lineName: "Ice-o-lated", photo: "", major: "Political Science", minor: "", hometown: "", linkedIn: "https://www.linkedin.com/in/jeremiahobryant/" },
-      { position: "5/Live 5ive", fullName: "Dominic Jordan", lineName: "Phree Smoke", photo: "", major: "Double Major in Business Management and Accounting", minor: "", hometown: "Chesapeake, VA", linkedIn: "https://www.linkedin.com/in/dominic-jordan-12b905173/" },
+      { position: "5/Live 5ive", fullName: "Dominic Jordan", lineName: "Phree Smoke", photo: "", major: ["Business Management", "Accounting"], minor: "", hometown: "Chesapeake, VA", linkedIn: "https://www.linkedin.com/in/dominic-jordan-12b905173/" },
     ],
   },
   "Spring 2018": {
@@ -632,7 +641,7 @@ const lineageData = {
       { position: "2/Deuce", fullName: "Tormè DeVauxbray, Jr.", lineName: "Hidden Warrior", photo: "", major: "Business Administration and Management", minor: "", hometown: "", linkedIn: "https://www.linkedin.com/in/torme-deveauxbray-jr-8b157b165/" },
       { position: "3/Tre", fullName: "Johnthan Beckett, Jr.", lineName: "John Got it", photo: "", major: "Business Management", minor: "", hometown: "Fort Washington, MD", linkedIn: "https://www.linkedin.com/in/jtbeckettjr/" },
       { position: "4/H4rdcore", fullName: "Malik McCoy", lineName: "Eye of the Storm", photo: "", major: "Exercise Science with a focus in Kinesiotherapy", minor: "", hometown: "Portsmouth, VA", linkedIn: "https://www.linkedin.com/in/malik-mccoy-63853bb9/" },
-      { position: "5/Live 5ive", fullName: "Myron Simon, Jr.", lineName: "Born Sinna", photo: "", major: "Double Major in Electrical and Electronics Engineering and Drama and Theater", minor: "Mathematics", hometown: "Portsmouth, VA", linkedIn: "https://www.linkedin.com/in/myron-simon-jr-b693b1152/" },
+      { position: "5/Live 5ive", fullName: "Myron Simon, Jr.", lineName: "Born Sinna", photo: "", major: ["Electrical and Electronics Engineering", "Drama and Theater"], minor: "Mathematics", hometown: "Portsmouth, VA", linkedIn: "https://www.linkedin.com/in/myron-simon-jr-b693b1152/" },
       { position: "6/Slick 6ix", fullName: "Marcus Cooper", lineName: "Views from the 6th", photo: "", major: "Accounting", minor: "", hometown: "Richmond, VA", linkedIn: "https://www.linkedin.com/in/marcus-cooper-a88955211/" },
       { position: "7/Jewel", fullName: "Kyle Archie", lineName: "Savage Warfare", photo: "", major: "", minor: "", hometown: "Baltimore, MD", linkedIn: "" },
     ],
@@ -1574,12 +1583,18 @@ function buildLineageItem(termKey, details) {
                  ${editPosBtn}
                </div>`
             : "";
-          const { major, focus, minor } = getMajorMinorDisplay(member);
+          const { majors, focus, minor } = getMajorMinorDisplay(member);
           const linkedInHtml = member.linkedIn
             ? `<a href="${member.linkedIn}" class="lineage-member-linkedin" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">${LINKEDIN_LOGO_SVG}</a>`
             : `<span class="lineage-member-linkedin lineage-member-linkedin-placeholder" aria-hidden="true">${LINKEDIN_LOGO_SVG}</span>`;
+          // Stack each major on its own line under a "Majors" plural label
+          // when there are multiple — no bullet markers, just line breaks.
+          const majorLabel = majors.length > 1 ? "Majors" : "Major";
+          const majorValueHtml = majors
+            .map((m) => `<span class="lineage-member-major-line">${m}</span>`)
+            .join("");
           const detailItems = [
-            { label: "Major", value: major },
+            { label: majorLabel, value: majorValueHtml },
             ...(focus ? [{ label: "Focus", value: focus }] : []),
             ...(minor ? [{ label: "Minor", value: minor }] : []),
             { label: "Hometown", value: member.hometown || "—" },
