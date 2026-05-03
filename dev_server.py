@@ -11,7 +11,8 @@ from urllib.parse import unquote, urlparse
 
 
 ROOT = Path(__file__).resolve().parent
-PORT = 8000
+PORT = int(os.environ.get("PORT", "8000"))
+HOST = os.environ.get("HOST", "127.0.0.1")
 POLL_SECONDS = 1.0
 WATCH_EXTENSIONS = {
     ".html",
@@ -107,13 +108,23 @@ class DevServerHandler(SimpleHTTPRequestHandler):
                     requested = index_file
                     break
 
+        # SPA fallback: if the path doesn't resolve to a real file and isn't
+        # an asset (no file extension), serve index.html so client-side routing
+        # in script.js can handle it (matches vercel.json rewrite in production).
+        if not requested.exists() and not requested.suffix:
+            index_fallback = ROOT / "index.html"
+            if index_fallback.exists():
+                requested = index_fallback
+
+        # Auto-reload via RELOAD_SNIPPET injection is intentionally disabled:
+        # it polled every second and force-reloaded the page on any file mtime
+        # change, which made the live preview unusable for inspection while
+        # the user or merged tasks were touching files. Manual refresh is the
+        # workflow now. Kept the /__codex_reload__ endpoint for backward
+        # compatibility (returns 200, no client polls it).
         if requested.is_file() and requested.suffix.lower() in {".html", ".htm"}:
             raw = requested.read_text(encoding="utf-8")
-            if "</body>" in raw:
-                content = raw.replace("</body>", f"{RELOAD_SNIPPET}\n</body>", 1)
-            else:
-                content = f"{raw}\n{RELOAD_SNIPPET}"
-            encoded = content.encode("utf-8")
+            encoded = raw.encode("utf-8")
 
             self.send_response(HTTPStatus.OK)
             self.send_header("Content-Type", "text/html; charset=utf-8")
@@ -140,8 +151,8 @@ class DevServerHandler(SimpleHTTPRequestHandler):
 
 def main() -> None:
     os.chdir(ROOT)
-    server = ThreadingHTTPServer(("127.0.0.1", PORT), DevServerHandler)
-    print(f"Codex dev server running at http://127.0.0.1:{PORT}")
+    server = ThreadingHTTPServer((HOST, PORT), DevServerHandler)
+    print(f"Codex dev server running at http://{HOST}:{PORT}")
     try:
         server.serve_forever()
     except KeyboardInterrupt:

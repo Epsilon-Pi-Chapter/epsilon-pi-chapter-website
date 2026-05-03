@@ -39,18 +39,15 @@
         <div class="brand-copy">
           <p class="eyebrow">Alpha Phi Alpha Fraternity, Inc.</p>
           <h1>
-            <span class="brand-title-line">Epsilon Pi</span>
-            <span class="brand-title-line brand-title-line-chapter">
-              <span>Chapter</span>
-              <img
-                class="school-logo"
-                src="assets/nsu-logo-gold.png"
-                alt="Norfolk State University logo"
-              />
-            </span>
+            <span class="brand-title-line">Epsilon Pi Chapter</span>
           </h1>
           <p class="chapter-subtitle">324th Seat | Norfolk State University</p>
         </div>
+        <img
+          class="school-logo"
+          src="assets/nsu-logo-gold.png"
+          alt="Norfolk State University logo"
+        />
       </div>
       <nav class="main-nav" role="tablist" aria-label="Primary">
         <a href="#home" role="tab" data-tab="home" aria-selected="true">Home</a>
@@ -65,39 +62,74 @@
     </header>
 
     <main>
-      <section id="home" class="panel hero-panel" data-tab-panel="home" aria-hidden="false">
-        <div>
-          <h2>Welcome Message</h2>
-          <p>
-            Welcome to the official Epsilon Pi Chapter website. This space is designed to
-            share our chapter's mission, leadership, impact, and legacy.
-          </p>
-          <div class="chip-row">
-            <span class="chip">Chapter Overview</span>
-            <span class="chip">Mission & Values</span>
-            <span class="chip">Announcements</span>
-            <span class="chip">Upcoming Events</span>
+      <section id="home" class="panel" data-tab-panel="home" aria-hidden="false">
+        <div class="hero-panel">
+          <div>
+            <h2>Welcome Message</h2>
+            <p>
+              Welcome to the official Epsilon Pi Chapter website. This space is designed to
+              share our chapter's mission, leadership, impact, and legacy.
+            </p>
+            <div class="chip-row">
+              <span class="chip">Chapter Overview</span>
+              <span class="chip">Mission & Values</span>
+              <span class="chip">Announcements</span>
+              <span class="chip">Upcoming Events</span>
+            </div>
+          </div>
+          <div class="hero-photo" role="img" aria-label="Spring 2026 line photo">
+            <img src="assets/line-photos/spring-2026-1.png" alt="Spring 2026 line of Epsilon Pi" loading="lazy" />
           </div>
         </div>
-        <div class="photo-placeholder" role="img" aria-label="Featured chapter photo placeholder">
-          Featured Chapter Image
-        </div>
+        <article class="card events-calendar-card">
+          <div class="events-calendar-header">
+            <div>
+              <h3>Chapter Calendar</h3>
+              <p class="events-calendar-intro">
+                <span class="events-calendar-legend-item events-calendar-legend-today"><span class="events-calendar-legend-swatch" aria-hidden="true"></span>Today</span>
+                <span class="events-calendar-legend-item events-calendar-legend-service"><span class="events-calendar-legend-swatch" aria-hidden="true"></span>Service</span>
+                <span class="events-calendar-legend-item events-calendar-legend-event"><span class="events-calendar-legend-swatch" aria-hidden="true"></span>Event</span>
+                <span class="events-calendar-legend-item events-calendar-legend-ict"><span class="events-calendar-legend-swatch" aria-hidden="true"></span>ICT</span>
+              </p>
+            </div>
+            <div class="events-calendar-controls" aria-label="Calendar month navigation">
+              <button type="button" class="events-calendar-nav" data-cal-nav="prev" aria-label="Previous month">‹</button>
+              <p class="events-calendar-month" aria-live="polite"></p>
+              <button type="button" class="events-calendar-nav" data-cal-nav="next" aria-label="Next month">›</button>
+            </div>
+          </div>
+          <div class="events-calendar-shell">
+            <div class="events-calendar-weekdays" aria-hidden="true">
+              <span>Sun</span>
+              <span>Mon</span>
+              <span>Tue</span>
+              <span>Wed</span>
+              <span>Thu</span>
+              <span>Fri</span>
+              <span>Sat</span>
+            </div>
+            <div class="events-calendar-grid" role="grid" aria-label="Monthly event calendar"></div>
+          </div>
+          <div class="events-calendar-detail" aria-live="polite"></div>
+        </article>
       </section>
 
       <section id="history" class="panel" data-tab-panel="history" aria-hidden="true">
         <h2>Chapter History</h2>
-        <div class="grid two-col">
-          <article class="card">
-            <h3>Epsilon Pi Founding Date</h3>
-            <p>Friday, October 12, 1962</p>
-            <p><strong>House:</strong> 324</p>
-            <p><strong>Region:</strong> Eastern</p>
-            <p><strong>District:</strong> 7</p>
-            <p><strong>Area:</strong> 8</p>
+        <div class="grid two-col history-grid">
+          <article class="history-card">
+            <h3 class="history-card-title">Epsilon Pi</h3>
+            <p class="history-card-lead">Founding Date: Friday, October 12, 1962</p>
+            <ul class="history-meta-list">
+              <li><span class="history-meta-label">House</span><span class="history-meta-value">324</span></li>
+              <li><span class="history-meta-label">Region</span><span class="history-meta-value">Eastern</span></li>
+              <li><span class="history-meta-label">District</span><span class="history-meta-value">7</span></li>
+              <li><span class="history-meta-label">Area</span><span class="history-meta-value">8</span></li>
+            </ul>
           </article>
-          <article class="card">
-            <h3>Charter Members</h3>
-            <p>15 Visionaries</p>
+          <article class="history-card">
+            <h3 class="history-card-title">Charter Members</h3>
+            <p class="history-card-lead history-card-lead--featured">15 Visionaries</p>
             <ul class="charter-list">
               <li>Andrew Blackburn</li>
               <li>Vincent Blue</li>
@@ -106,8 +138,8 @@
               <li>Nathaniel Bynum</li>
               <li>Berkley Chandler</li>
               <li>Eugene Davis</li>
-              <li>Melvin C Fallis Jr</li>
-              <li>James F Gay</li>
+              <li>Melvin C. Fallis, Jr.</li>
+              <li>James F. Gay</li>
               <li>William Gray</li>
               <li>Zane Gray</li>
               <li>Ralph Hill</li>
@@ -117,58 +149,91 @@
             </ul>
           </article>
         </div>
+        <section class="achievements-section" aria-labelledby="achievements-title">
+          <h3 id="achievements-title" class="achievements-title">Awards and Achievements</h3>
+          <div id="achievements-timeline" class="achievements-timeline" aria-live="polite"></div>
+        </section>
       </section>
 
       <section id="leadership" class="panel" data-tab-panel="leadership" aria-hidden="true">
         <h2>Chapter Leadership</h2>
-        <p class="leadership-year">2025-2026 Chapter Officers</p>
+        <p class="leadership-year">2026-2027 Chapter Officers</p>
         <div id="officer-list" class="officer-cards" aria-live="polite"></div>
       </section>
 
       <section id="programs" class="panel" data-tab-panel="programs" aria-hidden="true">
-        <h2>Programs & Initiatives</h2>
-        <ul>
-          <li>Community service</li>
-          <li>Educational programs</li>
-          <li>Mentorship initiatives</li>
-          <li>Civic engagement efforts</li>
-        </ul>
+        <h2>Programs &amp; Initiatives</h2>
+        <p class="programs-intro">The Epsilon Pi Chapter advances the Fraternity's national programs through year-round service, scholarship, and uplift across the Hampton Roads community.</p>
+        <div class="grid two-col programs-grid">
+          <article class="card program-card">
+            <h3>Go-To-High School, Go-To-College</h3>
+            <p>Brothers visit area high schools to mentor young men, share the college application process, and demonstrate that higher education is attainable for every student who pursues it.</p>
+          </article>
+          <article class="card program-card">
+            <h3>A Voteless People is a Hopeless People</h3>
+            <p>Voter registration drives, civic education events, and "Souls to the Polls" rideshares keep our campus and neighbors politically engaged at every level of government.</p>
+          </article>
+          <article class="card program-card">
+            <h3>Project Alpha</h3>
+            <p>Workshops with young men on responsibility, healthy relationships, and reproductive education — partnered with local schools and the March of Dimes.</p>
+          </article>
+          <article class="card program-card">
+            <h3>Brother's Keeper &amp; Service Hours</h3>
+            <p>Soup kitchens, campus clean-ups, mentorship circles, and chapter-wide service projects that consistently exceed national hour requirements each semester.</p>
+          </article>
+        </div>
       </section>
 
       <section id="events" class="panel" data-tab-panel="events" aria-hidden="true">
         <h2>Events</h2>
-        <div class="grid two-col">
-          <article class="card events-calendar-card">
-            <div class="events-calendar-header">
-              <div>
-                <h3>Upcoming Events Calendar</h3>
-                <p class="events-calendar-intro">Tap a date to view chapter event details.</p>
-              </div>
-              <div class="events-calendar-controls" aria-label="Calendar month navigation">
-                <button type="button" class="events-calendar-nav" id="events-calendar-prev" aria-label="Previous month">‹</button>
-                <p class="events-calendar-month" id="events-calendar-month" aria-live="polite"></p>
-                <button type="button" class="events-calendar-nav" id="events-calendar-next" aria-label="Next month">›</button>
-              </div>
+        <article class="card events-calendar-card">
+          <div class="events-calendar-header">
+            <div>
+              <h3>Chapter Calendar</h3>
+              <p class="events-calendar-intro">
+                <span class="events-calendar-legend-item events-calendar-legend-today"><span class="events-calendar-legend-swatch" aria-hidden="true"></span>Today</span>
+                <span class="events-calendar-legend-item events-calendar-legend-service"><span class="events-calendar-legend-swatch" aria-hidden="true"></span>Service</span>
+                <span class="events-calendar-legend-item events-calendar-legend-event"><span class="events-calendar-legend-swatch" aria-hidden="true"></span>Event</span>
+                <span class="events-calendar-legend-item events-calendar-legend-ict"><span class="events-calendar-legend-swatch" aria-hidden="true"></span>ICT</span>
+              </p>
             </div>
-            <div class="events-calendar-shell">
-              <div class="events-calendar-weekdays" aria-hidden="true">
-                <span>Sun</span>
-                <span>Mon</span>
-                <span>Tue</span>
-                <span>Wed</span>
-                <span>Thu</span>
-                <span>Fri</span>
-                <span>Sat</span>
-              </div>
-              <div class="events-calendar-grid" id="events-calendar-grid" role="grid" aria-label="Monthly event calendar"></div>
+            <div class="events-calendar-controls" aria-label="Calendar month navigation">
+              <button type="button" class="events-calendar-nav" data-cal-nav="prev" aria-label="Previous month">‹</button>
+              <p class="events-calendar-month" aria-live="polite"></p>
+              <button type="button" class="events-calendar-nav" data-cal-nav="next" aria-label="Next month">›</button>
             </div>
-            <div class="events-calendar-detail" id="events-calendar-detail" aria-live="polite"></div>
-          </article>
-          <article class="card">
-            <h3>Past Event Highlights</h3>
-            <p>Add photos, recaps, and chapter impact outcomes.</p>
-          </article>
-        </div>
+          </div>
+          <div class="events-calendar-shell">
+            <div class="events-calendar-weekdays" aria-hidden="true">
+              <span>Sun</span>
+              <span>Mon</span>
+              <span>Tue</span>
+              <span>Wed</span>
+              <span>Thu</span>
+              <span>Fri</span>
+              <span>Sat</span>
+            </div>
+            <div class="events-calendar-grid" role="grid" aria-label="Monthly event calendar"></div>
+          </div>
+          <div class="events-calendar-detail" aria-live="polite"></div>
+        </article>
+        <article class="card">
+          <h3>Past Event Highlights</h3>
+          <div class="past-highlights-grid">
+            <div class="past-highlight">
+              <h4>National Step Show Champions — 2024/2025</h4>
+              <p>Epsilon Pi captured the National crown in front of a sold-out arena, capping a season that also won VACAPAF and Eastern Region honors.</p>
+            </div>
+            <div class="past-highlight">
+              <h4>Charles H. Wesley Award — 2026</h4>
+              <p>Recognized nationally for excellence in chapter operations, member development, and impact on the Norfolk State community.</p>
+            </div>
+            <div class="past-highlight">
+              <h4>Spring 2026 Probate</h4>
+              <p>The 11 Virtues of P.E.A.C.E. crossed the burning sands and were welcomed home in front of the chapter, alumni, and the yard.</p>
+            </div>
+          </div>
+        </article>
       </section>
 
       <section id="lineage" class="panel" data-tab-panel="lineage" aria-hidden="true">
@@ -183,16 +248,65 @@
 
       <section id="support" class="panel" data-tab-panel="support" aria-hidden="true">
         <h2>Donations / Support</h2>
-        <ul>
-          <li>Donation link</li>
-          <li>Scholarship support</li>
-          <li>Program funding</li>
-        </ul>
+        <p class="support-intro">Your gift powers our scholarship efforts, community service, and chapter programming. Every contribution moves the 324th Seat forward.</p>
+
+        <div class="grid two-col support-grid">
+          <article class="card support-card">
+            <h3>Give via Cash App</h3>
+            <p>Tap the button below to open Cash App and send your gift directly to the chapter. On a phone, this opens the Cash App and pre-loads our chapter as the recipient.</p>
+            <a class="support-cta support-cta-primary" href="https://cash.app/$EPiAlphas06" target="_blank" rel="noopener noreferrer" aria-label="Donate via Cash App to $EPiAlphas06">
+              <svg class="support-cta-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19.46 4.54A6.5 6.5 0 0 0 14.92 2H9.08A6.5 6.5 0 0 0 2.54 8.54v6.92A6.5 6.5 0 0 0 9.08 22h5.84a6.5 6.5 0 0 0 6.54-6.54V8.54a6.5 6.5 0 0 0-2.0-4.0Zm-3.32 6.48-.4.4a.5.5 0 0 1-.66.04 5.06 5.06 0 0 0-3.07-1.13c-.92 0-1.84.36-1.84 1.16 0 .79.91 1.07 1.97 1.46 1.86.62 3.43 1.4 3.43 3.27 0 2.04-1.59 3.43-4.18 3.59l-.24 1.13a.5.5 0 0 1-.49.4H9.06l-.1-.01a.5.5 0 0 1-.39-.59l.27-1.21a6.4 6.4 0 0 1-2.71-1.5.5.5 0 0 1 0-.71l.43-.42a.5.5 0 0 1 .68-.02c.85.78 1.99 1.22 3.18 1.22 1.23 0 2.06-.52 2.06-1.34 0-.81-.84-1.04-2.4-1.6-1.55-.55-3.04-1.32-3.04-3.18 0-2.2 1.83-3.31 4.06-3.39l.24-1.16a.5.5 0 0 1 .49-.4h1.61c.07 0 .13.01.18.03.27.07.42.34.36.6l-.27 1.27c.86.32 1.66.79 2.35 1.41a.5.5 0 0 1 .03.7Z"/></svg>
+              <span>Donate via Cash App</span>
+              <span class="support-cta-handle">$EPiAlphas06</span>
+            </a>
+            <p class="support-fineprint">If your phone doesn't have Cash App installed, the link will open the Cash App web pay page in your browser.</p>
+          </article>
+
+          <article class="card support-card">
+            <h3>Reach the Chapter</h3>
+            <p>For partnerships, sponsorship inquiries, or general questions, get in touch with us directly.</p>
+            <a class="support-cta support-cta-secondary" href="mailto:epialphas06@gmail.com?subject=Epsilon%20Pi%20Chapter%20Inquiry" aria-label="Email epialphas06@gmail.com">
+              <svg class="support-cta-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H3Zm.4 2.83 8.07 5.76a1 1 0 0 0 1.16 0L20.7 7.83 21 8v9a0 0 0 0 1 0 0H3V8l.4-.17ZM3 7l9 6.4L21 7H3Z"/></svg>
+              <span>Email Us</span>
+              <span class="support-cta-handle">epialphas06@gmail.com</span>
+            </a>
+            <button type="button" class="support-copy" id="support-copy-email" data-copy="epialphas06@gmail.com" aria-label="Copy chapter email to clipboard">
+              <svg class="support-copy-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1Zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Zm0 16H8V7h11v14Z"/></svg>
+              <span class="support-copy-label">Copy email</span>
+            </button>
+          </article>
+        </div>
       </section>
 
       <section id="gallery" class="panel" data-tab-panel="gallery" aria-hidden="true">
-        <h2>Photo & Media Gallery</h2>
-        <p>Add chapter photos, event media, and historical archives.</p>
+        <h2>Photo &amp; Media Gallery</h2>
+        <p class="gallery-intro">A glimpse into the Spring 2026 line and the brothers leading the 324th Seat today.</p>
+        <div class="gallery-grid">
+          <figure class="gallery-tile gallery-tile--wide">
+            <img src="assets/line-photos/spring-2026-1.png" alt="Spring 2026 line photo 1" loading="lazy" />
+          </figure>
+          <figure class="gallery-tile gallery-tile--wide">
+            <img src="assets/line-photos/spring-2026-2.png" alt="Spring 2026 line photo 2" loading="lazy" />
+          </figure>
+          <figure class="gallery-tile">
+            <img src="assets/line-photos/spring-2026-3.png" alt="Spring 2026 line photo 3" loading="lazy" />
+          </figure>
+          <figure class="gallery-tile">
+            <img src="assets/line-photos/spring-2026-4.png" alt="Spring 2026 line photo 4" loading="lazy" />
+          </figure>
+          <figure class="gallery-tile">
+            <img src="assets/portraits/adarius-johnson.png" alt="Bro. Adarius Johnson" loading="lazy" />
+          </figure>
+          <figure class="gallery-tile">
+            <img src="assets/portraits/ian-thomas.png" alt="Bro. Ian Thomas" loading="lazy" />
+          </figure>
+          <figure class="gallery-tile">
+            <img src="assets/portraits/joseph-hargett.png" alt="Bro. Joseph Hargett" loading="lazy" />
+          </figure>
+          <figure class="gallery-tile">
+            <img src="assets/portraits/brett-andrews-jr.png" alt="Bro. Brett Andrews, Jr." loading="lazy" />
+          </figure>
+        </div>
       </section>
     </main>
 
@@ -208,6 +322,9 @@
         </a>
         <a href="https://www.youtube.com/@notoriousepsilonpi3340" target="_blank" rel="noopener noreferrer" class="support-us-link" aria-label="Subscribe to us on YouTube">
           <svg class="support-us-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@epialphas" target="_blank" rel="noopener noreferrer" class="support-us-link" aria-label="Follow us on TikTok">
+          <svg class="support-us-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
         </a>
       </div>
     </section>
