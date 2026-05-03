@@ -510,7 +510,7 @@ const lineageData = {
     ],
   },
   "Spring 2023": {
-    lineName: "New World Order aka Always Follow Suit",
+    lineName: "New World Order aka Life’s A Gamble aka Always Follow Suit aka Double Trouble aka Dawn Of The 13 Prophets",
     chapterDean: "Jared Jackson",
     chapterPharaoh: "Leon Mosley, Jr.",
     noHeadshots: true,
