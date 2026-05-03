@@ -1190,6 +1190,16 @@ main {
   cursor: default;
 }
 
+/* Member rows are no longer tap-to-open — flatten the cursor across the
+   board so nothing in the lineage list looks clickable. */
+.lineage-member {
+  cursor: default;
+}
+
+.lineage-member:hover {
+  background: var(--panel);
+}
+
 .lineage-member-no-photo .lineage-member-col-identity {
   grid-column: 1;
 }
@@ -1224,8 +1234,9 @@ main {
 }
 
 .lineage-member-no-photo .lineage-member-linkedin svg {
-  width: auto;
-  height: 18px;
+  width: 14px;
+  height: 14px;
+  display: block;
 }
 
 .lineage-member-no-photo .lineage-member-edit-pos {
@@ -2313,7 +2324,7 @@ main {
     gap: 0.7rem;
     align-items: start;
     padding: 0.9rem 1rem;
-    cursor: pointer;
+    cursor: default;
   }
 
   .lineage-member-no-photo .lineage-member-col-identity {
@@ -2376,8 +2387,8 @@ main {
   }
 
   .lineage-member-no-photo .lineage-member-linkedin svg {
-    width: 34px;
-    height: 34px;
+    width: 26px;
+    height: 26px;
     display: block;
   }
 

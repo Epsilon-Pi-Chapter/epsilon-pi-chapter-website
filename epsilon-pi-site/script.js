@@ -180,26 +180,28 @@ function parseHometown(hometown) {
 
 function getMajorMinorDisplay(member) {
   let major = member.major || "—";
-  let minor = member.minor || "";
-  let minorLabel = "Minor";
-  if (!member.minor && member.major) {
+  let focus = "";
+  const minor = member.minor || "";
+  if (member.major) {
     const lower = member.major.toLowerCase();
+    let idx = -1;
+    let token = "";
     if (lower.includes("with a focus in ")) {
-      const idx = lower.indexOf("with a focus in ");
-      major = member.major.substring(0, idx).trim();
-      minor = member.major.substring(idx + "with a focus in ".length).trim();
-      minorLabel = "Focus";
+      token = "with a focus in ";
+      idx = lower.indexOf(token);
     } else if (lower.includes("with a focus on ")) {
-      const idx = lower.indexOf("with a focus on ");
+      token = "with a focus on ";
+      idx = lower.indexOf(token);
+    }
+    if (idx !== -1) {
       major = member.major.substring(0, idx).trim();
-      minor = member.major.substring(idx + "with a focus on ".length).trim();
-      minorLabel = "Focus";
+      focus = member.major.substring(idx + token.length).trim();
     }
   }
-  return { major, minor, minorLabel };
+  return { major, focus, minor };
 }
 
-const LINKEDIN_LOGO_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#0A66C2"/><path fill="#FFFFFF" d="M6.94 8.5a1.69 1.69 0 1 1 0-3.38 1.69 1.69 0 0 1 0 3.38ZM5.5 9.75h2.88V19H5.5V9.75Zm5.13 0h2.76v1.26h.04c.38-.72 1.32-1.48 2.72-1.48 2.91 0 3.45 1.92 3.45 4.41V19h-2.88v-4.4c0-1.05-.02-2.4-1.46-2.4-1.46 0-1.69 1.14-1.69 2.32V19h-2.88V9.75Z"/></svg>';
+const LINKEDIN_LOGO_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#c99a2e"/><path fill="#0a0a0a" d="M6.94 8.5a1.69 1.69 0 1 1 0-3.38 1.69 1.69 0 0 1 0 3.38ZM5.5 9.75h2.88V19H5.5V9.75Zm5.13 0h2.76v1.26h.04c.38-.72 1.32-1.48 2.72-1.48 2.91 0 3.45 1.92 3.45 4.41V19h-2.88v-4.4c0-1.05-.02-2.4-1.46-2.4-1.46 0-1.69 1.14-1.69 2.32V19h-2.88V9.75Z"/></svg>';
 
 const calendarMonthFormatter = new Intl.DateTimeFormat("en-US", {
   month: "long",
@@ -569,6 +571,7 @@ const lineageData = {
     lineName: "The 11 Virtues of P.E.A.C.E. aka DedicationBoyz aka 26 Jumpstreet",
     chapterDean: "Jordan Cain",
     chapterPharaoh: "Kaion Hamilton, III",
+    noHeadshots: true,
     linePictures: [
       "assets/line-photos/spring-2026-1.png",
       "assets/line-photos/spring-2026-2.png",
@@ -1571,13 +1574,14 @@ function buildLineageItem(termKey, details) {
                  ${editPosBtn}
                </div>`
             : "";
-          const { major, minor, minorLabel } = getMajorMinorDisplay(member);
+          const { major, focus, minor } = getMajorMinorDisplay(member);
           const linkedInHtml = member.linkedIn
             ? `<a href="${member.linkedIn}" class="lineage-member-linkedin" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">${LINKEDIN_LOGO_SVG}</a>`
             : `<span class="lineage-member-linkedin lineage-member-linkedin-placeholder" aria-hidden="true">${LINKEDIN_LOGO_SVG}</span>`;
           const detailItems = [
             { label: "Major", value: major },
-            ...(minor ? [{ label: minorLabel, value: minor }] : []),
+            ...(focus ? [{ label: "Focus", value: focus }] : []),
+            ...(minor ? [{ label: "Minor", value: minor }] : []),
             { label: "Hometown", value: member.hometown || "—" },
           ]
             .map(
@@ -1610,7 +1614,7 @@ function buildLineageItem(termKey, details) {
               </div>`;
         }
 
-        const roleAttrs = ' tabindex="0" role="button"';
+        const roleAttrs = "";
         const noStateClass = noPhotos && !statePath ? " lineage-member-no-state" : "";
         const fullNameAttr = ` data-full-name="${(member.fullName || "").replace(/"/g, "&quot;")}"`;
         return `
@@ -1983,21 +1987,9 @@ document.getElementById("lineage-list").addEventListener("click", (e) => {
     }
     return;
   }
-  const member = e.target.closest(".lineage-member");
-  if (!member) return;
-  const termKey = member.dataset.term;
-  const idx = parseInt(member.dataset.memberIndex, 10);
-  if (termKey != null && !isNaN(idx)) openRapSheet(termKey, idx);
-});
-document.getElementById("lineage-list").addEventListener("keydown", (e) => {
-  if (e.key !== "Enter" && e.key !== " ") return;
-  if (e.target.closest(".lineage-member-linkedin")) return;
-  const member = e.target.closest(".lineage-member");
-  if (!member) return;
-  e.preventDefault();
-  const termKey = member.dataset.term;
-  const idx = parseInt(member.dataset.memberIndex, 10);
-  if (termKey != null && !isNaN(idx)) openRapSheet(termKey, idx);
+  // Member-card tap-to-open rap sheet was removed per user request — every
+  // term now uses the inline no-photo card layout, so the dedicated modal
+  // is no longer surfaced from a tap on a member row.
 });
 
 // Awards & Achievements timeline (newest to oldest)
