@@ -1482,15 +1482,17 @@ main {
     overflow-wrap: normal;
   }
 
-  /* Let each grid cell grow to fit its longest word so long majors like
-     "Business Entrepreneurship" don't break mid-word. */
+  /* Give Major more horizontal room than Hometown — Hometowns are short
+     ("Baltimore, MD") while Majors can be long ("Business Administration
+     and Management"). The 1.6fr / 1fr split lets long majors fit on 1-2
+     lines without breaking mid-word. */
   .lineage-member-no-photo .lineage-member-details {
-    grid-template-columns: repeat(2, minmax(min-content, 1fr));
+    grid-template-columns: minmax(min-content, 1.6fr) minmax(min-content, 1fr);
   }
 
   .lineage-member-no-photo .lineage-member-col-details {
     min-width: 260px;
-    max-width: 460px;
+    max-width: 520px;
   }
 
   .lineage-member-no-photo .lineage-member-col-state {
