@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "_a4LFHAMy2yn1ZajII7QG"
+uri = "file://epsilon-pi-site/data/lineage-data-entry.csv"
+type = "table"
+title = "Lineage Data Entry Sheet (445 brothers)"
