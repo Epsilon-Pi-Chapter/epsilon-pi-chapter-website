@@ -84,14 +84,45 @@
             Featured Chapter Image
           </div>
         </div>
+        <article class="card events-calendar-card">
+          <div class="events-calendar-header">
+            <div>
+              <h3>Chapter Calendar</h3>
+              <p class="events-calendar-intro">
+                <span class="events-calendar-legend-item events-calendar-legend-today"><span class="events-calendar-legend-swatch" aria-hidden="true"></span>Today</span>
+                <span class="events-calendar-legend-item events-calendar-legend-service"><span class="events-calendar-legend-swatch" aria-hidden="true"></span>Service</span>
+                <span class="events-calendar-legend-item events-calendar-legend-event"><span class="events-calendar-legend-swatch" aria-hidden="true"></span>Event</span>
+                <span class="events-calendar-legend-item events-calendar-legend-ict"><span class="events-calendar-legend-swatch" aria-hidden="true"></span>ICT</span>
+              </p>
+            </div>
+            <div class="events-calendar-controls" aria-label="Calendar month navigation">
+              <button type="button" class="events-calendar-nav" data-cal-nav="prev" aria-label="Previous month">‹</button>
+              <p class="events-calendar-month" aria-live="polite"></p>
+              <button type="button" class="events-calendar-nav" data-cal-nav="next" aria-label="Next month">›</button>
+            </div>
+          </div>
+          <div class="events-calendar-shell">
+            <div class="events-calendar-weekdays" aria-hidden="true">
+              <span>Sun</span>
+              <span>Mon</span>
+              <span>Tue</span>
+              <span>Wed</span>
+              <span>Thu</span>
+              <span>Fri</span>
+              <span>Sat</span>
+            </div>
+            <div class="events-calendar-grid" role="grid" aria-label="Monthly event calendar"></div>
+          </div>
+          <div class="events-calendar-detail" aria-live="polite"></div>
+        </article>
       </section>
 
       <section id="history" class="panel" data-tab-panel="history" aria-hidden="true">
         <h2>Chapter History</h2>
         <div class="grid two-col history-grid">
           <article class="history-card">
-            <h3 class="history-card-title">Epsilon Pi Founding Date</h3>
-            <p class="history-card-lead">Friday, October 12, 1962</p>
+            <h3 class="history-card-title">Epsilon Pi</h3>
+            <p class="history-card-lead">Founding Date: Friday, October 12, 1962</p>
             <ul class="history-meta-list">
               <li><span class="history-meta-label">House</span><span class="history-meta-value">324</span></li>
               <li><span class="history-meta-label">Region</span><span class="history-meta-value">Eastern</span></li>
@@ -101,7 +132,7 @@
           </article>
           <article class="history-card">
             <h3 class="history-card-title">Charter Members</h3>
-            <p class="history-card-lead">15 Visionaries</p>
+            <p class="history-card-lead history-card-lead--featured">15 Visionaries</p>
             <ul class="charter-list">
               <li>Andrew Blackburn</li>
               <li>Vincent Blue</li>
@@ -110,8 +141,8 @@
               <li>Nathaniel Bynum</li>
               <li>Berkley Chandler</li>
               <li>Eugene Davis</li>
-              <li>Melvin C Fallis Jr</li>
-              <li>James F Gay</li>
+              <li>Melvin C. Fallis, Jr.</li>
+              <li>James F. Gay</li>
               <li>William Gray</li>
               <li>Zane Gray</li>
               <li>Ralph Hill</li>
@@ -157,12 +188,12 @@
               </p>
             </div>
             <div class="events-calendar-controls" aria-label="Calendar month navigation">
-              <button type="button" class="events-calendar-nav" id="events-calendar-prev" aria-label="Previous month">‹</button>
-              <p class="events-calendar-month" id="events-calendar-month" aria-live="polite"></p>
-              <button type="button" class="events-calendar-nav" id="events-calendar-next" aria-label="Next month">›</button>
+              <button type="button" class="events-calendar-nav" data-cal-nav="prev" aria-label="Previous month">‹</button>
+              <p class="events-calendar-month" aria-live="polite"></p>
+              <button type="button" class="events-calendar-nav" data-cal-nav="next" aria-label="Next month">›</button>
             </div>
           </div>
-          <div class="events-calendar-shell" id="events-calendar-shell">
+          <div class="events-calendar-shell">
             <div class="events-calendar-weekdays" aria-hidden="true">
               <span>Sun</span>
               <span>Mon</span>
@@ -172,9 +203,9 @@
               <span>Fri</span>
               <span>Sat</span>
             </div>
-            <div class="events-calendar-grid" id="events-calendar-grid" role="grid" aria-label="Monthly event calendar"></div>
+            <div class="events-calendar-grid" role="grid" aria-label="Monthly event calendar"></div>
           </div>
-          <div class="events-calendar-detail" id="events-calendar-detail" aria-live="polite"></div>
+          <div class="events-calendar-detail" aria-live="polite"></div>
         </article>
         <article class="card">
           <h3>Past Event Highlights</h3>

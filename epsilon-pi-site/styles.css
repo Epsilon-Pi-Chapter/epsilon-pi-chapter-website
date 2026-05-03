@@ -598,6 +598,23 @@ main {
   color: #b2e2d4;
 }
 
+/* Push the SERVICE / EVENT pill to the top-right corner of the card so the
+   title can use the full width. */
+.events-calendar-event {
+  position: relative;
+}
+
+.events-calendar-event-tag--corner {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.75rem;
+  z-index: 2;
+}
+
+.events-calendar-event h4 {
+  padding-right: 4.5rem;
+}
+
 .events-calendar-event--ict .events-calendar-event-tag {
   background: transparent;
   color: #cfe3f8;
@@ -940,30 +957,19 @@ main {
 
 .charter-list {
   margin: 0.5rem 0 0;
-  padding-left: 0;
+  padding-left: 1.25rem;
   columns: 2;
   column-gap: 1.5rem;
-  list-style: none;
+  list-style: disc;
 }
 
 .charter-list li {
-  position: relative;
-  padding-left: 1.1rem;
   margin-bottom: 0.35rem;
+  padding-left: 0.2rem;
 }
 
-.charter-list li::before {
-  content: "";
-  position: absolute;
-  left: -9px;
-  top: 0.15em;
-  width: 18px;
-  height: 18px;
-  background-image: url(assets/hand-sign.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  transform: rotate(30deg);
+.charter-list li::marker {
+  color: var(--gold);
 }
 
 .section-intro {
@@ -2453,6 +2459,16 @@ main {
   font-style: italic;
   font-size: 0.95rem;
   line-height: 1.45;
+}
+
+.history-card-lead--featured {
+  font-family: "Cinzel", Georgia, serif;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--gold);
+  font-size: 1.45rem;
+  margin-bottom: 0.6rem;
 }
 
 .history-meta-list {

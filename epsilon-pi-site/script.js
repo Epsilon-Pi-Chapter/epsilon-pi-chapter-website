@@ -1,8 +1,9 @@
 const officerContainer = document.getElementById("officer-list");
 const lineageContainer = document.getElementById("lineage-list");
-const eventsCalendarGrid = document.getElementById("events-calendar-grid");
-const eventsCalendarMonth = document.getElementById("events-calendar-month");
-const eventsCalendarDetail = document.getElementById("events-calendar-detail");
+const eventsCalendarGrids = () => document.querySelectorAll(".events-calendar-grid");
+const eventsCalendarMonths = () => document.querySelectorAll(".events-calendar-month");
+const eventsCalendarDetails = () => document.querySelectorAll(".events-calendar-detail");
+const eventsCalendarShells = () => document.querySelectorAll(".events-calendar-shell");
 
 // Officers: leave `email` blank to auto-derive firstname.middleinitial.lastname@spartans.nsu.edu
 // Set `email: null` to skip (e.g. faculty advisor). Set `email: "custom@..."` to override.
@@ -301,7 +302,8 @@ function renderIceColdTuesdayCard(dateKey, date) {
 }
 
 function renderEventsCalendarDetail(dateKey) {
-  if (!eventsCalendarDetail) return;
+  const detailNodes = eventsCalendarDetails();
+  if (!detailNodes.length) return;
 
   const events = getEventsForDate(dateKey);
   const date = new Date(`${dateKey}T12:00:00`);
@@ -319,7 +321,8 @@ function renderEventsCalendarDetail(dateKey) {
       const tagClass = event.category === "service" ? "is-service" : "is-event";
       return `
         <article class="events-calendar-event">
-          <h4><span class="events-calendar-event-tag ${tagClass}">${tag}</span> ${event.title}</h4>
+          <span class="events-calendar-event-tag ${tagClass} events-calendar-event-tag--corner">${tag}</span>
+          <h4>${event.title}</h4>
           ${meta}
           <p>${event.description}</p>
           ${link}
@@ -344,14 +347,17 @@ function renderEventsCalendarDetail(dateKey) {
     inner += renderIceColdTuesdayCard(dateKey, date);
   }
 
-  eventsCalendarDetail.innerHTML = `
+  const html = `
     <p class="events-calendar-detail-date">${formattedDate}</p>
     <div class="events-calendar-detail-list">${inner}</div>
   `;
+  detailNodes.forEach((node) => { node.innerHTML = html; });
 }
 
 function renderEventsCalendar() {
-  if (!eventsCalendarGrid || !eventsCalendarMonth) return;
+  const grids = eventsCalendarGrids();
+  const months = eventsCalendarMonths();
+  if (!grids.length || !months.length) return;
 
   // Recompute "today" each render so the highlight rolls forward day-to-day.
   todaysDateKey = formatDateKey(new Date());
@@ -362,11 +368,11 @@ function renderEventsCalendar() {
   const totalDays = monthEnd.getDate();
   const monthIdx = monthStart.getMonth(); // 0=Jan ... 5=Jun, 6=Jul
 
-  eventsCalendarMonth.textContent = calendarMonthFormatter.format(monthStart);
+  const monthLabel = calendarMonthFormatter.format(monthStart);
+  months.forEach((m) => { m.textContent = monthLabel; });
 
-  const shell = document.getElementById("events-calendar-shell");
-  if (shell) {
-    const isSummer = monthIdx === 5 || monthIdx === 6;
+  const isSummer = monthIdx === 5 || monthIdx === 6;
+  eventsCalendarShells().forEach((shell) => {
     shell.classList.toggle("is-summer-break", isSummer);
     let overlay = shell.querySelector(".events-calendar-summer-break");
     if (isSummer) {
@@ -380,7 +386,7 @@ function renderEventsCalendar() {
     } else if (overlay) {
       overlay.remove();
     }
-  }
+  });
 
   const cells = [];
   for (let i = 0; i < firstWeekday; i += 1) {
@@ -431,7 +437,8 @@ function renderEventsCalendar() {
     `);
   }
 
-  eventsCalendarGrid.innerHTML = cells.join("");
+  const gridHtml = cells.join("");
+  grids.forEach((g) => { g.innerHTML = gridHtml; });
   renderEventsCalendarDetail(selectedCalendarDateKey);
   scheduleMidnightCalendarRefresh();
 }
@@ -447,24 +454,27 @@ function scheduleMidnightCalendarRefresh() {
   }, ms);
 }
 
-if (eventsCalendarGrid) {
+if (eventsCalendarGrids().length) {
   renderEventsCalendar();
 
-  document.getElementById("events-calendar-prev")?.addEventListener("click", () => {
-    currentCalendarMonth = new Date(currentCalendarMonth.getFullYear(), currentCalendarMonth.getMonth() - 1, 1);
-    renderEventsCalendar();
-  });
-
-  document.getElementById("events-calendar-next")?.addEventListener("click", () => {
-    currentCalendarMonth = new Date(currentCalendarMonth.getFullYear(), currentCalendarMonth.getMonth() + 1, 1);
-    renderEventsCalendar();
-  });
-
-  eventsCalendarGrid.addEventListener("click", (event) => {
-    const button = event.target.closest(".events-calendar-day");
-    if (!button) return;
-    selectedCalendarDateKey = button.dataset.date;
-    renderEventsCalendar();
+  // Delegated nav + cell clicks so both the Home and Events copies stay in sync.
+  document.addEventListener("click", (event) => {
+    const nav = event.target.closest("[data-cal-nav]");
+    if (nav) {
+      const dir = nav.getAttribute("data-cal-nav") === "prev" ? -1 : 1;
+      currentCalendarMonth = new Date(
+        currentCalendarMonth.getFullYear(),
+        currentCalendarMonth.getMonth() + dir,
+        1,
+      );
+      renderEventsCalendar();
+      return;
+    }
+    const cell = event.target.closest(".events-calendar-day");
+    if (cell && cell.closest(".events-calendar-grid")) {
+      selectedCalendarDateKey = cell.dataset.date;
+      renderEventsCalendar();
+    }
   });
 }
 
