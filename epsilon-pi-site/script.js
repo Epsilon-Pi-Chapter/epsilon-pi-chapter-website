@@ -199,7 +199,7 @@ function getMajorMinorDisplay(member) {
   return { major, minor, minorLabel };
 }
 
-const LINKEDIN_LOGO_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="3.5" fill="currentColor"/><circle cx="7.35" cy="7.2" r="1.15" fill="#0a0a0a"/><rect x="6.2" y="10" width="2.3" height="7.4" fill="#0a0a0a"/><path d="M11 10h2.15v1.15c.48-.83 1.38-1.37 2.6-1.37 2.09 0 3.25 1.36 3.25 3.9v3.72H16.7v-3.38c0-1.32-.48-2.08-1.56-2.08-1.16 0-1.84.8-1.84 2.37v3.09H11V10z" fill="#0a0a0a"/></svg>';
+const LINKEDIN_LOGO_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#0A66C2"/><path fill="#FFFFFF" d="M6.94 8.5a1.69 1.69 0 1 1 0-3.38 1.69 1.69 0 0 1 0 3.38ZM5.5 9.75h2.88V19H5.5V9.75Zm5.13 0h2.76v1.26h.04c.38-.72 1.32-1.48 2.72-1.48 2.91 0 3.45 1.92 3.45 4.41V19h-2.88v-4.4c0-1.05-.02-2.4-1.46-2.4-1.46 0-1.69 1.14-1.69 2.32V19h-2.88V9.75Z"/></svg>';
 
 const calendarMonthFormatter = new Intl.DateTimeFormat("en-US", {
   month: "long",

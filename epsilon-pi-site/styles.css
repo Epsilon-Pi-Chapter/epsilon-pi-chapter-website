@@ -1397,17 +1397,16 @@ main {
 .lineage-member-linkedin {
   display: inline-flex;
   margin-top: 0.35rem;
-  color: var(--gold-soft);
-  transition: color 0.2s ease, opacity 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .lineage-member-linkedin:hover {
-  color: var(--gold);
-  opacity: 0.9;
+  opacity: 0.85;
+  transform: scale(1.04);
 }
 
 .lineage-member-linkedin-placeholder {
-  opacity: 0.6;
+  opacity: 0.18;
 }
 
 .lineage-member-linkedin svg {
@@ -2335,13 +2334,22 @@ main {
   }
 
   /* LinkedIn pinned to the right edge AND vertically centered across the
-     full card height by spanning both rows. */
-  .lineage-member-no-photo .lineage-member-col-blank {
+     full card height by spanning both rows. The duplicate selector for
+     `.lineage-member-no-state` neutralizes the desktop rule
+     (`grid-column: 4`) that would otherwise win on specificity and shove
+     the icon out of the 2-column mobile grid. flex-direction:row is
+     required because `.lineage-member-col` defaults to column flex —
+     without it, justify-content:flex-end pushes vertically (to the
+     bottom) instead of horizontally (to the right edge). */
+  .lineage-member-no-photo .lineage-member-col-blank,
+  .lineage-member-no-photo.lineage-member-no-state .lineage-member-col-blank {
     grid-column: 2;
     grid-row: 1 / span 2;
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: flex-end;
+    align-self: stretch;
   }
 
   .lineage-member-no-photo:hover {
@@ -2368,8 +2376,9 @@ main {
   }
 
   .lineage-member-no-photo .lineage-member-linkedin svg {
-    width: auto;
+    width: 34px;
     height: 34px;
+    display: block;
   }
 
   .lineage-term-btn {
