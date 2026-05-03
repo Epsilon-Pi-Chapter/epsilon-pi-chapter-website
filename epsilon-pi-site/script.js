@@ -212,10 +212,11 @@ function getMajorMinorDisplay(member) {
 
 const LINKEDIN_LOGO_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#c99a2e"/><path fill="#0a0a0a" d="M6.94 8.5a1.69 1.69 0 1 1 0-3.38 1.69 1.69 0 0 1 0 3.38ZM5.5 9.75h2.88V19H5.5V9.75Zm5.13 0h2.76v1.26h.04c.38-.72 1.32-1.48 2.72-1.48 2.91 0 3.45 1.92 3.45 4.41V19h-2.88v-4.4c0-1.05-.02-2.4-1.46-2.4-1.46 0-1.69 1.14-1.69 2.32V19h-2.88V9.75Z"/></svg>';
 
-// Full LinkedIn wordmark — "Linked" in gold + "in" badge in gold/black.
-// Used on desktop in the lineage card right column in place of the small
-// state outline. Sizing is tuned via CSS so this can scale freely.
-const LINKEDIN_WORDMARK_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 64" aria-hidden="true"><text x="4" y="48" font-family="\'Manrope\', \'Segoe UI\', Helvetica, Arial, sans-serif" font-size="48" font-weight="800" fill="#c99a2e" letter-spacing="-1">Linked</text><rect x="166" y="10" width="64" height="44" rx="8" fill="#c99a2e"/><text x="198" y="44" font-family="\'Manrope\', \'Segoe UI\', Helvetica, Arial, sans-serif" font-size="32" font-weight="800" fill="#0a0a0a" text-anchor="middle">in</text></svg>';
+// Full LinkedIn wordmark — "Linked" in gold + path-based "in" badge in
+// gold/black. The "in" reuses the same vector path as the small badge so
+// it renders identically across all browsers (no font-substitution drift).
+// Sizing is tuned via CSS so this can scale freely.
+const LINKEDIN_WORDMARK_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 268 64" aria-hidden="true"><text x="0" y="51" font-family="\'Arial Black\', \'Helvetica Neue\', Helvetica, Arial, sans-serif" font-size="56" font-weight="900" fill="#c99a2e" letter-spacing="-2.5">Linked</text><g transform="translate(196 6) scale(2.17)"><rect width="24" height="24" rx="4" fill="#c99a2e"/><path fill="#0a0a0a" d="M6.94 8.5a1.69 1.69 0 1 1 0-3.38 1.69 1.69 0 0 1 0 3.38ZM5.5 9.75h2.88V19H5.5V9.75Zm5.13 0h2.76v1.26h.04c.38-.72 1.32-1.48 2.72-1.48 2.91 0 3.45 1.92 3.45 4.41V19h-2.88v-4.4c0-1.05-.02-2.4-1.46-2.4-1.46 0-1.69 1.14-1.69 2.32V19h-2.88V9.75Z"/></g></svg>';
 
 const calendarMonthFormatter = new Intl.DateTimeFormat("en-US", {
   month: "long",

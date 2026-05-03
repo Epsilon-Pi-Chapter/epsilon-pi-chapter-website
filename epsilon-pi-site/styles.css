@@ -36,6 +36,7 @@ main,
 
 .site-header {
   padding: 2.5rem 0 1rem;
+  position: relative;
 }
 
 .brand-wrap {
@@ -54,7 +55,6 @@ main,
 .brand-copy {
   min-width: 0;
   position: relative;
-  flex: 1;
 }
 
 .chapter-logo {
@@ -66,16 +66,20 @@ main,
   background: var(--panel-alt);
 }
 
-/* NSU tower lives at the far right of the header, mirroring the chapter
-   logo on the left and giving the brand block a balanced look. */
+/* NSU tower is absolutely positioned in the header so it floats above the
+   Gallery tab in the nav row below. Gallery is the 7th of 8 tabs, so its
+   horizontal center sits at (6.5 / 8) = 81.25% of the header width. */
 .school-logo {
+  position: absolute;
+  top: 1.4rem;
+  left: 81.25%;
+  transform: translateX(-50%);
   width: 96px;
   height: auto;
   display: block;
-  flex-shrink: 0;
-  margin-left: auto;
   opacity: 0.95;
   filter: drop-shadow(0 0 10px rgba(201, 154, 46, 0.15));
+  pointer-events: none;
 }
 
 .brand-title-line {
