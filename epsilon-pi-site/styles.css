@@ -2162,26 +2162,40 @@ main {
     flex: 1;
   }
 
+  /* Mobile/tablet: shell goes edge-to-edge, no horizontal gutter. */
   .site-header,
   main,
   .site-footer,
   .support-us {
-    width: min(100% - 1.2rem, var(--max-width));
+    width: 100%;
+    max-width: 100%;
   }
 
+  .site-header {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Every panel becomes full-bleed: square corners, slim internal padding. */
   .panel {
-    padding: 1.5rem 1.25rem;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 1.5rem 1rem;
+    border-radius: 0;
   }
 
-  /* Lineage: full-bleed to screen edges on non-desktop */
-  #lineage.panel {
-    width: 100vw;
-    max-width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-    padding-left: 1.2rem;
-    padding-right: 1.2rem;
+  .support-us {
     border-radius: 0;
+    border-left: none;
+    border-right: none;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Lineage rows already had a special full-bleed; keep their inner padding. */
+  #lineage.panel {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   #lineage .lineage-item {
@@ -2436,7 +2450,23 @@ main {
   main,
   .site-footer,
   .support-us {
-    width: min(100% - 0.75rem, var(--max-width));
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .site-header {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .panel {
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+  }
+
+  .support-us {
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
   }
 
   .lineage-member-no-photo,
