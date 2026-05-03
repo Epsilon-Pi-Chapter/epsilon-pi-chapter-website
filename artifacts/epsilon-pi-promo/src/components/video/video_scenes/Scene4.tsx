@@ -1,56 +1,129 @@
 import { motion } from 'framer-motion';
-import { useState, useEffect, useRef } from 'react';
-import ictVideo from '@ep-assets/videos/ict-2026-04-28-cain-greaux.mp4';
+import { PhoneFrame } from '../parts/PhoneFrame';
+import { TabBar } from '../parts/TabBar';
+import { MobileHeader } from '../parts/MobileHeader';
+import { Cursor } from '../parts/Cursor';
+
+const BASE = import.meta.env.BASE_URL;
+
+const OFFICERS = [
+  { name: 'Jahkari Taylor', title: 'President', img: `${BASE}assets/portraits/jaleel-drummond.png` },
+  { name: 'Nyles Ferguson', title: 'Vice President', img: `${BASE}assets/portraits/nyles-ferguson.png` },
+  { name: 'Khamani Battiste', title: 'Treasurer', img: `${BASE}assets/portraits/khamani-battiste.png` },
+  { name: 'Joseph Hargett', title: 'Secretary', img: `${BASE}assets/portraits/joseph-hargett.png` },
+  { name: 'Brett Andrews Jr.', title: 'Dean of Pledges', img: `${BASE}assets/portraits/brett-andrews-jr.png` },
+  { name: 'Jaylen Johnson', title: 'Step Master', img: `${BASE}assets/portraits/jaylen-johnson.png` },
+];
 
 export function Scene4() {
-  const [phase, setPhase] = useState(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {});
-    }
-    const timers = [
-      setTimeout(() => setPhase(1), 300),
-      setTimeout(() => setPhase(2), 7000),
-    ];
-    return () => timers.forEach(t => clearTimeout(t));
-  }, []);
-
   return (
-    <motion.div
-      className="absolute inset-0 bg-black"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.8 }}
-    >
-      <div className="absolute inset-0 opacity-40">
-        <video
-          ref={videoRef}
-          src={ictVideo}
-          className="w-full h-full object-cover"
-          muted
-          loop
-          playsInline
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
-      </div>
+    <div className="absolute inset-0">
+      <PhoneFrame url="epialphas.com/officers">
+        <div className="absolute inset-0 bg-black">
+          <MobileHeader title="OFFICERS" />
 
-      <div className="absolute inset-0 flex flex-col justify-end p-[8vw] pb-[15vh]">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={phase >= 1 ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1, delay: 0.4 }}
-        >
-          <h2 className="text-[9vw] font-display text-primary uppercase leading-tight mb-4 shadow-black drop-shadow-lg">
-            Impact<br/>Through<br/>Action
-          </h2>
-          <p className="text-[3.5vw] text-white/90 font-body max-w-[80vw]">
-            Serving our community. Developing leaders. Achieving excellence.
-          </p>
-        </motion.div>
-      </div>
-    </motion.div>
+          <div className="absolute inset-x-0 overflow-hidden" style={{ top: 52, bottom: 64 }}>
+            <div className="px-4 pt-3">
+              <motion.h2
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 1.3 }}
+                style={{
+                  fontFamily: 'Cinzel, serif',
+                  color: '#f0d58f',
+                  fontSize: 22,
+                  letterSpacing: '0.1em',
+                }}
+              >
+                CHAPTER OFFICERS
+              </motion.h2>
+              <motion.div
+                className="h-[2px] mt-1.5"
+                style={{ background: '#c99a2e', transformOrigin: 'left' }}
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 0.6, delay: 1.45 }}
+              />
+              <motion.div
+                className="mt-1"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 1.55 }}
+                style={{
+                  fontFamily: 'Manrope, sans-serif',
+                  color: 'rgba(255,255,255,0.45)',
+                  fontSize: 9,
+                  letterSpacing: '0.2em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                2026 — 2027
+              </motion.div>
+            </div>
+
+            {/* Mobile-style 2-col card grid */}
+            <div className="px-4 pt-3">
+              <div className="grid grid-cols-2 gap-2">
+                {OFFICERS.map((o, i) => (
+                  <motion.div
+                    key={o.name}
+                    className="rounded-lg overflow-hidden border"
+                    style={{ background: '#111', borderColor: 'rgba(201,154,46,0.3)' }}
+                    initial={{ opacity: 0, y: 18 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.55,
+                      delay: 1.7 + i * 0.1,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                  >
+                    <div style={{ aspectRatio: '4/5', overflow: 'hidden' }}>
+                      <img src={o.img} className="w-full h-full object-cover" />
+                    </div>
+                    <div className="px-2 py-1.5">
+                      <div
+                        style={{
+                          fontFamily: 'Cinzel, serif',
+                          color: '#f0d58f',
+                          fontSize: 10,
+                          letterSpacing: '0.04em',
+                          lineHeight: 1.1,
+                        }}
+                      >
+                        {o.name.toUpperCase()}
+                      </div>
+                      <div
+                        style={{
+                          fontFamily: 'Manrope, sans-serif',
+                          color: 'rgba(255,255,255,0.5)',
+                          fontSize: 8,
+                          letterSpacing: '0.12em',
+                          marginTop: 1,
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        {o.title}
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <TabBar active="Officers" highlightDelay={1.0} />
+        </div>
+      </PhoneFrame>
+
+      <Cursor
+        waypoints={[
+          { x: 50, y: 102 },
+          { x: 70, y: 93, tap: true },
+          { x: 50, y: 55 },
+        ]}
+        startDelayMs={150}
+        stepMs={900}
+      />
+    </div>
   );
 }

@@ -1,69 +1,145 @@
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
-import photo1 from '@ep-assets/line-photos/spring-2026-1.png';
-import photo2 from '@ep-assets/line-photos/spring-2026-2.png';
-import photo3 from '@ep-assets/line-photos/spring-2026-3.png';
+import { PhoneFrame } from '../parts/PhoneFrame';
+import { TabBar } from '../parts/TabBar';
+import { MobileHeader } from '../parts/MobileHeader';
+import { Cursor } from '../parts/Cursor';
+
+const BASE = import.meta.env.BASE_URL;
+const PHOTOS = [1, 2, 3, 4].map((n) => `${BASE}assets/line-photos/spring-2026-${n}.png`);
+
+const CARDS = [
+  { name: 'Bro. Adarius Johnson', line: '#1 · Spring 2026', major: 'Mass Communications' },
+  { name: 'Bro. Brandon Richardson', line: '#2 · Spring 2026', major: 'Computer Science' },
+  { name: 'Bro. Brett Andrews Jr.', line: '#3 · Spring 2026', major: 'Political Science' },
+];
 
 export function Scene2() {
-  const [phase, setPhase] = useState(0);
-
-  useEffect(() => {
-    const timers = [
-      setTimeout(() => setPhase(1), 400),
-      setTimeout(() => setPhase(2), 1500),
-      setTimeout(() => setPhase(3), 3000),
-      setTimeout(() => setPhase(4), 6000),
-    ];
-    return () => timers.forEach(t => clearTimeout(t));
-  }, []);
-
   return (
-    <motion.div
-      className="absolute inset-0 bg-black flex flex-col pt-[15vh] px-[8vw]"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.6 }}
-    >
-      <motion.h2
-        className="text-[8vw] font-display text-primary leading-none uppercase"
-        initial={{ opacity: 0, x: -30 }}
-        animate={phase >= 1 ? { opacity: 1, x: 0 } : {}}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
-      >
-        Our Lineage
-      </motion.h2>
-      <motion.div
-        className="w-[20vw] h-[2px] bg-secondary mt-6"
-        initial={{ scaleX: 0 }}
-        animate={phase >= 1 ? { scaleX: 1 } : {}}
-        style={{ originX: 0 }}
-        transition={{ duration: 1, delay: 0.2 }}
-      />
+    <div className="absolute inset-0">
+      <PhoneFrame url="epialphas.com/lineage">
+        <div className="absolute inset-0 bg-black">
+          <MobileHeader title="LINEAGE" />
 
-      <div className="relative flex-1 mt-[8vh]">
-        <motion.img
-          src={photo1}
-          className="absolute top-0 right-0 w-[65vw] h-[35vh] object-cover rounded-lg border border-primary/30"
-          initial={{ opacity: 0, rotate: 2, y: 50 }}
-          animate={phase >= 1 ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1, delay: 0.4 }}
-        />
-        <motion.img
-          src={photo2}
-          className="absolute top-[20vh] left-0 w-[55vw] h-[30vh] object-cover rounded-lg border border-primary/30 z-10 shadow-2xl"
-          initial={{ opacity: 0, rotate: -3, y: 50 }}
-          animate={phase >= 2 ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1 }}
-        />
-        <motion.img
-          src={photo3}
-          className="absolute bottom-[5vh] right-[5vw] w-[70vw] h-[30vh] object-cover rounded-lg border border-primary/30 z-20 shadow-2xl"
-          initial={{ opacity: 0, rotate: 1, y: 50 }}
-          animate={phase >= 3 ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1 }}
-        />
-      </div>
-    </motion.div>
+          <div
+            className="absolute inset-x-0 overflow-hidden"
+            style={{ top: 52, bottom: 64 }}
+          >
+            <motion.div
+              className="absolute inset-x-0 top-0 px-4"
+              initial={{ y: 0 }}
+              animate={{ y: -300 }}
+              transition={{ duration: 4.4, delay: 1.7, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <h2
+                className="mt-4"
+                style={{
+                  fontFamily: 'Cinzel, serif',
+                  color: '#f0d58f',
+                  fontSize: 26,
+                  letterSpacing: '0.1em',
+                  lineHeight: 1.0,
+                }}
+              >
+                OUR LINEAGE
+              </h2>
+              <div className="h-[2px] mt-2" style={{ background: '#c99a2e' }} />
+              <p
+                className="mt-2"
+                style={{
+                  fontFamily: 'Manrope, sans-serif',
+                  color: 'rgba(255,255,255,0.55)',
+                  fontSize: 10,
+                  letterSpacing: '0.2em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                Spring 2026 · The Line
+              </p>
+
+              {/* Mobile-style stacked photo cards */}
+              <div className="mt-3 space-y-2">
+                {PHOTOS.map((src, i) => (
+                  <div
+                    key={i}
+                    className="overflow-hidden rounded-xl border"
+                    style={{
+                      borderColor: 'rgba(201,154,46,0.25)',
+                      aspectRatio: '16/9',
+                    }}
+                  >
+                    <img src={src} className="w-full h-full object-cover" />
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-4 space-y-2 pb-6">
+                {CARDS.map((c) => (
+                  <div
+                    key={c.name}
+                    className="rounded-lg p-3 flex items-center gap-3"
+                    style={{
+                      background: 'rgba(201,154,46,0.06)',
+                      border: '1px solid rgba(201,154,46,0.25)',
+                    }}
+                  >
+                    <div
+                      className="shrink-0 flex items-center justify-center rounded-full"
+                      style={{
+                        width: 32,
+                        height: 32,
+                        background: '#c99a2e',
+                        color: '#000',
+                        fontFamily: 'Cinzel, serif',
+                        fontSize: 12,
+                        fontWeight: 700,
+                      }}
+                    >
+                      {c.line.match(/#(\d+)/)?.[1]}
+                    </div>
+                    <div className="min-w-0">
+                      <div
+                        style={{
+                          fontFamily: 'Cinzel, serif',
+                          color: '#f0d58f',
+                          fontSize: 12,
+                          letterSpacing: '0.05em',
+                        }}
+                      >
+                        {c.name}
+                      </div>
+                      <div
+                        style={{
+                          fontFamily: 'Manrope, sans-serif',
+                          color: 'rgba(255,255,255,0.55)',
+                          fontSize: 9,
+                          marginTop: 1,
+                          letterSpacing: '0.1em',
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        {c.major}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+
+          <TabBar active="Lineage" highlightDelay={1.4} />
+        </div>
+      </PhoneFrame>
+
+      {/* Cursor enters from bottom and taps Lineage in bottom nav */}
+      <Cursor
+        waypoints={[
+          { x: 50, y: 102 },
+          { x: 30, y: 93, tap: true },
+          { x: 50, y: 60 },
+        ]}
+        startDelayMs={150}
+        stepMs={900}
+      />
+    </div>
   );
 }
