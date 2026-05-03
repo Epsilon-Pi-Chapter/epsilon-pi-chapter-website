@@ -1,0 +1,31 @@
+kind = "video"
+previewPath = "/epsilon-pi-promo/"
+title = "Epsilon Pi Promo Video"
+version = "1.0.0"
+id = "artifacts/epsilon-pi-promo"
+router = "path"
+
+[[integratedSkills]]
+name = "video-js"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/epsilon-pi-promo/" ]
+localPort = 19912
+
+[services.development]
+run = "pnpm --filter @workspace/epsilon-pi-promo run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/epsilon-pi-promo", "run", "build" ]
+publicDir = "artifacts/epsilon-pi-promo/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19912"
+BASE_PATH = "/epsilon-pi-promo/"

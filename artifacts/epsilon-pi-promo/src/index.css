@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+:root {
+  --color-primary: #c99a2e;
+  --color-secondary: #f0d58f;
+  --color-accent: #c99a2e;
+
+  --color-bg-light: #000000;
+  --color-bg-dark: #000000;
+  --color-bg-muted: #111111;
+
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #f0d58f;
+  --color-text-muted: #a0a0a0;
+  --color-text-inverse: #000000;
+
+  --font-display: 'Cinzel', serif;
+  --font-body: 'Manrope', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+@theme inline {
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-accent: var(--color-accent);
+  --color-bg-light: var(--color-bg-light);
+  --color-bg-dark: var(--color-bg-dark);
+  --color-bg-muted: var(--color-bg-muted);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
+  --color-text-inverse: var(--color-text-inverse);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+body {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-primary);
+}
