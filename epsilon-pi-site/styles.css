@@ -2322,7 +2322,8 @@ main {
     grid-row: 1;
   }
 
-  .lineage-member-no-photo .lineage-member-col-details {
+  .lineage-member-no-photo .lineage-member-col-details,
+  .lineage-member-no-photo.lineage-member-no-state .lineage-member-col-details {
     grid-column: 1;
     grid-row: 2;
     margin-left: 0;
@@ -2333,11 +2334,13 @@ main {
     display: none;
   }
 
+  /* LinkedIn pinned to the right edge AND vertically centered across the
+     full card height by spanning both rows. */
   .lineage-member-no-photo .lineage-member-col-blank {
     grid-column: 2;
-    grid-row: 1;
+    grid-row: 1 / span 2;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-end;
   }
 
@@ -2361,12 +2364,12 @@ main {
   }
 
   .lineage-member-no-photo .lineage-member-linkedin {
-    margin-top: 0.15rem;
+    margin-top: 0;
   }
 
   .lineage-member-no-photo .lineage-member-linkedin svg {
     width: auto;
-    height: 17px;
+    height: 34px;
   }
 
   .lineage-term-btn {
@@ -2414,7 +2417,8 @@ main {
     gap: 0.6rem;
   }
 
-  .lineage-member-no-photo .lineage-member-col-details {
+  .lineage-member-no-photo .lineage-member-col-details,
+  .lineage-member-no-photo.lineage-member-no-state .lineage-member-col-details {
     grid-column: 1;
   }
 
