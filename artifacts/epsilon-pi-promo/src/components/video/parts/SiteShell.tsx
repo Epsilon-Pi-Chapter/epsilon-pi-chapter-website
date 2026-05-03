@@ -1,0 +1,216 @@
+import { ReactNode } from 'react';
+import { motion } from 'framer-motion';
+
+const BASE = import.meta.env.BASE_URL;
+const CHAPTER_LOGO = `${BASE}assets/chapter-logo.png`;
+
+export const SITE_TABS = [
+  'Home',
+  'History',
+  'Leadership',
+  'Lineage',
+  'Programs',
+  'Events',
+  'Gallery',
+  'Support',
+] as const;
+
+export type SiteTab = (typeof SITE_TABS)[number];
+
+interface SiteShellProps {
+  activeTab: SiteTab;
+  scrollY?: number;
+  scrollDelay?: number;
+  scrollDuration?: number;
+  panelTitle?: string;
+  children: ReactNode;
+}
+
+export function SiteShell({
+  activeTab,
+  scrollY = 0,
+  scrollDelay = 0,
+  scrollDuration = 3,
+  panelTitle,
+  children,
+}: SiteShellProps) {
+  return (
+    <div
+      className="absolute inset-0 overflow-hidden"
+      style={{
+        background: '#000',
+        fontFamily: '"Manrope", sans-serif',
+        color: '#fff',
+      }}
+    >
+      <motion.div
+        className="absolute inset-x-0 top-0"
+        initial={{ y: 0 }}
+        animate={{ y: -scrollY }}
+        transition={{ duration: scrollDuration, delay: scrollDelay, ease: [0.22, 1, 0.36, 1] }}
+      >
+        {/* Header — matches site .site-header on mobile */}
+        <header
+          className="relative"
+          style={{
+            padding: '14px 12px 8px',
+          }}
+        >
+          <div className="flex items-center" style={{ gap: 8 }}>
+            <img
+              src={CHAPTER_LOGO}
+              alt=""
+              style={{
+                width: 38,
+                height: 38,
+                borderRadius: '50%',
+                border: '1.5px solid rgba(201,154,46,0.5)',
+                objectFit: 'cover',
+                background: 'rgba(255,255,255,0.06)',
+                flexShrink: 0,
+              }}
+            />
+            <div style={{ minWidth: 0, flex: 1 }}>
+              <p
+                style={{
+                  margin: 0,
+                  color: '#f0d58f',
+                  fontSize: 6.5,
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  opacity: 0.85,
+                  lineHeight: 1.2,
+                }}
+              >
+                Alpha Phi Alpha Fraternity, Inc.
+              </p>
+              <h1
+                style={{
+                  margin: '1px 0',
+                  fontFamily: '"Cinzel", Georgia, serif',
+                  fontSize: 13,
+                  letterSpacing: '0.04em',
+                  color: '#fff',
+                  fontWeight: 700,
+                  lineHeight: 1.05,
+                }}
+              >
+                Epsilon Pi Chapter
+              </h1>
+              <p
+                style={{
+                  margin: 0,
+                  color: '#f0d58f',
+                  fontSize: 6.5,
+                  letterSpacing: '0.04em',
+                  fontStyle: 'italic',
+                  opacity: 0.9,
+                  lineHeight: 1.2,
+                }}
+              >
+                324th Seat | Norfolk State University
+              </p>
+            </div>
+          </div>
+
+          {/* Nav grid — matches mobile 4-col wrap */}
+          <nav
+            className="grid"
+            style={{
+              marginTop: 9,
+              gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+              rowGap: 4,
+              columnGap: 3,
+              padding: '0 2px',
+            }}
+          >
+            {SITE_TABS.map((t) => {
+              const active = t === activeTab;
+              return (
+                <div
+                  key={t}
+                  className="text-center"
+                  style={{
+                    padding: '4px 2px',
+                    fontFamily: '"Manrope", sans-serif',
+                    fontSize: 7.5,
+                    fontWeight: active ? 700 : 500,
+                    letterSpacing: '0.02em',
+                    color: active ? '#f0d58f' : 'rgba(255,255,255,0.62)',
+                    borderBottom: active
+                      ? '1.5px solid #c99a2e'
+                      : '1.5px solid transparent',
+                  }}
+                >
+                  {t}
+                </div>
+              );
+            })}
+          </nav>
+        </header>
+
+        {/* Panel */}
+        <main style={{ padding: '0 10px 24px' }}>
+          <section
+            style={{
+              margin: '12px 0',
+              padding: '12px 10px',
+              background: 'rgba(255,255,255,0.03)',
+              borderRadius: 14,
+            }}
+          >
+            {panelTitle && (
+              <h2
+                style={{
+                  margin: '0 0 8px',
+                  fontFamily: '"Cinzel", Georgia, serif',
+                  color: '#c99a2e',
+                  letterSpacing: '0.06em',
+                  fontSize: 14,
+                  fontWeight: 700,
+                }}
+              >
+                {panelTitle}
+              </h2>
+            )}
+            {children}
+          </section>
+        </main>
+
+        {/* Support Us footer band — matches inverted gold-soft band */}
+        <div
+          style={{
+            background: '#f0d58f',
+            padding: '14px 12px 16px',
+            textAlign: 'center',
+          }}
+        >
+          <h2
+            style={{
+              margin: '0 0 8px',
+              fontFamily: '"Cinzel", Georgia, serif',
+              fontSize: 11,
+              color: '#0a0a0a',
+              letterSpacing: '0.06em',
+              fontWeight: 700,
+            }}
+          >
+            Support Us
+          </h2>
+          <div className="flex items-center justify-center" style={{ gap: 18 }}>
+            {/* IG */}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#0a0a0a">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+            </svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#0a0a0a">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+            </svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#0a0a0a">
+              <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
+            </svg>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+}

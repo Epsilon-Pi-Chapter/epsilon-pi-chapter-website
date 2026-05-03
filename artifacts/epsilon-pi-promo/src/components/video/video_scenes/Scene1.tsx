@@ -1,11 +1,13 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { PhoneFrame } from '../parts/PhoneFrame';
-import { TabBar } from '../parts/TabBar';
-import { MobileHeader } from '../parts/MobileHeader';
+import { SiteShell } from '../parts/SiteShell';
 
-const LOGO = `${import.meta.env.BASE_URL}assets/chapter-logo.png`;
+const BASE = import.meta.env.BASE_URL;
+const HERO_PHOTO = `${BASE}assets/line-photos/spring-2026-1.png`;
 const FULL_URL = 'epialphas.com';
+
+const CHIPS = ['Chapter Overview', 'Mission & Values', 'Announcements', 'Upcoming Events'];
 
 export function Scene1() {
   const [typed, setTyped] = useState('');
@@ -28,82 +30,58 @@ export function Scene1() {
     <div className="absolute inset-0">
       <PhoneFrame url={typed || ' '} typing={!loaded}>
         {!loaded ? (
-          <div className="w-full h-full" />
+          <div className="w-full h-full bg-black" />
         ) : (
           <motion.div
-            className="absolute inset-0 bg-black"
+            className="absolute inset-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <MobileHeader />
-            <div
-              className="absolute inset-x-0 flex flex-col items-center justify-center px-6"
-              style={{ top: 52, bottom: 64 }}
-            >
+            <SiteShell activeTab="Home" panelTitle="Welcome Message">
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: 8.5,
+                  lineHeight: 1.5,
+                  color: '#fff',
+                }}
+              >
+                Welcome to the official Epsilon Pi Chapter website. This space is designed to share
+                our chapter's mission, leadership, impact, and legacy.
+              </p>
               <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    'radial-gradient(circle at 50% 45%, rgba(201,154,46,0.35) 0%, transparent 60%)',
-                }}
-              />
-              <motion.img
-                src={LOGO}
-                alt="Epsilon Pi"
-                className="relative z-10"
-                style={{ width: '60%', filter: 'drop-shadow(0 0 22px rgba(201,154,46,0.6))' }}
-                initial={{ scale: 1.1, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 1.0, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              />
-              <motion.h1
-                className="relative z-10 text-center mt-5"
-                style={{
-                  fontFamily: 'Cinzel, serif',
-                  color: '#f0d58f',
-                  fontSize: 24,
-                  letterSpacing: '0.18em',
-                  fontWeight: 700,
-                }}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.7 }}
+                className="flex flex-wrap"
+                style={{ gap: 4, marginTop: 8 }}
               >
-                EPSILON PI
-              </motion.h1>
-              <motion.p
-                className="relative z-10 text-center mt-1"
+                {CHIPS.map((c) => (
+                  <span
+                    key={c}
+                    style={{
+                      border: '1px solid rgba(201,154,46,0.4)',
+                      borderRadius: 999,
+                      padding: '3px 7px',
+                      fontSize: 7,
+                      color: '#f0d58f',
+                    }}
+                  >
+                    {c}
+                  </span>
+                ))}
+              </div>
+              <div
                 style={{
-                  fontFamily: 'Manrope, sans-serif',
-                  color: 'rgba(255,255,255,0.6)',
-                  fontSize: 9,
-                  letterSpacing: '0.32em',
+                  marginTop: 10,
+                  width: '100%',
+                  aspectRatio: '16/10',
+                  borderRadius: 10,
+                  border: '1px solid rgba(201,154,46,0.25)',
+                  overflow: 'hidden',
                 }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.95 }}
               >
-                NORFOLK&nbsp;STATE&nbsp;UNIVERSITY
-              </motion.p>
-              <motion.div
-                className="relative z-10 mt-6 px-5 py-2 rounded-full"
-                style={{
-                  background: '#c99a2e',
-                  color: '#0a0a0a',
-                  fontFamily: 'Manrope, sans-serif',
-                  fontSize: 11,
-                  letterSpacing: '0.22em',
-                  fontWeight: 700,
-                }}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 1.15 }}
-              >
-                EXPLORE THE CHAPTER
-              </motion.div>
-            </div>
-            <TabBar active="Home" highlightDelay={0.2} />
+                <img src={HERO_PHOTO} alt="" className="w-full h-full object-cover" />
+              </div>
+            </SiteShell>
           </motion.div>
         )}
       </PhoneFrame>
