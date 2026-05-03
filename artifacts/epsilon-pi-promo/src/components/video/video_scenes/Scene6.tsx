@@ -43,15 +43,17 @@ export function Scene6() {
         transition={{ duration: 1.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
       />
 
-      {/* Logo */}
+      {/* Logo — mix-blend-mode multiply hides the white PNG background
+          against the gold gradient while preserving the dark crest. */}
       <motion.img
         src={LOGO}
         alt="Epsilon Pi"
         className="relative z-10"
         style={{
-          width: '52vw',
-          maxWidth: 540,
-          filter: 'drop-shadow(0 8px 30px rgba(60,30,0,0.45))',
+          width: '44%',
+          maxWidth: 380,
+          mixBlendMode: 'multiply',
+          filter: 'drop-shadow(0 8px 24px rgba(60,30,0,0.35))',
         }}
         initial={{ opacity: 0, scale: 0.92, y: 14 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -60,7 +62,8 @@ export function Scene6() {
 
       {/* Visit line */}
       <motion.div
-        className="relative z-10 mt-10 text-center"
+        className="relative z-10 text-center"
+        style={{ marginTop: '4%', maxWidth: '90%' }}
         initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
@@ -68,9 +71,9 @@ export function Scene6() {
         <div
           style={{
             fontFamily: 'Manrope, sans-serif',
-            color: 'rgba(40,20,0,0.6)',
-            fontSize: '2.2vw',
-            letterSpacing: '0.4em',
+            color: 'rgba(40,20,0,0.65)',
+            fontSize: 'clamp(10px, 1.6vw, 22px)',
+            letterSpacing: '0.42em',
             fontWeight: 600,
           }}
         >
@@ -81,16 +84,19 @@ export function Scene6() {
           style={{
             fontFamily: 'Cinzel, serif',
             color: '#1a0d00',
-            fontSize: '7.4vw',
-            letterSpacing: '0.12em',
+            fontSize: 'clamp(28px, 5.2vw, 80px)',
+            letterSpacing: '0.08em',
             fontWeight: 800,
+            margin: '6px 0 0',
+            lineHeight: 1.05,
+            whiteSpace: 'nowrap',
           }}
         >
           EPIALPHAS.COM
         </h2>
         <motion.div
-          className="mx-auto mt-3"
-          style={{ height: 2, background: '#1a0d00', width: '40%' }}
+          className="mx-auto"
+          style={{ height: 2, background: '#1a0d00', width: '38%', marginTop: 10 }}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.7, delay: 1.1 }}
@@ -99,12 +105,17 @@ export function Scene6() {
 
       {/* @epialphas */}
       <motion.div
-        className="relative z-10 mt-8 flex items-center gap-3"
+        className="relative z-10 flex items-center"
+        style={{ marginTop: '3%', gap: 10 }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.7, delay: 1.25 }}
       >
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          style={{ width: 'clamp(18px, 2.4vw, 32px)', height: 'clamp(18px, 2.4vw, 32px)' }}
+        >
           <rect x="3" y="3" width="18" height="18" rx="5" stroke="#1a0d00" strokeWidth="1.8" />
           <circle cx="12" cy="12" r="4" stroke="#1a0d00" strokeWidth="1.8" />
           <circle cx="17.5" cy="6.5" r="1.2" fill="#1a0d00" />
@@ -113,7 +124,7 @@ export function Scene6() {
           style={{
             fontFamily: 'Manrope, sans-serif',
             color: '#1a0d00',
-            fontSize: '3.2vw',
+            fontSize: 'clamp(14px, 2.2vw, 30px)',
             letterSpacing: '0.1em',
             fontWeight: 700,
           }}
