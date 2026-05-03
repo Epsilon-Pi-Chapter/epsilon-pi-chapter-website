@@ -212,6 +212,11 @@ function getMajorMinorDisplay(member) {
 
 const LINKEDIN_LOGO_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#c99a2e"/><path fill="#0a0a0a" d="M6.94 8.5a1.69 1.69 0 1 1 0-3.38 1.69 1.69 0 0 1 0 3.38ZM5.5 9.75h2.88V19H5.5V9.75Zm5.13 0h2.76v1.26h.04c.38-.72 1.32-1.48 2.72-1.48 2.91 0 3.45 1.92 3.45 4.41V19h-2.88v-4.4c0-1.05-.02-2.4-1.46-2.4-1.46 0-1.69 1.14-1.69 2.32V19h-2.88V9.75Z"/></svg>';
 
+// Full LinkedIn wordmark — "Linked" in gold + "in" badge in gold/black.
+// Used on desktop in the lineage card right column in place of the small
+// state outline. Sizing is tuned via CSS so this can scale freely.
+const LINKEDIN_WORDMARK_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 64" aria-hidden="true"><text x="4" y="48" font-family="\'Manrope\', \'Segoe UI\', Helvetica, Arial, sans-serif" font-size="48" font-weight="800" fill="#c99a2e" letter-spacing="-1">Linked</text><rect x="166" y="10" width="64" height="44" rx="8" fill="#c99a2e"/><text x="198" y="44" font-family="\'Manrope\', \'Segoe UI\', Helvetica, Arial, sans-serif" font-size="32" font-weight="800" fill="#0a0a0a" text-anchor="middle">in</text></svg>';
+
 const calendarMonthFormatter = new Intl.DateTimeFormat("en-US", {
   month: "long",
   year: "numeric",
@@ -1587,6 +1592,12 @@ function buildLineageItem(termKey, details) {
           const linkedInHtml = member.linkedIn
             ? `<a href="${member.linkedIn}" class="lineage-member-linkedin" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">${LINKEDIN_LOGO_SVG}</a>`
             : `<span class="lineage-member-linkedin lineage-member-linkedin-placeholder" aria-hidden="true">${LINKEDIN_LOGO_SVG}</span>`;
+          // Desktop-only full wordmark — CSS hides this on mobile/tablet and
+          // hides the small badge above on desktop, so each breakpoint shows
+          // exactly one LinkedIn mark.
+          const linkedInWordmarkHtml = member.linkedIn
+            ? `<a href="${member.linkedIn}" class="lineage-member-linkedin-wordmark" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">${LINKEDIN_WORDMARK_SVG}</a>`
+            : `<span class="lineage-member-linkedin-wordmark lineage-member-linkedin-placeholder" aria-hidden="true">${LINKEDIN_WORDMARK_SVG}</span>`;
           // Stack each major on its own line under a "Majors" plural label
           // when there are multiple — no bullet markers, just line breaks.
           const majorLabel = majors.length > 1 ? "Majors" : "Major";
@@ -1617,7 +1628,7 @@ function buildLineageItem(termKey, details) {
               <div class="lineage-member-col lineage-member-col-details">
                 <div class="lineage-member-details">${detailItems}</div>
               </div>
-              <div class="lineage-member-col lineage-member-col-state">${stateMapHtml || ""}</div>
+              <div class="lineage-member-col lineage-member-col-state">${stateMapHtml || ""}${linkedInWordmarkHtml}</div>
               <div class="lineage-member-col lineage-member-col-blank">${linkedInHtml}</div>`;
         } else {
           bodyHtml = `

@@ -40,7 +40,7 @@ main,
 
 .brand-wrap {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 1.2rem;
 }
 
@@ -54,6 +54,7 @@ main,
 .brand-copy {
   min-width: 0;
   position: relative;
+  flex: 1;
 }
 
 .chapter-logo {
@@ -65,13 +66,16 @@ main,
   background: var(--panel-alt);
 }
 
+/* NSU tower lives at the far right of the header, mirroring the chapter
+   logo on the left and giving the brand block a balanced look. */
 .school-logo {
-  width: 104px;
+  width: 96px;
   height: auto;
   display: block;
+  flex-shrink: 0;
+  margin-left: auto;
   opacity: 0.95;
   filter: drop-shadow(0 0 10px rgba(201, 154, 46, 0.15));
-  margin-left: 0.5rem;
 }
 
 .brand-title-line {
@@ -114,6 +118,9 @@ main,
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  /* Desktop: tabs span the full content width edge-to-edge. */
+  justify-content: space-between;
+  width: 100%;
 }
 
 .main-nav a {
@@ -124,6 +131,9 @@ main,
   font-weight: 500;
   letter-spacing: 0.02em;
   transition: color 0.25s ease;
+  /* Each tab takes an equal share so the row stretches across the page. */
+  flex: 1 1 0;
+  text-align: center;
 }
 
 .main-nav a:hover {
@@ -339,12 +349,16 @@ main {
 .events-calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 0.45rem;
+  gap: 0.38rem;
+  /* Cap calendar width so it isn't oversized on desktop. */
+  max-width: 760px;
+  width: 100%;
+  margin-inline: auto;
 }
 
 .events-calendar-weekdays span {
   text-align: center;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -357,7 +371,7 @@ main {
 }
 
 .events-calendar-spacer {
-  border-radius: 0.8rem;
+  border-radius: 0.7rem;
   background: rgba(255, 255, 255, 0.015);
 }
 
@@ -366,9 +380,9 @@ main {
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
-  padding: 0.5rem;
+  padding: 0.4rem;
   border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 0.85rem;
+  border-radius: 0.7rem;
   background: rgba(255, 255, 255, 0.025);
   color: var(--text);
   cursor: pointer;
@@ -387,7 +401,7 @@ main {
 }
 
 .events-calendar-day-number {
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   font-weight: 700;
 }
 
@@ -518,6 +532,10 @@ main {
     --ice-cap-fill,
     linear-gradient(180deg, #ffffff 0%, #eaf4ff 55%, #cfe3f8 100%)
   );
+  /* Match the cell's rounded top corners so the ice cap reads as part of
+     the same square instead of a separate blocky element on top. */
+  border-top-left-radius: 0.7rem;
+  border-top-right-radius: 0.7rem;
   clip-path: polygon(
     0% 0%, 100% 0%, 100% 55%,
     94% 80%, 90% 55%, 84% 92%, 78% 58%,
@@ -558,6 +576,9 @@ main {
 .events-calendar-day.is-ict .events-calendar-day-number {
   position: relative;
   z-index: 2;
+  /* Gold so the date is readable against the white "ice" cap. */
+  color: var(--gold);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
 }
 
 /* Detail-panel: Ice Cold Tuesday card */
@@ -1239,6 +1260,47 @@ main {
 }
 .lineage-member-major-line + .lineage-member-major-line {
   margin-top: 0.15rem;
+}
+
+/* Full LinkedIn wordmark in the lineage card right column.
+   Hidden by default (mobile/tablet show the small "in" badge instead);
+   the desktop media query below swaps which mark is visible. */
+.lineage-member-linkedin-wordmark {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+.lineage-member-linkedin-wordmark svg {
+  display: block;
+  width: auto;
+  height: 32px;
+}
+.lineage-member-linkedin-wordmark.lineage-member-linkedin-placeholder {
+  opacity: 0.25;
+}
+
+@media (min-width: 841px) {
+  /* Desktop: hide the state outline and the small "in" badge so the full
+     gold wordmark is the only LinkedIn mark on the right side of the card. */
+  .lineage-member-no-photo .lineage-member-state-wrap {
+    display: none;
+  }
+  .lineage-member-no-photo .lineage-member-col-blank {
+    display: none;
+  }
+  .lineage-member-no-photo .lineage-member-col-state {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    grid-column: 3 / span 2;
+  }
+  .lineage-member-no-photo.lineage-member-no-state .lineage-member-col-state {
+    display: flex;
+  }
+  .lineage-member-no-photo .lineage-member-linkedin-wordmark {
+    display: inline-flex;
+  }
 }
 
 .lineage-member-no-photo .lineage-member-linkedin svg {
