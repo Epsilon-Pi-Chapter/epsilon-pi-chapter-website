@@ -7,12 +7,12 @@ import { Cursor } from '../parts/Cursor';
 const BASE = import.meta.env.BASE_URL;
 
 const OFFICERS = [
-  { name: 'Jahkari Taylor', title: 'President', img: `${BASE}assets/portraits/jaleel-drummond.png` },
-  { name: 'Nyles Ferguson', title: 'Vice President', img: `${BASE}assets/portraits/nyles-ferguson.png` },
-  { name: 'Khamani Battiste', title: 'Treasurer', img: `${BASE}assets/portraits/khamani-battiste.png` },
-  { name: 'Joseph Hargett', title: 'Secretary', img: `${BASE}assets/portraits/joseph-hargett.png` },
-  { name: 'Brett Andrews Jr.', title: 'Dean of Pledges', img: `${BASE}assets/portraits/brett-andrews-jr.png` },
-  { name: 'Jaylen Johnson', title: 'Step Master', img: `${BASE}assets/portraits/jaylen-johnson.png` },
+  { name: 'Nyles Ferguson', title: '1st Vice President', img: `${BASE}assets/portraits/nyles-ferguson.png` },
+  { name: 'Khamani Battiste', title: '2nd Vice President', img: `${BASE}assets/portraits/khamani-battiste.png` },
+  { name: 'Joseph Hargett', title: 'Treasurer', img: `${BASE}assets/portraits/joseph-hargett.png` },
+  { name: 'Ian Thomas', title: 'Corresponding Secretary', img: `${BASE}assets/portraits/ian-thomas.png` },
+  { name: 'Brett Andrews Jr.', title: 'Historian', img: `${BASE}assets/portraits/brett-andrews-jr.png` },
+  { name: 'Jaleel Drummond', title: 'Parliamentarian', img: `${BASE}assets/portraits/jaleel-drummond.png` },
 ];
 
 export function Scene4() {
