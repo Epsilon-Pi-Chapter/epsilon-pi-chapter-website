@@ -9,19 +9,19 @@ const eventsCalendarShells = () => document.querySelectorAll(".events-calendar-s
 // Set `email: null` to skip (e.g. faculty advisor). Set `email: "custom@..."` to override.
 // `linkedIn` is optional — leave blank to hide the LinkedIn icon.
 const officersData = [
-  { role: "Chapter President", name: "Jahkari N. Taylor", photo: "", email: "", linkedIn: "" },
-  { role: "1st Vice President", name: "Nyles Ferguson", photo: "assets/portraits/nyles-ferguson.png", email: "", linkedIn: "" },
-  { role: "2nd Vice President", name: "Khamani Battiste", photo: "assets/portraits/khamani-battiste.png", email: "", linkedIn: "" },
-  { role: "Recording Secretary", name: "Allan J. White", photo: "", email: "", linkedIn: "" },
-  { role: "Corresponding Secretary", name: "Ian Thomas", photo: "assets/portraits/ian-thomas.png", email: "", linkedIn: "" },
-  { role: "Treasurer", name: "Joseph Hargett", photo: "assets/portraits/joseph-hargett.png", email: "", linkedIn: "" },
-  { role: "Chapter Dean of Membership", name: "Jahkael Parker", photo: "", email: "", linkedIn: "" },
-  { role: "Sergeant-At-Arms", name: "Adarius Johnson", photo: "assets/portraits/adarius-johnson.png", email: "", linkedIn: "" },
-  { role: "Editor of the Sphinx", name: "Simeon Butler", photo: "assets/portraits/simeon-butler.png", email: "", linkedIn: "" },
-  { role: "Historian", name: "Brett Andrews, Jr.", photo: "assets/portraits/brett-andrews-jr.png", email: "", linkedIn: "" },
-  { role: "Parliamentarian", name: "Jaleel Drummond", photo: "assets/portraits/jaleel-drummond.png", email: "", linkedIn: "" },
-  { role: "Chaplain", name: "Jaylen L. Johnson", photo: "assets/portraits/jaylen-johnson.png", email: "", linkedIn: "" },
-  { role: "Chapter Advisor", name: "Dr. Leon Rousen", photo: "assets/portraits/leon-rousen.png", email: null, linkedIn: "" },
+  { role: "Chapter President", name: "Jahkari N. Taylor", photo: "assets/portraits/jahkari-taylor.jpg", email: "j.n.taylor128121@spartans.nsu.edu", linkedIn: "" },
+  { role: "1st Vice President", name: "Nyles A. Ferguson", photo: "assets/portraits/nyles-ferguson.jpg", email: "n.a.ferguson134760@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/nyles-ferguson-45b254321/" },
+  { role: "2nd Vice President", name: "Khamani A. Battiste", photo: "assets/portraits/khamani-battiste.png", email: "k.battiste@spartans.nsu.edu", linkedIn: "" },
+  { role: "Corresponding Secretary", name: "Ian X. Thomas", photo: "assets/portraits/ian-thomas.png", email: "i.x.thomas130032@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/ian-thomas-09186b330" },
+  { role: "Recording Secretary", name: "Allan J. White", photo: "", email: "a.j.white128063@spartans.nsu.edu", linkedIn: "" },
+  { role: "Treasurer", name: "Joseph E. Hargett", photo: "assets/portraits/joseph-hargett.jpg", email: "j.e.hargett@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/joseph-hargett/" },
+  { role: "Associate Editor to the Sphinx", name: "Simeon A. Butler", photo: "assets/portraits/simeon-butler.png", email: "s.a.butler130446@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/simeon-butler-ab92242b2" },
+  { role: "Chaplain", name: "Jaylen L. Johnson", photo: "assets/portraits/jaylen-johnson.png", email: "j.l.johnson122678@spartans.nsu.edu", linkedIn: "" },
+  { role: "Historian", name: "Brett D. Andrews, Jr", photo: "assets/portraits/brett-andrews-jr.jpg", email: "b.d.andrews@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/brett-andrews-norfolk-state" },
+  { role: "Chapter Dean of Membership", name: "Jahkael Parker", photo: "", email: "j.parker126522@spartans.nsu.edu", linkedIn: "" },
+  { role: "Parliamentarian", name: "Jaleel P. Drummond", photo: "assets/portraits/jaleel-drummond.jpg", email: "j.p.drummond@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/jaleel-drummond-391096384" },
+  { role: "Sergeant-At-Arms", name: "Adarius K. Johnson", photo: "assets/portraits/adarius-johnson.jpg", email: "a.k.johnson128247@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/adarius-johnson-456868383" },
+  { role: "Chapter Advisor", name: "Dr. Leon Rouson", photo: "assets/portraits/leon-rousen.png", email: "lrouson@nsu.edu", linkedIn: "" },
 ];
 
 // Update this list to add or revise upcoming events shown on the monthly calendar.
@@ -230,6 +230,9 @@ const calendarDetailFormatter = new Intl.DateTimeFormat("en-US", {
   year: "numeric",
 });
 
+const SUMMER_BREAK_START_KEY = "2026-05-02";
+const SUMMER_BREAK_END_KEY = "2026-07-31";
+
 let todaysDateKey = formatDateKey(new Date());
 let currentCalendarMonth = getInitialCalendarMonth();
 let selectedCalendarDateKey = getInitialSelectedDate();
@@ -241,13 +244,32 @@ function formatDateKey(date) {
   return `${year}-${month}-${day}`;
 }
 
+function hasCalendarDataForYear(year) {
+  return eventsCalendarData.some((event) => event.date.startsWith(`${year}-`));
+}
+
+function isSummerBreakDateKey(dateKey) {
+  return dateKey >= SUMMER_BREAK_START_KEY && dateKey <= SUMMER_BREAK_END_KEY;
+}
+
+function isSummerBreakMonth(monthStart) {
+  const monthStartKey = formatDateKey(monthStart);
+  const monthEndKey = formatDateKey(new Date(monthStart.getFullYear(), monthStart.getMonth() + 1, 0));
+  return monthEndKey >= SUMMER_BREAK_START_KEY && monthStartKey <= SUMMER_BREAK_END_KEY;
+}
+
 function getInitialCalendarMonth() {
-  const seed = eventsCalendarData[0]?.date ? new Date(`${eventsCalendarData[0].date}T12:00:00`) : new Date();
+  const today = new Date();
+  if (hasCalendarDataForYear(today.getFullYear())) {
+    return new Date(today.getFullYear(), today.getMonth(), 1);
+  }
+  const seed = eventsCalendarData[0]?.date ? new Date(`${eventsCalendarData[0].date}T12:00:00`) : today;
   return new Date(seed.getFullYear(), seed.getMonth(), 1);
 }
 
 function getInitialSelectedDate() {
   todaysDateKey = formatDateKey(new Date());
+  if (hasCalendarDataForYear(new Date().getFullYear())) return todaysDateKey;
   if (eventsCalendarData.some((event) => event.date === todaysDateKey)) return todaysDateKey;
   return eventsCalendarData[0]?.date || todaysDateKey;
 }
@@ -271,8 +293,7 @@ const iceColdTuesdayContent = {
 };
 
 function isSchoolYearTuesday(date) {
-  const m = date.getMonth();
-  return date.getDay() === 2 && m !== 5 && m !== 6;
+  return date.getDay() === 2 && !isSummerBreakDateKey(formatDateKey(date));
 }
 
 function renderIceColdTuesdayCard(dateKey, date) {
@@ -326,6 +347,7 @@ function renderEventsCalendarDetail(dateKey) {
   const date = new Date(`${dateKey}T12:00:00`);
   const formattedDate = calendarDetailFormatter.format(date);
   const isICT = isSchoolYearTuesday(date);
+  const isSummerBreakDay = isSummerBreakDateKey(dateKey);
 
   const eventCards = events
     .map((event) => {
@@ -351,6 +373,13 @@ function renderEventsCalendarDetail(dateKey) {
   let inner = "";
   if (events.length) {
     inner += eventCards;
+  } else if (isSummerBreakDay && !isICT) {
+    inner += `
+      <div class="events-calendar-empty">
+        <strong>Summer break is in session</strong>
+        <p>Classes ended on May 1. Select another highlighted date to view any scheduled chapter events.</p>
+      </div>
+    `;
   } else if (!isICT) {
     inner += `
       <div class="events-calendar-empty">
@@ -388,7 +417,7 @@ function renderEventsCalendar() {
   const monthLabel = calendarMonthFormatter.format(monthStart);
   months.forEach((m) => { m.textContent = monthLabel; });
 
-  const isSummer = monthIdx === 5 || monthIdx === 6;
+  const isSummer = isSummerBreakMonth(monthStart);
   eventsCalendarShells().forEach((shell) => {
     shell.classList.toggle("is-summer-break", isSummer);
     let overlay = shell.querySelector(".events-calendar-summer-break");
@@ -416,6 +445,7 @@ function renderEventsCalendar() {
     const events = getEventsForDate(dateKey);
     const isSelected = dateKey === selectedCalendarDateKey;
     const isToday = dateKey === todaysDateKey;
+    const isSummerBreakDay = isSummerBreakDateKey(dateKey);
 
     const cats = new Set(events.map((e) => e.category || "event"));
     const hasService = cats.has("service");
@@ -425,14 +455,14 @@ function renderEventsCalendar() {
     else if (hasService) categoryClass = "cat-service";
     else if (hasEvent) categoryClass = "cat-event";
 
-    // Ice Cold Tuesday: every Tuesday during the school year (skip Jun/Jul).
-    const isSchoolYearMonth = monthIdx !== 5 && monthIdx !== 6;
-    const isIceColdTuesday = isSchoolYearMonth && date.getDay() === 2;
+    // Ice Cold Tuesday only appears during the active school year.
+    const isIceColdTuesday = isSchoolYearTuesday(date);
 
     const classes = [
       "events-calendar-day",
       events.length ? "has-event" : "",
       categoryClass,
+      isSummerBreakDay ? "is-summer-break-day" : "",
       isIceColdTuesday ? "is-ict" : "",
       isSelected ? "is-selected" : "",
       isToday ? "is-today" : "",
@@ -587,24 +617,18 @@ const lineageData = {
     chapterDean: "Jordan Cain",
     chapterPharaoh: "Kaion Hamilton, III",
     noHeadshots: true,
-    linePictures: [
-      "assets/line-photos/spring-2026-1.png",
-      "assets/line-photos/spring-2026-2.png",
-      "assets/line-photos/spring-2026-3.png",
-      "assets/line-photos/spring-2026-4.png",
-    ],
     members: [
-      { position: "1/Ace", fullName: "Adarius Johnson", lineName: "K1ll Switch", photo: "assets/portraits/adarius-johnson.png", major: "Exercise Science with a focus in Kinesiotherapy", minor: "", hometown: "Portsmouth, VA", linkedIn: "https://www.linkedin.com/in/adarius-johnson-456868383" },
+      { position: "1/Ace", fullName: "Adarius Johnson", lineName: "K1ll Switch", photo: "assets/portraits/adarius-johnson.jpg", major: "Exercise Science with a focus in Kinesiotherapy", minor: "", hometown: "Portsmouth, VA", linkedIn: "https://www.linkedin.com/in/adarius-johnson-456868383" },
       { position: "2/Deuce", fullName: "Justin Claiborne", lineName: "Flu Game", photo: "assets/portraits/justin-claiborne.png", major: "Computer Science with a focus in Cybersecurity", minor: "", hometown: "Hampton, VA", linkedIn: "https://www.linkedin.com/in/justin-claiborne" },
-      { position: "3/Tre", fullName: "Brandon Richardson", lineName: "Tariq St. Patrick", photo: "assets/portraits/brandon-richardson.png", major: "Business Management", minor: "Psychology", hometown: "Chester, VA", linkedIn: "" },
-      { position: "4/H4rdcore", fullName: "Dylan Bryant", lineName: "Spike Lee", photo: "assets/portraits/dylan-bryant.png", major: "Graphic Design with a focus in Fine Arts", minor: "", hometown: "Prince George's County, MD", linkedIn: "" },
+      { position: "3/Tre", fullName: "Brandon Richardson", lineName: "Tariq St. Patrick", photo: "assets/portraits/brandon-richardson.png", major: "Business Management", minor: "Psychology", hometown: "Chester, VA", linkedIn: "https://www.linkedin.com/in/brandon-richardson-444b61319" },
+      { position: "4/H4rdcore", fullName: "Dylan Bryant", lineName: "Spike Lee", photo: "assets/portraits/dylan-bryant.png", major: "Graphic Design with a focus in Fine Arts", minor: "", hometown: "Prince George's County, MD", linkedIn: "https://www.linkedin.com/in/dylan-bryant-a7505a36a" },
       { position: "5/Live 5ive", fullName: "Ian Thomas", lineName: "Ares", photo: "assets/portraits/ian-thomas.png", major: "Interdisciplinary Studies with a focus in Criminal Justice and Business Marketing", minor: "", hometown: "Fredricksburg, VA", linkedIn: "https://www.linkedin.com/in/ian-thomas-09186b330" },
-      { position: "6/Slick 6ix", fullName: "Simeon Butler", lineName: "Pain Killer", photo: "assets/portraits/simeon-butler.png", major: "Mass Communications", minor: "Business", hometown: "Huntsville, AL", linkedIn: "" },
+      { position: "6/Slick 6ix", fullName: "Simeon Butler", lineName: "Pain Killer", photo: "assets/portraits/simeon-butler.png", major: "Mass Communications", minor: "Business", hometown: "Huntsville, AL", linkedIn: "https://www.linkedin.com/in/simeon-butler-ab92242b2" },
       { position: "7/Jewel", fullName: "Kyree Williams", lineName: "Eagle Eye", photo: "assets/portraits/kyree-williams.png", major: "Psychology", minor: "Business", hometown: "Philadelphia, PA", linkedIn: "https://www.linkedin.com/in/kyree-williams-390870383/" },
-      { position: "8/8Ball", fullName: "Jaleel Drummond", lineName: "Creed", photo: "assets/portraits/jaleel-drummond.png", major: "Social Work", minor: "", hometown: "Philadelphia, PA", linkedIn: "" },
-      { position: "9/Notorious 9ine", fullName: "Nyles Ferguson", lineName: "Mister Terrific", photo: "assets/portraits/nyles-ferguson.png", major: "Political Science", minor: "", hometown: "Chesapeake, VA", linkedIn: "https://www.linkedin.com/in/nyles-ferguson-45b254321/" },
-      { position: "10/Dime", fullName: "Brett Andrews, Jr.", lineName: "Man of Steel", photo: "assets/portraits/brett-andrews-jr.png", major: ["Computer Engineering Technology", "Electronics Engineering Technology"], minor: "", hometown: "Atlanta, GA", linkedIn: "https://www.linkedin.com/in/brett-andrews-norfolk-state" },
-      { position: "11/Fly E11even - Tail", fullName: "Joseph Hargett", lineName: "Hail Mary", photo: "assets/portraits/joseph-hargett.png", major: "Business Marketing", minor: "", hometown: "Williamston, NC", linkedIn: "https://www.linkedin.com/in/joseph-hargett/" },
+      { position: "8/8Ball", fullName: "Jaleel Drummond", lineName: "Creed", photo: "assets/portraits/jaleel-drummond.jpg", major: "Social Work", minor: "", hometown: "Philadelphia, PA", linkedIn: "https://www.linkedin.com/in/jaleel-drummond-391096384" },
+      { position: "9/Notorious 9ine", fullName: "Nyles Ferguson", lineName: "Mister Terrific", photo: "assets/portraits/nyles-ferguson.jpg", major: "Political Science", minor: "", hometown: "Chesapeake, VA", linkedIn: "https://www.linkedin.com/in/nyles-ferguson-45b254321/" },
+      { position: "10/Dime", fullName: "Brett Andrews, Jr.", lineName: "Man of Steel", photo: "assets/portraits/brett-andrews-jr.jpg", major: ["Computer Engineering Technology", "Electronics Engineering Technology"], minor: "", hometown: "Atlanta, GA", linkedIn: "https://www.linkedin.com/in/brett-andrews-norfolk-state" },
+      { position: "11/Fly E11even - Tail", fullName: "Joseph Hargett", lineName: "Hail Mary", photo: "assets/portraits/joseph-hargett.jpg", major: "Business Marketing", minor: "", hometown: "Williamston, NC", linkedIn: "https://www.linkedin.com/in/joseph-hargett/" },
     ],
   },
   "Spring 2021": {
@@ -1380,6 +1404,7 @@ function getOfficerEmail(officer) {
 }
 
 function renderOfficers() {
+  if (!officerContainer) return;
   const markup = officersData
     .map((officer) => {
       const email = getOfficerEmail(officer);
@@ -1410,6 +1435,7 @@ function renderOfficers() {
     .join("");
 
   officerContainer.innerHTML = markup;
+  refreshMotionElements();
 }
 
 const LINEAGE_TERM_ORDER = [
@@ -1525,7 +1551,7 @@ function renderLeaderName(name) {
 }
 
 function jumpToBrother(targetTerm, targetName) {
-  if (!targetTerm) return;
+  if (!targetTerm || !lineageContainer) return;
   showLineageTerm(targetTerm);
   const aliasKey = normalizeBrotherName(targetName);
   const resolvedName = LEADER_ALIASES.get(aliasKey) || targetName;
@@ -1590,9 +1616,9 @@ function buildLineageItem(termKey, details) {
                </div>`
             : "";
           const { majors, focus, minor } = getMajorMinorDisplay(member);
-          const linkedInHtml = member.linkedIn
-            ? `<a href="${member.linkedIn}" class="lineage-member-linkedin" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">${LINKEDIN_LOGO_SVG}</a>`
-            : `<span class="lineage-member-linkedin lineage-member-linkedin-placeholder" aria-hidden="true">${LINKEDIN_LOGO_SVG}</span>`;
+          const linkedInMobileHtml = member.linkedIn
+            ? `<a href="${member.linkedIn}" class="lineage-member-linkedin lineage-member-linkedin-mobile" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">${LINKEDIN_LOGO_SVG}</a>`
+            : `<span class="lineage-member-linkedin lineage-member-linkedin-mobile lineage-member-linkedin-placeholder" aria-hidden="true">${LINKEDIN_LOGO_SVG}</span>`;
           // Desktop-only full wordmark — CSS hides this on mobile/tablet and
           // hides the small badge above on desktop, so each breakpoint shows
           // exactly one LinkedIn mark.
@@ -1609,11 +1635,10 @@ function buildLineageItem(termKey, details) {
           // Focus, and Hometown always land in the same cell across every
           // card — Hometown stays in the bottom-right slot even when other
           // fields are absent. Empty values render as em-dash.
-          const detailItems = [
+          const academicDetailItems = [
             { label: majorLabel, value: majorValueHtml, area: "major" },
             { label: "Focus", value: focus || "", area: "focus", hideIfEmpty: true },
             { label: "Minor", value: minor || "", area: "minor", hideIfEmpty: true },
-            { label: "Hometown", value: member.hometown || "—", area: "hometown" },
           ]
             .filter((item) => !(item.hideIfEmpty && !item.value))
             .map(
@@ -1624,6 +1649,11 @@ function buildLineageItem(termKey, details) {
                 </div>`
             )
             .join("");
+          const hometownDetailItem = `
+                <div class="lineage-member-detail-item lineage-member-detail-item--hometown">
+                  <span class="lineage-member-detail-label">Hometown</span>
+                  <span class="lineage-member-detail-value">${member.hometown || "—"}</span>
+                </div>`;
           bodyHtml = `
               <div class="lineage-member-col lineage-member-col-identity">
                 <span class="lineage-position-num">#${num}</span>
@@ -1632,10 +1662,12 @@ function buildLineageItem(termKey, details) {
                 ${lineNameHtml}
               </div>
               <div class="lineage-member-col lineage-member-col-details">
-                <div class="lineage-member-details">${detailItems}</div>
+                <div class="lineage-member-details">
+                  <div class="lineage-member-details-main">${academicDetailItems}</div>
+                  <div class="lineage-member-details-side">${hometownDetailItem}${linkedInMobileHtml}</div>
+                </div>
               </div>
-              <div class="lineage-member-col lineage-member-col-state">${stateMapHtml || ""}${linkedInWordmarkHtml}</div>
-              <div class="lineage-member-col lineage-member-col-blank">${linkedInHtml}</div>`;
+              <div class="lineage-member-col lineage-member-col-state">${stateMapHtml || ""}${linkedInWordmarkHtml}</div>`;
         } else {
           bodyHtml = `
               <div class="lineage-member-meta">
@@ -1696,8 +1728,9 @@ function buildLineageItem(termKey, details) {
 let currentLineageTerm = "Spring 2026";
 
 function populateLineageMenu() {
-  const terms = buildLineageTerms();
   const track = document.getElementById("lineage-term-track");
+  if (!track) return;
+  const terms = buildLineageTerms();
   track.innerHTML = terms
     .map((t) => {
       const termKey = `${t.season} ${t.year}`;
@@ -1714,12 +1747,15 @@ function setActiveLineageTerm(termKey) {
 }
 
 function showLineageTerm(termKey) {
+  if (!lineageContainer) return;
   const details = lineageData[termKey];
   lineageContainer.replaceChildren(buildLineageItem(termKey, details));
   setActiveLineageTerm(termKey);
+  refreshMotionElements();
 }
 
 function renderLineage() {
+  if (!lineageContainer || !document.getElementById("lineage-term-track")) return;
   buildNameIndex();
   const terms = buildLineageTerms();
   populateLineageMenu();
@@ -1749,6 +1785,7 @@ function renderLineage() {
 
 function openLinePicLightbox(src, alt) {
   const lightbox = document.getElementById("line-pic-lightbox");
+  if (!lightbox) return;
   const lightboxImg = lightbox.querySelector(".line-pic-lightbox-img");
   lightboxImg.src = src;
   lightboxImg.alt = alt || "Enlarged line photo";
@@ -1767,17 +1804,123 @@ document.getElementById("line-pic-lightbox")?.addEventListener("keydown", (e) =>
   if (e.key === "Escape") closeLinePicLightbox();
 });
 
+const prefersReducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+const motionRevealSelector = [
+  '.panel.active > h2',
+  '.panel.active > p',
+  '.panel.active .hero-panel > *',
+  '.panel.active .section-flow-divider',
+  '.panel.active > .card',
+  '.panel.active .history-card',
+  '.panel.active .achievement-year',
+  '.panel.active .officer-card',
+  '.panel.active .program-card',
+  '.panel.active .past-highlight',
+  '.panel.active .lineage-term-menu-wrap',
+  '.panel.active .lineage-item',
+  '.panel.active .lineage-member',
+  '.panel.active .lineage-line-pic',
+  '.panel.active .support-card',
+  '.panel.active .gallery-tile'
+].join(', ');
+
+let motionRevealObserver = null;
+let timelineMotionFrame = 0;
+
+function ensureMotionRevealObserver() {
+  if (prefersReducedMotionQuery.matches) return null;
+  if (motionRevealObserver) return motionRevealObserver;
+  motionRevealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-visible");
+      motionRevealObserver.unobserve(entry.target);
+    });
+  }, {
+    threshold: 0.18,
+    rootMargin: "0px 0px -10% 0px"
+  });
+  return motionRevealObserver;
+}
+
+function refreshMotionElements() {
+  const targets = Array.from(document.querySelectorAll(motionRevealSelector))
+    .filter((el) => el.offsetParent !== null);
+  let lineageMotionIndex = 0;
+
+  targets.forEach((el, index) => {
+    el.classList.add("motion-reveal");
+    if (el.matches(".lineage-term-menu-wrap, .lineage-member, .lineage-line-pic")) {
+      el.classList.add("motion-reveal-lineage");
+      el.style.setProperty("--motion-delay", `${Math.min(lineageMotionIndex % 5, 4) * 38}ms`);
+      lineageMotionIndex += 1;
+    } else {
+      el.classList.remove("motion-reveal-lineage");
+      el.style.setProperty("--motion-delay", `${Math.min(index % 6, 5) * 55}ms`);
+    }
+    if (prefersReducedMotionQuery.matches) {
+      el.classList.add("is-visible");
+      return;
+    }
+    ensureMotionRevealObserver()?.observe(el);
+  });
+  requestTimelineMotionUpdate();
+}
+
+function updateAchievementsTimelineMotion() {
+  const timeline = document.getElementById("achievements-timeline");
+  const historyPanel = document.getElementById("history");
+  if (!timeline || !historyPanel) return;
+
+  const entries = timeline.querySelectorAll(".achievement-year");
+  const isHistoryActive = historyPanel.classList.contains("active");
+
+  if (!isHistoryActive) {
+    timeline.style.setProperty("--timeline-progress", "0");
+    entries.forEach((entry) => entry.classList.remove("timeline-active"));
+    return;
+  }
+
+  if (prefersReducedMotionQuery.matches) {
+    timeline.style.setProperty("--timeline-progress", "1");
+    entries.forEach((entry) => entry.classList.add("timeline-active"));
+    return;
+  }
+
+  const rect = timeline.getBoundingClientRect();
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+  const start = viewportHeight * 0.82;
+  const travel = Math.max(rect.height + viewportHeight * 0.18, 1);
+  const progress = Math.max(0, Math.min((start - rect.top) / travel, 1));
+
+  timeline.style.setProperty("--timeline-progress", progress.toFixed(3));
+
+  entries.forEach((entry) => {
+    const entryRect = entry.getBoundingClientRect();
+    const isActive = entryRect.top < viewportHeight * 0.72 && entryRect.bottom > viewportHeight * 0.22;
+    entry.classList.toggle("timeline-active", isActive);
+  });
+}
+
+function requestTimelineMotionUpdate() {
+  if (timelineMotionFrame) return;
+  timelineMotionFrame = window.requestAnimationFrame(() => {
+    timelineMotionFrame = 0;
+    updateAchievementsTimelineMotion();
+  });
+}
+
 renderOfficers();
 renderLineage();
 
 // Rap sheet modal
 function openRapSheet(termKey, memberIndex) {
+  const modal = document.getElementById("rap-sheet-modal");
+  if (!modal) return;
   const details = lineageData[termKey];
   if (!details || !details.members[memberIndex]) return;
   const member = details.members[memberIndex];
   const [num, moniker] = member.position.includes("/") ? member.position.split("/", 2) : [member.position, ""];
-
-  const modal = document.getElementById("rap-sheet-modal");
   modal.querySelector(".rap-sheet-position-num").textContent = `#${num}`;
   modal.querySelector(".rap-sheet-moniker").textContent = moniker;
   modal.querySelector(".rap-sheet-name").textContent = member.fullName;
@@ -1869,67 +2012,76 @@ function openRapSheet(termKey, memberIndex) {
 }
 
 function closeRapSheet() {
-  document.getElementById("rap-sheet-modal").close();
+  document.getElementById("rap-sheet-modal")?.close();
 }
 
-document.getElementById("rap-sheet-modal").querySelector(".rap-sheet-close").addEventListener("click", closeRapSheet);
-document.getElementById("rap-sheet-modal").addEventListener("click", (e) => {
-  if (e.target.id === "rap-sheet-modal") closeRapSheet();
-});
-document.getElementById("rap-sheet-modal").addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeRapSheet();
-});
+const rapSheetModal = document.getElementById("rap-sheet-modal");
+if (rapSheetModal) {
+  rapSheetModal.querySelector(".rap-sheet-close").addEventListener("click", closeRapSheet);
+  rapSheetModal.addEventListener("click", (e) => {
+    if (e.target.id === "rap-sheet-modal") closeRapSheet();
+  });
+  rapSheetModal.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeRapSheet();
+  });
+}
 
 const stateContainer = document.querySelector(".rap-sheet-state-container");
 const editPosBtn = document.querySelector(".rap-sheet-edit-pos");
 const posDisplay = document.querySelector(".rap-sheet-pos-display");
 const copyPosBtn = document.querySelector(".rap-sheet-copy-pos");
 
-editPosBtn.addEventListener("click", () => {
-  const pressed = editPosBtn.getAttribute("aria-pressed") === "true";
-  const next = !pressed;
-  editPosBtn.setAttribute("aria-pressed", String(next));
-  stateContainer.classList.toggle("rap-sheet-edit-mode", next);
-  if (next) posDisplay.textContent = "Click on the map where the phi should go.";
-});
+if (stateContainer && editPosBtn && posDisplay) {
+  editPosBtn.addEventListener("click", () => {
+    const pressed = editPosBtn.getAttribute("aria-pressed") === "true";
+    const next = !pressed;
+    editPosBtn.setAttribute("aria-pressed", String(next));
+    stateContainer.classList.toggle("rap-sheet-edit-mode", next);
+    if (next) posDisplay.textContent = "Click on the map where the phi should go.";
+  });
 
-stateContainer.addEventListener("click", (e) => {
-  if (editPosBtn.getAttribute("aria-pressed") !== "true") return;
-  e.stopPropagation();
-  const rect = stateContainer.getBoundingClientRect();
-  const x = ((e.clientX - rect.left) / rect.width) * 100;
-  const y = ((e.clientY - rect.top) / rect.height) * 100;
-  const state = stateContainer.dataset.state;
-  const cityKey = stateContainer.dataset.cityKey || "default";
-  if (!state) return;
-  setPositionOverride(state, cityKey, x, y);
-  const phi = stateContainer.querySelector(".rap-sheet-hand-sign");
-  phi.style.left = `${Math.round(x)}%`;
-  phi.style.top = `${Math.round(y)}%`;
-  posDisplay.textContent = `${state} / ${cityKey} → ${Math.round(x)}, ${Math.round(y)} (position saved)`;
-  editPosBtn.setAttribute("aria-pressed", "false");
-  stateContainer.classList.remove("rap-sheet-edit-mode");
-});
-
-copyPosBtn.addEventListener("click", () => {
-  const overrides = getPositionOverrides();
-  const merged = {};
-  for (const st of Object.keys(CITY_POSITION)) {
-    merged[st] = { ...CITY_POSITION[st] };
-  }
-  for (const st of Object.keys(overrides)) {
-    if (!merged[st]) merged[st] = { default: [50, 50] };
-    for (const city of Object.keys(overrides[st])) {
-      merged[st][city] = overrides[st][city];
+  stateContainer.addEventListener("click", (e) => {
+    if (editPosBtn.getAttribute("aria-pressed") !== "true") return;
+    e.stopPropagation();
+    const rect = stateContainer.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    const state = stateContainer.dataset.state;
+    const cityKey = stateContainer.dataset.cityKey || "default";
+    if (!state) return;
+    setPositionOverride(state, cityKey, x, y);
+    const phi = stateContainer.querySelector(".rap-sheet-hand-sign");
+    if (phi) {
+      phi.style.left = `${Math.round(x)}%`;
+      phi.style.top = `${Math.round(y)}%`;
     }
-  }
-  const json = JSON.stringify(merged, null, 2);
-  const code = `const CITY_POSITION = ${json};`;
-  navigator.clipboard.writeText(code).then(
-    () => { posDisplay.textContent = "CITY_POSITION copied to clipboard. Paste into script.js."; },
-    () => { posDisplay.textContent = "Copy failed. Use browser console."; }
-  );
-});
+    posDisplay.textContent = `${state} / ${cityKey} → ${Math.round(x)}, ${Math.round(y)} (position saved)`;
+    editPosBtn.setAttribute("aria-pressed", "false");
+    stateContainer.classList.remove("rap-sheet-edit-mode");
+  });
+}
+
+if (copyPosBtn && posDisplay) {
+  copyPosBtn.addEventListener("click", () => {
+    const overrides = getPositionOverrides();
+    const merged = {};
+    for (const st of Object.keys(CITY_POSITION)) {
+      merged[st] = { ...CITY_POSITION[st] };
+    }
+    for (const st of Object.keys(overrides)) {
+      if (!merged[st]) merged[st] = { default: [50, 50] };
+      for (const city of Object.keys(overrides[st])) {
+        merged[st][city] = overrides[st][city];
+      }
+    }
+    const json = JSON.stringify(merged, null, 2);
+    const code = `const CITY_POSITION = ${json};`;
+    navigator.clipboard.writeText(code).then(
+      () => { posDisplay.textContent = "CITY_POSITION copied to clipboard. Paste into script.js."; },
+      () => { posDisplay.textContent = "Copy failed. Use browser console."; }
+    );
+  });
+}
 
 const editCropBtn = document.querySelector(".rap-sheet-edit-crop");
 const cropSliderWrap = document.querySelector(".rap-sheet-crop-slider-wrap");
@@ -1939,7 +2091,7 @@ const copyCropBtn = document.querySelector(".rap-sheet-copy-crop");
 const photoWrapEl = document.querySelector(".rap-sheet-photo-wrap");
 
 function applyCropFromSliders() {
-  if (!cropSliderX || !cropSliderY) return;
+  if (!cropSliderX || !cropSliderY || !photoWrapEl) return;
   const x = parseInt(cropSliderX.value, 10);
   const y = parseInt(cropSliderY.value, 10);
   const member = photoWrapEl.dataset.cropMember;
@@ -1950,30 +2102,34 @@ function applyCropFromSliders() {
   showLineageTerm(currentLineageTerm);
 }
 
-editCropBtn.addEventListener("click", () => {
-  const pressed = editCropBtn.getAttribute("aria-pressed") === "true";
-  const next = !pressed;
-  editCropBtn.setAttribute("aria-pressed", String(next));
-  cropSliderWrap.hidden = !next;
-});
+if (editCropBtn && cropSliderWrap) {
+  editCropBtn.addEventListener("click", () => {
+    const pressed = editCropBtn.getAttribute("aria-pressed") === "true";
+    const next = !pressed;
+    editCropBtn.setAttribute("aria-pressed", String(next));
+    cropSliderWrap.hidden = !next;
+  });
+}
 
 if (cropSliderX) cropSliderX.addEventListener("input", applyCropFromSliders);
 if (cropSliderY) cropSliderY.addEventListener("input", applyCropFromSliders);
 
-copyCropBtn.addEventListener("click", () => {
-  const overrides = getCropOverrides();
-  const entries = Object.entries(overrides)
-    .map(([name, v]) => {
-      const x = typeof v === "object" && v.x != null ? v.x : 50;
-      const y = typeof v === "object" && v.y != null ? v.y : (typeof v === "number" ? v : 35);
-      return `  { fullName: "${name}", cropX: ${x}, cropY: ${y} }`;
-    })
-    .join(",\n");
-  const code = `// Add cropX and cropY to each member in lineageData.\n[${entries}]`;
-  navigator.clipboard.writeText(code);
-});
+if (copyCropBtn) {
+  copyCropBtn.addEventListener("click", () => {
+    const overrides = getCropOverrides();
+    const entries = Object.entries(overrides)
+      .map(([name, v]) => {
+        const x = typeof v === "object" && v.x != null ? v.x : 50;
+        const y = typeof v === "object" && v.y != null ? v.y : (typeof v === "number" ? v : 35);
+        return `  { fullName: "${name}", cropX: ${x}, cropY: ${y} }`;
+      })
+      .join(",\n");
+    const code = `// Add cropX and cropY to each member in lineageData.\n[${entries}]`;
+    navigator.clipboard.writeText(code);
+  });
+}
 
-document.getElementById("lineage-list").addEventListener("click", (e) => {
+lineageContainer?.addEventListener("click", (e) => {
   const leaderLink = e.target.closest(".lineage-leader-link");
   if (leaderLink) {
     e.preventDefault();
@@ -2250,51 +2406,14 @@ function renderAchievements() {
       `;
     })
     .join("");
+  refreshMotionElements();
 }
 renderAchievements();
 
-// Tab switching: show only the active panel
-const tabLinks = document.querySelectorAll('.main-nav [role="tab"]');
-const panels = document.querySelectorAll('[data-tab-panel]');
-const validTabs = Array.from(tabLinks).map((link) => link.dataset.tab);
-
-function showTab(tabId) {
-  tabLinks.forEach((link) => {
-    const isActive = link.dataset.tab === tabId;
-    link.setAttribute('aria-selected', isActive);
-  });
-  panels.forEach((panel) => {
-    const isTarget = panel.dataset.tabPanel === tabId;
-    panel.setAttribute('aria-hidden', !isTarget);
-    panel.classList.toggle('active', isTarget);
-  });
-}
-
-function getTabFromUrl() {
-  const path = window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
-  const hash = window.location.hash.replace(/^#/, '').toLowerCase();
-  if (validTabs.includes(path)) return path;
-  if (validTabs.includes(hash)) return hash;
-  return 'home';
-}
-
-tabLinks.forEach((link) => {
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
-    const tabId = link.dataset.tab;
-    showTab(tabId);
-    const newPath = tabId === 'home' ? '/' : `/${tabId}`;
-    if (window.location.pathname !== newPath) {
-      window.history.pushState({ tab: tabId }, '', newPath);
-    }
-  });
-});
-
-window.addEventListener('popstate', () => {
-  showTab(getTabFromUrl());
-});
-
-showTab(getTabFromUrl());
+window.addEventListener("scroll", requestTimelineMotionUpdate, { passive: true });
+window.addEventListener("resize", requestTimelineMotionUpdate);
+refreshMotionElements();
+requestTimelineMotionUpdate();
 
 // Copy chapter email to clipboard with a brief confirmation.
 document.querySelectorAll('[data-copy]').forEach((btn) => {
