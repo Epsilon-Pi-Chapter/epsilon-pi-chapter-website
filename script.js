@@ -9,7 +9,7 @@ const eventsCalendarShells = () => document.querySelectorAll(".events-calendar-s
 // Set `email: null` to skip (e.g. faculty advisor). Set `email: "custom@..."` to override.
 // `linkedIn` is optional — leave blank to hide the LinkedIn icon.
 const officersData = [
-  { role: "Chapter President", name: "Jahkari N. Taylor", photo: "assets/portraits/jahkari-taylor.jpg", email: "j.n.taylor128121@spartans.nsu.edu", linkedIn: "" },
+  { role: "Chapter President", name: "Jahkari N. Taylor", photo: "assets/portraits/jahkari-taylor.jpg", email: "j.n.taylor128121@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/jahkari-taylor-944259294/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BpBtQpMOST%2FGNF1fTq9qc1w%3D%3D" },
   { role: "1st Vice President", name: "Nyles A. Ferguson", photo: "assets/portraits/nyles-ferguson.jpg", email: "n.a.ferguson134760@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/nyles-ferguson-45b254321/" },
   { role: "2nd Vice President", name: "Khamani A. Battiste", photo: "assets/portraits/khamani-battiste.png", email: "k.battiste@spartans.nsu.edu", linkedIn: "" },
   { role: "Corresponding Secretary", name: "Ian X. Thomas", photo: "assets/portraits/ian-thomas.jpg", email: "i.x.thomas130032@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/ian-thomas-09186b330" },
@@ -544,16 +544,16 @@ const lineageData = {
     chapterPharaoh: "Jordan D. Moody",
     noHeadshots: true,
     members: [
-      { position: "1/Ace", fullName: "Keshun Nelson", lineName: "Prime Proton", photo: "", major: "Chemistry with a focus in Pre-Med", minor: "", hometown: "Milwaukee, WI", linkedIn: "" },
-      { position: "2/Deuce", fullName: "Jahkari Taylor", lineName: "V.I.P.", photo: "", major: "Political Science", minor: "", hometown: "Chesapeake, VA", linkedIn: "" },
-      { position: "3/Tre", fullName: "Allan White", lineName: "Nocturnal Beast", photo: "assets/portraits/allan-white.jpg", major: "Sociology", minor: "", hometown: "Mount Vernon, NY", linkedIn: "" },
-      { position: "4/H4rdcore", fullName: "Jerome Sutton, III", lineName: "Steady Heart", photo: "assets/portraits/jerome-sutton-iii.png", major: "Sociology", minor: "Criminal Justice", hometown: "Chesapeake, VA", linkedIn: "" },
-      { position: "5/Live 5ive", fullName: "Jahkael Parker", lineName: "The Illusion", photo: "", major: "Business Management", minor: "", hometown: "Richmond, VA", linkedIn: "" },
-      { position: "6/Slick 6ix", fullName: "Jaylen Johnson", lineName: "Perfect Peace", photo: "assets/portraits/jaylen-johnson.png", major: "Exercise Science with a focus in Kinesiotherapy", minor: "", hometown: "Fort Washington, MD", linkedIn: "" },
-      { position: "7/Jewel", fullName: "Zachary Roberts, II", lineName: "MuPhasa", photo: "", major: "Management Information Systems", minor: "", hometown: "Carson, CA", linkedIn: "" },
-      { position: "8/8ight Ball", fullName: "Khamani Battiste", lineName: "Caesar", photo: "", major: "Construction Management", minor: "", hometown: "Chicago, IL", linkedIn: "" },
-      { position: "9/Notorious 9ine", fullName: "Adam Palmer", lineName: "Lazarus", photo: "", major: "Accounting", minor: "", hometown: "Halifax County, VA", linkedIn: "" },
-      { position: "10/Dime - Tail", fullName: "Xavier Spindle", lineName: "The Epilogue", photo: "", major: "Business Entrepreneurship", minor: "", hometown: "Richmond, VA", linkedIn: "" },
+      { position: "1/Ace", fullName: "Keshun Nelson", lineName: "Prime Proton", photo: "", major: "Chemistry with a focus in Pre-Med", minor: "", hometown: "Milwaukee, WI", linkedIn: "https://www.linkedin.com/in/keshun-nelson-2979a725a" },
+      { position: "2/Deuce", fullName: "Jahkari Taylor", lineName: "V.I.P.", photo: "", major: "Political Science", minor: "", hometown: "Chesapeake, VA", linkedIn: "https://www.linkedin.com/in/jahkari-taylor-944259294/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BpBtQpMOST%2FGNF1fTq9qc1w%3D%3D" },
+      { position: "3/Tre", fullName: "Allan White", lineName: "Nocturnal Beast", photo: "assets/portraits/allan-white.jpg", major: "Sociology", minor: "", hometown: "Mount Vernon, NY", linkedIn: "https://www.linkedin.com/in/allan-white-834484327/" },
+      { position: "4/H4rdcore", fullName: "Jerome Sutton, III", lineName: "Steady Heart", photo: "assets/portraits/jerome-sutton-iii.png", major: "Sociology", minor: "Criminal Justice", hometown: "Chesapeake, VA", linkedIn: "https://www.linkedin.com/in/jerome-sutton-iii-305024303/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3Bv6mHw3npSyeNx4wo5eed5A%3D%3D" },
+      { position: "5/Live 5ive", fullName: "Jahkael Parker", lineName: "The Illusion", photo: "", major: "Business Management", minor: "", hometown: "Richmond, VA", linkedIn: "https://www.linkedin.com/in/jahkael-parker-912381261/" },
+      { position: "6/Slick 6ix", fullName: "Jaylen Johnson", lineName: "Perfect Peace", photo: "assets/portraits/jaylen-johnson.png", major: "Exercise Science with a focus in Kinesiotherapy", minor: "", hometown: "Fort Washington, MD", linkedIn: "https://www.linkedin.com/in/jaylen-johnson-46a286290/" },
+      { position: "7/Jewel", fullName: "Zachary Roberts, II", lineName: "MuPhasa", photo: "", major: "Management Information Systems", minor: "", hometown: "Carson, CA", linkedIn: "https://www.linkedin.com/in/zackary-roberts-ii-a52467361/" },
+      { position: "8/8ight Ball", fullName: "Khamani Battiste", lineName: "Caesar", photo: "", major: "Construction Management", minor: "", hometown: "Chicago, IL", linkedIn: "https://www.linkedin.com/in/khamani-battiste-040561311/" },
+      { position: "9/Notorious 9ine", fullName: "Adam Palmer", lineName: "Lazarus", photo: "", major: "Accounting", minor: "", hometown: "Halifax County, VA", linkedIn: "https://www.linkedin.com/in/adam-palmer-b410a3384/" },
+      { position: "10/Dime - Tail", fullName: "Xavier Spindle", lineName: "The Epilogue", photo: "", major: "Business Entrepreneurship", minor: "", hometown: "Richmond, VA", linkedIn: "https://www.linkedin.com/in/xavier-spindle-015b62277/" },
     ],
   },
   "Spring 2023": {
