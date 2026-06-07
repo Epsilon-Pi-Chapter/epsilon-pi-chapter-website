@@ -4,6 +4,8 @@ const eventsCalendarGrids = () => document.querySelectorAll(".events-calendar-gr
 const eventsCalendarMonths = () => document.querySelectorAll(".events-calendar-month");
 const eventsCalendarDetails = () => document.querySelectorAll(".events-calendar-detail");
 const eventsCalendarShells = () => document.querySelectorAll(".events-calendar-shell");
+const siteMediaConfig = window.EPI_SITE_MEDIA || {};
+const galleryMediaConfig = Array.isArray(window.EPI_GALLERY_MEDIA) ? window.EPI_GALLERY_MEDIA : [];
 
 // Officers: leave `email` blank to auto-derive firstname.middleinitial.lastname@spartans.nsu.edu
 // Set `email: null` to skip (e.g. faculty advisor). Set `email: "custom@..."` to override.
@@ -1838,7 +1840,7 @@ function ensureMotionRevealObserver() {
     });
   }, {
     threshold: 0.18,
-    rootMargin: "0px 0px -10% 0px"
+    rootMargin: "0px 0px 8% 0px"
   });
   return motionRevealObserver;
 }
@@ -1847,10 +1849,17 @@ function refreshMotionElements() {
   const targets = Array.from(document.querySelectorAll(motionRevealSelector))
     .filter((el) => el.offsetParent !== null);
   let lineageMotionIndex = 0;
+  let lineageMemberIndex = 0;
+  const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+  const preRevealLineageMemberCount = viewportWidth <= 480 ? 1 : viewportWidth <= 840 ? 2 : 0;
 
   targets.forEach((el, index) => {
     el.classList.add("motion-reveal");
-    if (el.matches(".lineage-term-menu-wrap, .lineage-member, .lineage-line-pic")) {
+    const isLineageIntro = el.matches(".lineage-term-menu-wrap, .lineage-item");
+    const isLineageMember = el.matches(".lineage-member");
+    const isLineageMotion = el.matches(".lineage-term-menu-wrap, .lineage-item, .lineage-member, .lineage-line-pic");
+    if (isLineageMotion) {
       el.classList.add("motion-reveal-lineage");
       el.style.setProperty("--motion-delay", `${Math.min(lineageMotionIndex % 5, 4) * 38}ms`);
       lineageMotionIndex += 1;
@@ -1858,6 +1867,17 @@ function refreshMotionElements() {
       el.classList.remove("motion-reveal-lineage");
       el.style.setProperty("--motion-delay", `${Math.min(index % 6, 5) * 55}ms`);
     }
+
+    const rect = el.getBoundingClientRect();
+    const alreadyInInitialView = rect.top < viewportHeight * 0.92 && rect.bottom > 0;
+    const shouldPreRevealLineageMember = isLineageMember && lineageMemberIndex < preRevealLineageMemberCount;
+    if (isLineageMember) lineageMemberIndex += 1;
+
+    if ((isLineageIntro || shouldPreRevealLineageMember || (isLineageMotion && alreadyInInitialView))) {
+      el.classList.add("is-visible");
+      return;
+    }
+
     if (prefersReducedMotionQuery.matches) {
       el.classList.add("is-visible");
       return;
@@ -1910,8 +1930,162 @@ function requestTimelineMotionUpdate() {
   });
 }
 
+function initHeroMedia() {
+  const heroWrap = document.querySelector("[data-site-hero]");
+  const heroImg = document.querySelector("[data-site-hero-img]");
+  const hero = siteMediaConfig.heroImage;
+  if (!heroWrap || !heroImg || !hero?.src) return;
+  heroImg.src = hero.src;
+  heroImg.alt = hero.alt || "";
+  heroWrap.setAttribute("aria-label", hero.ariaLabel || hero.alt || "Featured chapter image");
+}
+
+function getGalleryShape(item, index) {
+  if (item?.shape) return item.shape;
+  if (index === 0) return "feature";
+  if (index % 7 === 0) return "landscape";
+  if (index % 5 === 0) return "portrait";
+  return "square";
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function renderGalleryTiles(items) {
+  return items.map((item, index) => {
+    const shape = getGalleryShape(item, index);
+    const title = item.title || `Gallery Photo ${index + 1}`;
+    const caption = item.caption || item.alt || title;
+    const badge = item.badge || "Gallery";
+    return `
+      <figure class="gallery-card gallery-card--${shape} gallery-tile" data-gallery-shape="${shape}">
+        <button type="button" class="gallery-card-button" data-gallery-index="${index}" aria-label="Open ${escapeHtml(title)}">
+          <img src="${escapeHtml(item.src)}" alt="${escapeHtml(item.alt || title)}" loading="lazy" decoding="async" />
+          <span class="gallery-card-badge">${escapeHtml(badge)}</span>
+          <span class="gallery-card-caption">
+            <span class="gallery-card-title">${escapeHtml(title)}</span>
+            <span class="gallery-card-copy">${escapeHtml(caption)}</span>
+          </span>
+        </button>
+      </figure>
+    `;
+  }).join("");
+}
+
+function initGalleryPage() {
+  const galleryGrid = document.getElementById("gallery-grid");
+  if (!galleryGrid) return;
+
+  const fallbackGallery = [
+    { src: "assets/line-photos/spring-2026-1.png", alt: "Spring 2026 line photo 1", title: "Spring 2026 Line", caption: "A featured chapter moment.", badge: "Brotherhood", shape: "feature" },
+    { src: "assets/line-photos/spring-2026-2.png", alt: "Spring 2026 line photo 2", title: "New Chapter Energy", caption: "A featured chapter moment.", badge: "Portrait", shape: "landscape" },
+    { src: "assets/line-photos/spring-2026-3.png", alt: "Spring 2026 line photo 3", title: "On the Yard", caption: "A featured chapter moment.", badge: "Campus", shape: "portrait" },
+    { src: "assets/line-photos/spring-2026-4.png", alt: "Spring 2026 line photo 4", title: "Built Together", caption: "A featured chapter moment.", badge: "Candid", shape: "square" }
+  ];
+  const items = galleryMediaConfig.length ? galleryMediaConfig : fallbackGallery;
+  const emptyState = document.getElementById("gallery-empty-state");
+  const galleryPhotoCount = document.getElementById("gallery-photo-count");
+  const count = items.length;
+
+  galleryGrid.innerHTML = renderGalleryTiles(items);
+  if (galleryPhotoCount) galleryPhotoCount.textContent = String(count);
+  if (emptyState) emptyState.hidden = count > 0;
+
+  const lightbox = document.getElementById("gallery-lightbox");
+  const lightboxImage = document.getElementById("gallery-lightbox-image");
+  const lightboxBadge = document.getElementById("gallery-lightbox-badge");
+  const lightboxTitle = document.getElementById("gallery-lightbox-title");
+  const lightboxCaption = document.getElementById("gallery-lightbox-caption");
+  const lightboxCount = document.getElementById("gallery-lightbox-count");
+  if (!lightbox || !lightboxImage || !lightboxBadge || !lightboxTitle || !lightboxCaption || !lightboxCount) return;
+
+  let currentIndex = 0;
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  const preloadAround = (index) => {
+    [-1, 1].forEach((offset) => {
+      const target = items[(index + offset + items.length) % items.length];
+      if (!target?.src) return;
+      const img = new Image();
+      img.src = target.src;
+    });
+  };
+
+  const updateLightbox = (index) => {
+    currentIndex = (index + items.length) % items.length;
+    const item = items[currentIndex];
+    lightboxImage.src = item.src;
+    lightboxImage.alt = item.alt || item.title || `Gallery photo ${currentIndex + 1}`;
+    lightboxBadge.textContent = item.badge || "Gallery";
+    lightboxTitle.textContent = item.title || `Gallery Photo ${currentIndex + 1}`;
+    lightboxCaption.textContent = item.caption || item.alt || "";
+    lightboxCount.textContent = `${currentIndex + 1} of ${items.length}`;
+    preloadAround(currentIndex);
+  };
+
+  const openLightbox = (index) => {
+    updateLightbox(index);
+    lightbox.showModal();
+  };
+
+  const closeLightbox = () => {
+    if (lightbox.open) lightbox.close();
+  };
+
+  const stepLightbox = (direction) => {
+    updateLightbox(currentIndex + direction);
+  };
+
+  galleryGrid.addEventListener("click", (event) => {
+    const trigger = event.target.closest("[data-gallery-index]");
+    if (!trigger) return;
+    openLightbox(Number(trigger.dataset.galleryIndex));
+  });
+
+  lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox) closeLightbox();
+  });
+
+  lightbox.querySelector(".gallery-lightbox-close")?.addEventListener("click", closeLightbox);
+  lightbox.querySelector(".gallery-lightbox-nav--prev")?.addEventListener("click", () => stepLightbox(-1));
+  lightbox.querySelector(".gallery-lightbox-nav--next")?.addEventListener("click", () => stepLightbox(1));
+  lightbox.querySelector(".gallery-lightbox-hitbox--prev")?.addEventListener("click", () => stepLightbox(-1));
+  lightbox.querySelector(".gallery-lightbox-hitbox--next")?.addEventListener("click", () => stepLightbox(1));
+
+  lightbox.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeLightbox();
+    if (event.key === "ArrowLeft") stepLightbox(-1);
+    if (event.key === "ArrowRight") stepLightbox(1);
+  });
+
+  const touchTarget = lightbox.querySelector(".gallery-lightbox-media");
+  touchTarget?.addEventListener("touchstart", (event) => {
+    touchStartX = event.changedTouches[0]?.clientX || 0;
+  }, { passive: true });
+
+  touchTarget?.addEventListener("touchend", (event) => {
+    touchEndX = event.changedTouches[0]?.clientX || 0;
+    const delta = touchEndX - touchStartX;
+    if (Math.abs(delta) < 44) return;
+    if (delta > 0) {
+      stepLightbox(-1);
+    } else {
+      stepLightbox(1);
+    }
+  }, { passive: true });
+}
+
+initHeroMedia();
 renderOfficers();
 renderLineage();
+initGalleryPage();
 
 // Rap sheet modal
 function openRapSheet(termKey, memberIndex) {
@@ -2190,6 +2364,7 @@ const achievementsData = [
     awards: [
       "Charles H. Wesley Award",
       { text: "Eastern Region Brother of the Year", brother: "Bro. Jaden Johnson" },
+      "Scholars Bowl Champions",
     ],
   },
   {
@@ -2394,7 +2569,7 @@ function renderAchievements() {
           if (typeof award === "string") {
             return `<li class="achievement-item">${award}</li>`;
           }
-          return `<li class="achievement-item">${award.text}<span class="achievement-brother">${award.brother}</span></li>`;
+          return `<li class="achievement-item">${award.text} <span class="achievement-brother">${award.brother}</span></li>`;
         })
         .join("");
       return `

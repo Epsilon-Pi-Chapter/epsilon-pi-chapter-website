@@ -1,0 +1,139 @@
+/* Phi marker navigation: custom chapter-shaped tab treatment. */
+.main-nav {
+  align-items: center;
+  gap: clamp(0.25rem, 0.7vw, 0.6rem);
+  overflow: visible;
+}
+
+.main-nav a {
+  position: relative;
+  isolation: isolate;
+  display: grid !important;
+  place-items: center;
+  min-height: clamp(2.2rem, 3vw, 2.6rem) !important;
+  padding: 0.48rem 0.35rem 0.32rem !important;
+  border: 0;
+  border-radius: 1.1rem;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+  overflow: visible;
+  text-align: center;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.88);
+  transform: translateZ(0);
+  transition:
+    color 0.25s ease,
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.28s ease;
+}
+
+.main-nav a::before {
+  content: "";
+  position: absolute;
+  inset: -0.3rem 0.85rem -0.18rem;
+  z-index: -1;
+  background: url("assets/nav/the-phi-marker-gold.png") center / contain no-repeat;
+  opacity: 0.58;
+  filter:
+    drop-shadow(0 0 0.45rem rgba(201, 154, 46, 0.12))
+    drop-shadow(0 0.5rem 0.8rem rgba(0, 0, 0, 0.4));
+  transform: rotate(-2deg) scale(0.9);
+  transform-origin: center 58%;
+  transition:
+    opacity 0.28s ease,
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.28s ease;
+}
+
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  inset: 0.7rem 1.55rem 0.48rem 1.7rem;
+  z-index: -2;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 40% 45%, rgba(240, 213, 143, 0.16), transparent 58%),
+    rgba(201, 154, 46, 0.08);
+  opacity: 0;
+  transform: scale(0.72);
+  transition:
+    opacity 0.25s ease,
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.main-nav a:hover,
+.main-nav a:focus-visible {
+  color: #ffffff;
+  filter: saturate(1.08);
+  transform: translateY(-2px) rotate(-0.5deg);
+}
+
+.main-nav a:hover::before,
+.main-nav a:focus-visible::before {
+  opacity: 0.88;
+  filter:
+    drop-shadow(0 0 0.7rem rgba(240, 213, 143, 0.22))
+    drop-shadow(0 0.75rem 1rem rgba(0, 0, 0, 0.5));
+  transform: rotate(0deg) scale(0.98);
+}
+
+.main-nav a:hover::after,
+.main-nav a:focus-visible::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.main-nav a[aria-selected="true"],
+.main-nav a[aria-current="page"] {
+  color: var(--gold-soft);
+}
+
+.main-nav a[aria-selected="true"]::before,
+.main-nav a[aria-current="page"]::before {
+  opacity: 1;
+  filter:
+    drop-shadow(0 0 0.75rem rgba(240, 213, 143, 0.32))
+    drop-shadow(0 0.8rem 1rem rgba(0, 0, 0, 0.55));
+  transform: rotate(0deg) scale(1);
+}
+
+.main-nav a[aria-selected="true"]::after,
+.main-nav a[aria-current="page"]::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (max-width: 840px) {
+  .main-nav,
+  html.force-mobile .main-nav {
+    gap: 0.45rem 0.35rem;
+  }
+
+  .main-nav a,
+  html.force-mobile .main-nav a {
+    min-height: clamp(2.35rem, 8vw, 2.75rem) !important;
+    padding: 0.5rem 0.12rem 0.32rem !important;
+    font-size: 0.83rem;
+  }
+
+  .main-nav a::before,
+  html.force-mobile .main-nav a::before {
+    inset: -0.24rem 0.48rem -0.12rem;
+  }
+
+  .main-nav a::after,
+  html.force-mobile .main-nav a::after {
+    inset: 0.7rem 1rem 0.45rem 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-nav a,
+  html.force-mobile .main-nav a {
+    min-height: 2.35rem !important;
+    font-size: 0.83rem;
+  }
+}

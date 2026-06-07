@@ -1,0 +1,13 @@
+.git
+.chrome-check
+.chrome-mobile-preview
+node_modules
+mobile-preview.html
+mobile-shot.png
+priority1-task1-desktop.png
+.codex-devserver.err.log
+.codex-devserver.out.log
+dev_server.py
+scripts
+package.json
+package-lock.json

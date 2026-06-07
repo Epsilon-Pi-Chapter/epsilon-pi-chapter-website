@@ -21,7 +21,8 @@
         document.documentElement.classList.add("force-mobile");
       }
     </script>
-    <link rel="stylesheet" href="styles.css?v=20260509d" />
+    <link rel="stylesheet" href="styles.css?v=20260607b" />
+    <link rel="stylesheet" href="nav.css?v=20260607a" />
     <svg aria-hidden="true" style="position:absolute;width:0;height:0">
       <filter id="state-outline-gold" color-interpolation-filters="sRGB">
         <feColorMatrix type="matrix" in="SourceGraphic" result="gold" values="0 0 0 0 0.788
@@ -60,21 +61,15 @@
     <main>
       <section id="home" class="panel active">
         <div class="hero-panel">
-          <div>
+          <div class="hero-intro">
             <h2>Welcome</h2>
             <p>
               Welcome to the official Epsilon Pi Chapter website. This space is designed to
               share our chapter's mission, leadership, impact, and legacy.
             </p>
-            <div class="chip-row">
-              <span class="chip">Chapter Overview</span>
-              <span class="chip">Mission &amp; Values</span>
-              <span class="chip">Announcements</span>
-              <span class="chip">Upcoming Events</span>
-            </div>
           </div>
-          <div class="hero-photo" role="img" aria-label="Spring 2026 line photo">
-            <img src="assets/line-photos/spring-2026-1.png" alt="Spring 2026 line of Epsilon Pi" loading="lazy" />
+          <div class="hero-photo" data-site-hero role="img" aria-label="Featured chapter photo">
+            <img data-site-hero-img src="assets/hero/front-page-cover-photo.JPG" alt="Featured chapter gallery image" loading="lazy" />
           </div>
         </div>
         <div class="section-flow-divider" aria-hidden="true">
@@ -133,6 +128,7 @@
       </div>
     </section>
 
-    <script src="script.js?v=20260519b"></script>
+    <script src="data/site-media.js"></script>
+    <script src="script.js?v=20260607b"></script>
   </body>
 </html>
