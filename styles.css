@@ -3356,11 +3356,14 @@ html.force-mobile .preview-switcher-link {
 
 /* === Site improvement additions: hero photo, programs, past highlights, gallery === */
 .hero-photo {
+  width: min(100%, 980px);
+  margin-inline: auto;
+  aspect-ratio: 16 / 9;
   border-radius: 1rem;
   overflow: hidden;
   border: 1px solid rgba(201, 154, 46, 0.25);
   background: var(--panel-alt);
-  min-height: clamp(280px, 58vw, 680px);
+  min-height: 0;
   display: block;
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.16);
 }

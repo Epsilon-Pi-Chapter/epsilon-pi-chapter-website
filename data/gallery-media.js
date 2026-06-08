@@ -8,14 +8,6 @@ window.EPI_GALLERY_MEDIA = [
     "shape": "feature"
   },
   {
-    "src": "assets/gallery/002-97probate1.jpeg",
-    "alt": "97probate(1)",
-    "title": "97probate(1)",
-    "caption": "Chapter gallery moment",
-    "badge": "Brotherhood",
-    "shape": "square"
-  },
-  {
     "src": "assets/gallery/003-123-1jpeg.jpeg",
     "alt": "123 1",
     "title": "123 1",

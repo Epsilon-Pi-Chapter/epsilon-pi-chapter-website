@@ -14,7 +14,7 @@ const officersData = [
   { role: "Chapter President", name: "Jahkari N. Taylor", photo: "assets/portraits/jahkari-taylor.jpg", email: "j.n.taylor128121@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/jahkari-taylor-944259294/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BpBtQpMOST%2FGNF1fTq9qc1w%3D%3D" },
   { role: "1st Vice President", name: "Nyles A. Ferguson", photo: "assets/portraits/nyles-ferguson.jpg", email: "n.a.ferguson134760@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/nyles-ferguson-45b254321/" },
   { role: "2nd Vice President", name: "Khamani A. Battiste", photo: "assets/portraits/khamani-battiste.png", email: "k.battiste@spartans.nsu.edu", linkedIn: "" },
-  { role: "Corresponding Secretary", name: "Ian X. Thomas", photo: "assets/portraits/ian-thomas.jpg", email: "i.x.thomas130032@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/ian-thomas-09186b330" },
+  { role: "Corresponding Secretary", name: "Ian X. Thomas", photo: "assets/portraits/ian-thomas.jpg?v=20260607a", email: "i.x.thomas130032@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/ian-thomas-09186b330" },
   { role: "Recording Secretary", name: "Allan J. White", photo: "assets/portraits/allan-white.jpg", email: "a.j.white128063@spartans.nsu.edu", linkedIn: "" },
   { role: "Treasurer", name: "Joseph E. Hargett", photo: "assets/portraits/joseph-hargett.jpg", email: "j.e.hargett@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/joseph-hargett/" },
   { role: "Associate Editor to the Sphinx", name: "Simeon A. Butler", photo: "assets/portraits/simeon-butler-officer.png", email: "s.a.butler130446@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/simeon-butler-ab92242b2" },
@@ -1834,13 +1834,11 @@ function ensureMotionRevealObserver() {
   if (motionRevealObserver) return motionRevealObserver;
   motionRevealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add("is-visible");
-      motionRevealObserver.unobserve(entry.target);
+      entry.target.classList.toggle("is-visible", entry.isIntersecting);
     });
   }, {
-    threshold: 0.18,
-    rootMargin: "0px 0px 8% 0px"
+    threshold: 0.12,
+    rootMargin: "10% 0px 14% 0px"
   });
   return motionRevealObserver;
 }
@@ -1870,6 +1868,7 @@ function refreshMotionElements() {
 
     const rect = el.getBoundingClientRect();
     const alreadyInInitialView = rect.top < viewportHeight * 0.92 && rect.bottom > 0;
+    const inRevealWindow = rect.top < viewportHeight * 1.04 && rect.bottom > -viewportHeight * 0.08;
     const shouldPreRevealLineageMember = isLineageMember && lineageMemberIndex < preRevealLineageMemberCount;
     if (isLineageMember) lineageMemberIndex += 1;
 
@@ -1882,6 +1881,7 @@ function refreshMotionElements() {
       el.classList.add("is-visible");
       return;
     }
+    el.classList.toggle("is-visible", inRevealWindow);
     ensureMotionRevealObserver()?.observe(el);
   });
   requestTimelineMotionUpdate();
@@ -1961,17 +1961,10 @@ function renderGalleryTiles(items) {
   return items.map((item, index) => {
     const shape = getGalleryShape(item, index);
     const title = item.title || `Gallery Photo ${index + 1}`;
-    const caption = item.caption || item.alt || title;
-    const badge = item.badge || "Gallery";
     return `
       <figure class="gallery-card gallery-card--${shape} gallery-tile" data-gallery-shape="${shape}">
         <button type="button" class="gallery-card-button" data-gallery-index="${index}" aria-label="Open ${escapeHtml(title)}">
           <img src="${escapeHtml(item.src)}" alt="${escapeHtml(item.alt || title)}" loading="lazy" decoding="async" />
-          <span class="gallery-card-badge">${escapeHtml(badge)}</span>
-          <span class="gallery-card-caption">
-            <span class="gallery-card-title">${escapeHtml(title)}</span>
-            <span class="gallery-card-copy">${escapeHtml(caption)}</span>
-          </span>
         </button>
       </figure>
     `;
@@ -2587,6 +2580,10 @@ renderAchievements();
 
 window.addEventListener("scroll", requestTimelineMotionUpdate, { passive: true });
 window.addEventListener("resize", requestTimelineMotionUpdate);
+window.addEventListener("load", () => {
+  window.setTimeout(refreshMotionElements, 150);
+  window.setTimeout(refreshMotionElements, 700);
+});
 refreshMotionElements();
 requestTimelineMotionUpdate();
 
