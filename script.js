@@ -14,7 +14,7 @@ const officersData = [
   { role: "Chapter President", name: "Jahkari N. Taylor", photo: "assets/portraits/jahkari-taylor.jpg", email: "j.n.taylor128121@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/jahkari-taylor-944259294/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BpBtQpMOST%2FGNF1fTq9qc1w%3D%3D" },
   { role: "1st Vice President", name: "Nyles A. Ferguson", photo: "assets/portraits/nyles-ferguson.jpg", email: "n.a.ferguson134760@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/nyles-ferguson-45b254321/" },
   { role: "2nd Vice President", name: "Khamani A. Battiste", photo: "assets/portraits/khamani-battiste.png", email: "k.battiste@spartans.nsu.edu", linkedIn: "" },
-  { role: "Corresponding Secretary", name: "Ian X. Thomas", photo: "assets/portraits/ian-thomas.jpg?v=20260607a", email: "i.x.thomas130032@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/ian-thomas-09186b330" },
+  { role: "Corresponding Secretary", name: "Ian X. Thomas", photo: "assets/portraits/ian-thomas.jpg?v=20260608b", email: "i.x.thomas130032@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/ian-thomas-09186b330" },
   { role: "Recording Secretary", name: "Allan J. White", photo: "assets/portraits/allan-white.jpg", email: "a.j.white128063@spartans.nsu.edu", linkedIn: "" },
   { role: "Treasurer", name: "Joseph E. Hargett", photo: "assets/portraits/joseph-hargett.jpg", email: "j.e.hargett@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/joseph-hargett/" },
   { role: "Associate Editor to the Sphinx", name: "Simeon A. Butler", photo: "assets/portraits/simeon-butler-officer.png", email: "s.a.butler130446@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/simeon-butler-ab92242b2" },
