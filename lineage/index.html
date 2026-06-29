@@ -42,7 +42,25 @@
     </header>
     <main>
       <section id="lineage" class="panel active">
-        <h2>Lineage</h2>
+        <div class="lineage-panel-header">
+          <h2>Lineage</h2>
+          <div class="lineage-search" role="search">
+            <label class="visually-hidden" for="lineage-search-input">Search lineage by name, line name, major, focus, or hometown</label>
+            <div class="lineage-search-control">
+              <input
+                id="lineage-search-input"
+                class="lineage-search-input"
+                type="search"
+                autocomplete="off"
+                placeholder="Search lineage"
+                aria-controls="lineage-search-results"
+                aria-expanded="false"
+              />
+              <span class="lineage-search-icon" aria-hidden="true">Search</span>
+            </div>
+            <div id="lineage-search-results" class="lineage-search-results" role="listbox" hidden></div>
+          </div>
+        </div>
         <div class="lineage-term-menu-wrap" role="tablist" aria-label="Select lineage term">
           <div id="lineage-term-track" class="lineage-term-track"></div>
         </div>
@@ -113,6 +131,6 @@
         <img src="" alt="" class="line-pic-lightbox-img" />
       </div>
     </dialog>
-    <script src="script.js?v=20260608a"></script>
+    <script src="script.js?v=20260624a"></script>
   </body>
 </html>

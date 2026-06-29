@@ -1180,6 +1180,157 @@ main::before {
   border: 0;
 }
 
+.lineage-panel-header {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.lineage-panel-header h2 {
+  margin: 0;
+}
+
+.lineage-search {
+  position: relative;
+  width: min(100%, 23rem);
+}
+
+.lineage-search-control {
+  position: relative;
+}
+
+.lineage-search-input {
+  width: 100%;
+  min-height: 3rem;
+  border: 1px solid rgba(201, 154, 46, 0.46);
+  border-radius: 999px;
+  padding: 0.75rem 1.15rem 0.75rem 3.75rem;
+  color: var(--text);
+  background:
+    linear-gradient(135deg, rgba(201, 154, 46, 0.13), rgba(255, 255, 255, 0.04)),
+    rgba(10, 10, 10, 0.7);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04), 0 14px 34px rgba(0, 0, 0, 0.2);
+  font: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.lineage-search-input::placeholder {
+  color: rgba(245, 239, 221, 0.58);
+}
+
+.lineage-search-input:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: inset 0 0 0 1px rgba(255, 215, 112, 0.22), 0 0 0 3px rgba(201, 154, 46, 0.2), 0 18px 42px rgba(0, 0, 0, 0.28);
+}
+
+.lineage-search-icon {
+  position: absolute;
+  left: 0.55rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  overflow: hidden;
+  color: transparent;
+  border-radius: 999px;
+  background: rgba(201, 154, 46, 0.18);
+  border: 1px solid rgba(201, 154, 46, 0.45);
+}
+
+.lineage-search-icon::before {
+  content: "";
+  width: 0.65rem;
+  height: 0.65rem;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  transform: translate(-0.1rem, -0.1rem);
+}
+
+.lineage-search-icon::after {
+  content: "";
+  position: absolute;
+  width: 0.48rem;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--gold);
+  transform: translate(0.42rem, 0.42rem) rotate(45deg);
+}
+
+.lineage-search-results {
+  position: absolute;
+  top: calc(100% + 0.45rem);
+  right: 0;
+  width: min(28rem, 92vw);
+  max-height: min(24rem, 70vh);
+  overflow-y: auto;
+  padding: 0.45rem;
+  border: 1px solid rgba(201, 154, 46, 0.34);
+  border-radius: 1rem;
+  background: rgba(15, 14, 11, 0.97);
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.48), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(14px);
+}
+
+.lineage-search-result {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-radius: 0.75rem;
+  padding: 0.75rem 0.85rem;
+  color: var(--text);
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.lineage-search-result:hover,
+.lineage-search-result[aria-selected="true"] {
+  background: rgba(201, 154, 46, 0.16);
+  transform: translateY(-1px);
+}
+
+.lineage-search-result-main {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.85rem;
+}
+
+.lineage-search-result-name {
+  font-weight: 700;
+}
+
+.lineage-search-result-term {
+  color: var(--gold);
+  font-family: "Cinzel", Georgia, serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.lineage-search-result-detail {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.4;
+}
+
+.lineage-search-empty {
+  margin: 0;
+  padding: 0.8rem 0.9rem;
+  color: var(--muted);
+}
+
 .lineage-term-menu-wrap {
   margin: 1rem 0;
 }
@@ -2569,8 +2720,23 @@ html.force-mobile .preview-switcher-link {
     padding-right: 1rem;
   }
 
-  #lineage.panel > h2 {
+  #lineage.panel > .lineage-panel-header {
     padding-inline: 1.25rem;
+  }
+
+  .lineage-panel-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .lineage-search {
+    width: 100%;
+  }
+
+  .lineage-search-results {
+    left: 0;
+    right: auto;
+    width: 100%;
   }
 
   /* Term strip full-bleed like .lineage-item; edge inset via scroll-padding + track padding */
@@ -2808,8 +2974,12 @@ html.force-mobile .preview-switcher-link {
     padding-right: 0;
   }
 
-  #lineage.panel > h2 {
+  #lineage.panel > .lineage-panel-header {
     padding-inline: 1rem;
+  }
+
+  .lineage-search-input {
+    min-height: 3.15rem;
   }
 
   #lineage.panel .lineage-term-menu-wrap {

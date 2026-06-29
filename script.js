@@ -1494,6 +1494,8 @@ const LEADER_ALIASES = new Map([
 ]);
 
 const NAME_INDEX = new Map();
+const LINEAGE_SEARCH_INDEX = [];
+let lineageSearchInitialized = false;
 
 function buildNameIndex() {
   NAME_INDEX.clear();
@@ -1507,6 +1509,86 @@ function buildNameIndex() {
       });
     });
   });
+}
+
+function normalizeSearchValue(value) {
+  return String(value || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim()
+    .replace(/\s+/g, " ");
+}
+
+function splitHometownParts(hometown) {
+  if (!hometown) return { city: "", state: "" };
+  const parts = String(hometown).split(",").map((part) => part.trim()).filter(Boolean);
+  if (parts.length < 2) return { city: hometown.trim(), state: "" };
+  return {
+    city: parts.slice(0, -1).join(", "),
+    state: parts[parts.length - 1],
+  };
+}
+
+function buildLineageSearchIndex() {
+  LINEAGE_SEARCH_INDEX.length = 0;
+  Object.entries(lineageData).forEach(([term, details]) => {
+    if (!details || !Array.isArray(details.members)) return;
+    details.members.forEach((member, idx) => {
+      const fullName = member.fullName || "";
+      if (!fullName || fullName === "Dropped Dead and Gone" || fullName === "Eternally Remembered") return;
+      const { majors, focus, minor } = getMajorMinorDisplay(member);
+      const hometown = splitHometownParts(member.hometown || "");
+      const searchableParts = [
+        fullName,
+        member.lineName,
+        ...(Array.isArray(majors) ? majors : []),
+        focus,
+        minor,
+        member.hometown,
+        hometown.city,
+        hometown.state,
+      ].filter(Boolean);
+      LINEAGE_SEARCH_INDEX.push({
+        term,
+        idx,
+        fullName,
+        lineName: member.lineName || "",
+        position: member.position || "",
+        major: Array.isArray(majors) ? majors.filter(Boolean).join(", ") : "",
+        focus,
+        minor,
+        hometown: member.hometown || "",
+        city: hometown.city,
+        state: hometown.state,
+        searchText: searchableParts.map(normalizeSearchValue).join(" "),
+        normalizedName: normalizeSearchValue(fullName),
+        normalizedLineName: normalizeSearchValue(member.lineName || ""),
+      });
+    });
+  });
+}
+
+function findLineageSearchMatches(query) {
+  const normalizedQuery = normalizeSearchValue(query);
+  if (normalizedQuery.length < 2) return [];
+  const queryParts = normalizedQuery.split(" ").filter(Boolean);
+  return LINEAGE_SEARCH_INDEX
+    .map((entry) => {
+      if (!queryParts.every((part) => entry.searchText.includes(part))) return null;
+      let score = 10;
+      if (entry.normalizedName === normalizedQuery) score = 0;
+      else if (entry.normalizedName.startsWith(normalizedQuery)) score = 1;
+      else if (entry.normalizedLineName === normalizedQuery) score = 2;
+      else if (entry.normalizedLineName.startsWith(normalizedQuery)) score = 3;
+      else if (entry.normalizedName.includes(normalizedQuery)) score = 4;
+      else if (entry.normalizedLineName.includes(normalizedQuery)) score = 5;
+      return { ...entry, score };
+    })
+    .filter(Boolean)
+    .sort((a, b) => a.score - b.score || b.term.localeCompare(a.term) || a.idx - b.idx)
+    .slice(0, 8);
 }
 
 function findBrother(name) {
@@ -1526,6 +1608,10 @@ function findBrother(name) {
 
 function escapeHtmlAttr(value) {
   return String(value).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function escapeHtmlText(value) {
+  return String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 // Splits a line name on " aka " (case-insensitive) and renders each segment
@@ -1552,6 +1638,29 @@ function renderLeaderName(name) {
   return `<span class="lineage-leader-name">${name}</span>`;
 }
 
+function jumpToLineageMember(targetTerm, memberIndex, targetName) {
+  if (!targetTerm || !lineageContainer) return;
+  showLineageTerm(targetTerm);
+  requestAnimationFrame(() => {
+    let target = lineageContainer.querySelector(`.lineage-member[data-member-index="${memberIndex}"]`);
+    if (!target && targetName) {
+      const wantedKeys = new Set(brotherNameKeys(targetName));
+      const rows = lineageContainer.querySelectorAll(".lineage-member");
+      rows.forEach((row) => {
+        if (target) return;
+        const rowName = row.dataset.fullName || "";
+        const rowKeys = brotherNameKeys(rowName);
+        if (rowKeys.some((k) => wantedKeys.has(k))) target = row;
+      });
+    }
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "center" });
+      target.classList.add("lineage-member-highlight");
+      window.setTimeout(() => target.classList.remove("lineage-member-highlight"), 2600);
+    }
+  });
+}
+
 function jumpToBrother(targetTerm, targetName) {
   if (!targetTerm || !lineageContainer) return;
   showLineageTerm(targetTerm);
@@ -1572,6 +1681,111 @@ function jumpToBrother(targetTerm, targetName) {
       target.classList.add("lineage-member-highlight");
       window.setTimeout(() => target.classList.remove("lineage-member-highlight"), 2600);
     }
+  });
+}
+
+function setupLineageSearch() {
+  if (lineageSearchInitialized) return;
+  const search = document.getElementById("lineage-search-input");
+  const results = document.getElementById("lineage-search-results");
+  if (!search || !results) return;
+  lineageSearchInitialized = true;
+  let activeIndex = -1;
+  let matches = [];
+
+  const closeResults = () => {
+    results.hidden = true;
+    results.innerHTML = "";
+    search.setAttribute("aria-expanded", "false");
+    search.removeAttribute("aria-activedescendant");
+    activeIndex = -1;
+  };
+
+  const setActiveResult = (nextIndex) => {
+    const options = Array.from(results.querySelectorAll(".lineage-search-result"));
+    if (!options.length) {
+      activeIndex = -1;
+      search.removeAttribute("aria-activedescendant");
+      return;
+    }
+    activeIndex = (nextIndex + options.length) % options.length;
+    options.forEach((option, idx) => option.setAttribute("aria-selected", idx === activeIndex ? "true" : "false"));
+    search.setAttribute("aria-activedescendant", options[activeIndex].id);
+    options[activeIndex].scrollIntoView({ block: "nearest" });
+  };
+
+  const chooseResult = (index) => {
+    const match = matches[index];
+    if (!match) return;
+    search.value = match.fullName;
+    closeResults();
+    jumpToLineageMember(match.term, match.idx, match.fullName);
+  };
+
+  const renderResults = () => {
+    const query = search.value;
+    matches = findLineageSearchMatches(query);
+    activeIndex = -1;
+    if (normalizeSearchValue(query).length < 2) {
+      closeResults();
+      return;
+    }
+    if (!matches.length) {
+      results.hidden = false;
+      results.innerHTML = '<p class="lineage-search-empty">No matching brothers found.</p>';
+      search.setAttribute("aria-expanded", "true");
+      return;
+    }
+    results.hidden = false;
+    results.innerHTML = matches
+      .map((match, idx) => {
+        const details = [match.lineName ? `“${match.lineName}”` : "", match.major, match.hometown]
+          .filter(Boolean)
+          .map(escapeHtmlText)
+          .join(" · ");
+        return `
+          <button type="button" id="lineage-search-result-${idx}" class="lineage-search-result" role="option" aria-selected="false" data-result-index="${idx}">
+            <span class="lineage-search-result-main">
+              <span class="lineage-search-result-name">${escapeHtmlText(match.fullName)}</span>
+              <span class="lineage-search-result-term">${escapeHtmlText(match.term)}</span>
+            </span>
+            ${details ? `<span class="lineage-search-result-detail">${details}</span>` : ""}
+          </button>`;
+      })
+      .join("");
+    search.setAttribute("aria-expanded", "true");
+  };
+
+  search.addEventListener("input", renderResults);
+  search.addEventListener("focus", () => {
+    if (search.value) renderResults();
+  });
+  search.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeResults();
+      return;
+    }
+    if (results.hidden || !matches.length) return;
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setActiveResult(activeIndex + 1);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setActiveResult(activeIndex - 1);
+    } else if (e.key === "Enter") {
+      if (matches.length) {
+        e.preventDefault();
+        chooseResult(activeIndex >= 0 ? activeIndex : 0);
+      }
+    }
+  });
+  results.addEventListener("click", (e) => {
+    const result = e.target.closest(".lineage-search-result");
+    if (!result) return;
+    chooseResult(Number.parseInt(result.dataset.resultIndex, 10));
+  });
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".lineage-search")) closeResults();
   });
 }
 
@@ -1759,8 +1973,10 @@ function showLineageTerm(termKey) {
 function renderLineage() {
   if (!lineageContainer || !document.getElementById("lineage-term-track")) return;
   buildNameIndex();
+  buildLineageSearchIndex();
   const terms = buildLineageTerms();
   populateLineageMenu();
+  setupLineageSearch();
 
   const initialTerm = terms[0] ? `${terms[0].season} ${terms[0].year}` : "Spring 2026";
   showLineageTerm(initialTerm);
@@ -1834,6 +2050,10 @@ function ensureMotionRevealObserver() {
   if (motionRevealObserver) return motionRevealObserver;
   motionRevealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
+      if (entry.target.classList.contains("motion-reveal-lineage")) {
+        if (entry.isIntersecting) entry.target.classList.add("is-visible");
+        return;
+      }
       entry.target.classList.toggle("is-visible", entry.isIntersecting);
     });
   }, {
@@ -1881,6 +2101,12 @@ function refreshMotionElements() {
       el.classList.add("is-visible");
       return;
     }
+    if (isLineageMotion) {
+      if (inRevealWindow) el.classList.add("is-visible");
+      ensureMotionRevealObserver()?.observe(el);
+      return;
+    }
+
     el.classList.toggle("is-visible", inRevealWindow);
     ensureMotionRevealObserver()?.observe(el);
   });
@@ -1996,7 +2222,7 @@ function initGalleryPage() {
   const lightboxTitle = document.getElementById("gallery-lightbox-title");
   const lightboxCaption = document.getElementById("gallery-lightbox-caption");
   const lightboxCount = document.getElementById("gallery-lightbox-count");
-  if (!lightbox || !lightboxImage || !lightboxBadge || !lightboxTitle || !lightboxCaption || !lightboxCount) return;
+  if (!lightbox || !lightboxImage) return;
 
   let currentIndex = 0;
   let touchStartX = 0;
@@ -2016,10 +2242,10 @@ function initGalleryPage() {
     const item = items[currentIndex];
     lightboxImage.src = item.src;
     lightboxImage.alt = item.alt || item.title || `Gallery photo ${currentIndex + 1}`;
-    lightboxBadge.textContent = item.badge || "Gallery";
-    lightboxTitle.textContent = item.title || `Gallery Photo ${currentIndex + 1}`;
-    lightboxCaption.textContent = item.caption || item.alt || "";
-    lightboxCount.textContent = `${currentIndex + 1} of ${items.length}`;
+    if (lightboxBadge) lightboxBadge.textContent = item.badge || "Gallery";
+    if (lightboxTitle) lightboxTitle.textContent = item.title || `Gallery Photo ${currentIndex + 1}`;
+    if (lightboxCaption) lightboxCaption.textContent = item.caption || item.alt || "";
+    if (lightboxCount) lightboxCount.textContent = `${currentIndex + 1} of ${items.length}`;
     preloadAround(currentIndex);
   };
 
