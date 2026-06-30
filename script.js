@@ -2209,19 +2209,13 @@ function initGalleryPage() {
   ];
   const items = galleryMediaConfig.length ? galleryMediaConfig : fallbackGallery;
   const emptyState = document.getElementById("gallery-empty-state");
-  const galleryPhotoCount = document.getElementById("gallery-photo-count");
   const count = items.length;
 
   galleryGrid.innerHTML = renderGalleryTiles(items);
-  if (galleryPhotoCount) galleryPhotoCount.textContent = String(count);
   if (emptyState) emptyState.hidden = count > 0;
 
   const lightbox = document.getElementById("gallery-lightbox");
   const lightboxImage = document.getElementById("gallery-lightbox-image");
-  const lightboxBadge = document.getElementById("gallery-lightbox-badge");
-  const lightboxTitle = document.getElementById("gallery-lightbox-title");
-  const lightboxCaption = document.getElementById("gallery-lightbox-caption");
-  const lightboxCount = document.getElementById("gallery-lightbox-count");
   if (!lightbox || !lightboxImage) return;
 
   let currentIndex = 0;
@@ -2242,20 +2236,26 @@ function initGalleryPage() {
     const item = items[currentIndex];
     lightboxImage.src = item.src;
     lightboxImage.alt = item.alt || item.title || `Gallery photo ${currentIndex + 1}`;
-    if (lightboxBadge) lightboxBadge.textContent = item.badge || "Gallery";
-    if (lightboxTitle) lightboxTitle.textContent = item.title || `Gallery Photo ${currentIndex + 1}`;
-    if (lightboxCaption) lightboxCaption.textContent = item.caption || item.alt || "";
-    if (lightboxCount) lightboxCount.textContent = `${currentIndex + 1} of ${items.length}`;
     preloadAround(currentIndex);
   };
 
   const openLightbox = (index) => {
     updateLightbox(index);
-    lightbox.showModal();
+    if (!lightbox.open) {
+      if (typeof lightbox.show === "function") {
+        lightbox.show();
+      } else {
+        lightbox.setAttribute("open", "");
+      }
+    }
+    lightbox.classList.add("is-open");
+    document.body.classList.add("gallery-lightbox-active");
   };
 
   const closeLightbox = () => {
     if (lightbox.open) lightbox.close();
+    lightbox.classList.remove("is-open");
+    document.body.classList.remove("gallery-lightbox-active");
   };
 
   const stepLightbox = (direction) => {
