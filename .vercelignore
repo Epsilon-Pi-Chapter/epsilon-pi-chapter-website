@@ -11,3 +11,4 @@ dev_server.py
 scripts
 package.json
 package-lock.json
+.env*

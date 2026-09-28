@@ -830,6 +830,18 @@ main::before {
   background: #000;
 }
 
+.events-calendar-ict-thumbnail,
+.events-calendar-event-flyer {
+  display: block;
+  width: min(100%, 42rem);
+  max-height: 34rem;
+  margin: 0.7rem 0;
+  border: 1px solid rgba(201, 154, 46, 0.2);
+  border-radius: 0.75rem;
+  object-fit: contain;
+  background: rgba(0, 0, 0, 0.25);
+}
+
 .events-calendar-ict-ig {
   display: inline-flex;
   align-items: center;
@@ -935,6 +947,33 @@ main::before {
 
 .events-calendar-event p {
   margin: 0.45rem 0 0;
+}
+
+.events-calendar-event-recap {
+  margin-top: 0.85rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(201, 154, 46, 0.18);
+}
+
+.events-calendar-event-recap strong {
+  color: var(--gold-soft);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.events-calendar-event-photos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: 0.55rem;
+  margin-top: 0.75rem;
+}
+
+.events-calendar-event-photos img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 0.6rem;
+  object-fit: cover;
 }
 
 .events-calendar-event-link {

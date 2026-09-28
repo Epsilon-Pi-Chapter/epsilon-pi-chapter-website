@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Undergraduate Portal | Epsilon Pi Chapter</title>
+    <link rel="icon" href="/assets/favicon.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/undergraduate/portal.css?v=20260927a" />
+  </head>
+  <body>
+    <header class="portal-header">
+      <a class="portal-brand" href="/" aria-label="Return to the Epsilon Pi Chapter website">
+        <img src="/assets/chapter-logo.png" alt="" />
+        <span><small>Undergraduate Portal</small>Epsilon Pi Chapter</span>
+      </a>
+      <button id="portal-logout" class="portal-button portal-button--quiet" type="button" hidden>Sign out</button>
+    </header>
+
+    <main class="portal-main">
+      <section id="login-view" class="login-card">
+        <p class="portal-kicker">Private chapter access</p>
+        <h1>Manage public content</h1>
+        <p>Use the undergraduate shared password to update events, Ice Cold Tuesday, and gallery photos.</p>
+        <form id="login-form" class="portal-form">
+          <label>Shared password<input id="portal-password" name="password" type="password" autocomplete="current-password" required /></label>
+          <button class="portal-button" type="submit">Enter portal</button>
+          <p id="login-message" class="form-message" role="status"></p>
+        </form>
+      </section>
+
+      <section id="dashboard-view" class="dashboard" hidden>
+        <div class="dashboard-intro">
+          <div><p class="portal-kicker">Content workspace</p><h1>Keep the chapter site current</h1></div>
+          <a class="portal-button portal-button--quiet" href="/" target="_blank" rel="noopener">View public site</a>
+        </div>
+        <nav class="portal-tabs" aria-label="Portal sections">
+          <button type="button" class="is-active" data-portal-tab="events">Calendar &amp; recaps</button>
+          <button type="button" data-portal-tab="ict">Ice Cold Tuesday</button>
+          <button type="button" data-portal-tab="gallery">Gallery</button>
+        </nav>
+        <p id="portal-status" class="portal-status" role="status"></p>
+
+        <section class="portal-workspace is-active" data-portal-panel="events">
+          <div class="portal-list-pane">
+            <div class="pane-heading"><div><p class="portal-kicker">Public calendar</p><h2>Events</h2></div><button type="button" class="portal-button portal-button--small" data-new="event">New event</button></div>
+            <div id="event-list" class="content-list"></div>
+          </div>
+          <form id="event-form" class="editor-card portal-form">
+            <input type="hidden" name="id" />
+            <div class="editor-heading"><h2 id="event-form-title">Add an event</h2><button type="button" class="text-button" data-cancel="event">Clear</button></div>
+            <div class="form-grid form-grid--two">
+              <label>Event title<input name="title" required /></label>
+              <label>Date<input name="event_date" type="date" required /></label>
+              <label>Start time<input name="start_time" type="time" /></label>
+              <label>End time<input name="end_time" type="time" /></label>
+              <label>Location<input name="location" /></label>
+              <label>Category<select name="category"><option value="event">Event</option><option value="service">Service</option><option value="chapter">Chapter</option><option value="campus">Campus</option><option value="other">Other</option></select></label>
+            </div>
+            <label>Description<textarea name="description" rows="4"></textarea></label>
+            <label>Event flyer<input name="flyer" type="file" accept="image/*" /><span class="field-note">Leave blank while editing to keep the current flyer.</span></label>
+            <div class="form-divider"><span>After the event</span></div>
+            <label>Short recap<textarea name="recap" rows="4"></textarea></label>
+            <label>Recap flyer<input name="recap_flyer" type="file" accept="image/*" /></label>
+            <label>Recap and gallery photos<input name="recap_photos" type="file" accept="image/*" multiple /><span class="field-note">New photos are also published in the public gallery and linked to this event.</span></label>
+            <label class="check-label"><input name="published" type="checkbox" checked /> Published on the public site</label>
+            <div class="form-actions"><button class="portal-button" type="submit">Save event</button><button class="portal-button portal-button--danger" type="button" data-delete="event" hidden>Delete</button></div>
+          </form>
+        </section>
+
+        <section class="portal-workspace" data-portal-panel="ict" hidden>
+          <div class="portal-list-pane">
+            <div class="pane-heading"><div><p class="portal-kicker">Tuesday calendar cards</p><h2>Ice Cold Tuesday</h2></div><button type="button" class="portal-button portal-button--small" data-new="ict">New entry</button></div>
+            <div id="ict-list" class="content-list"></div>
+          </div>
+          <form id="ict-form" class="editor-card portal-form">
+            <input type="hidden" name="id" />
+            <div class="editor-heading"><h2 id="ict-form-title">Add a Tuesday</h2><button type="button" class="text-button" data-cancel="ict">Clear</button></div>
+            <label>Tuesday date<input name="entry_date" type="date" required /></label>
+            <label>Title<input name="title" placeholder="Ice Cold Tuesday" /></label>
+            <label>Instagram Reel URL<input name="instagram_url" type="url" placeholder="https://www.instagram.com/reel/..." /></label>
+            <label>Short caption<textarea name="caption" rows="5"></textarea></label>
+            <label>Flyer or thumbnail<input name="thumbnail" type="file" accept="image/*" /><span class="field-note">Leave blank while editing to keep the current image.</span></label>
+            <label class="check-label"><input name="published" type="checkbox" checked /> Published on the public site</label>
+            <div class="form-actions"><button class="portal-button" type="submit">Save Tuesday</button><button class="portal-button portal-button--danger" type="button" data-delete="ict" hidden>Delete</button></div>
+          </form>
+        </section>
+
+        <section class="portal-workspace" data-portal-panel="gallery" hidden>
+          <div class="portal-list-pane">
+            <div class="pane-heading"><div><p class="portal-kicker">Public photo archive</p><h2>Gallery</h2></div><button type="button" class="portal-button portal-button--small" data-new="gallery">Upload photos</button></div>
+            <div id="gallery-list" class="content-list content-list--photos"></div>
+          </div>
+          <form id="gallery-form" class="editor-card portal-form">
+            <input type="hidden" name="id" />
+            <div class="editor-heading"><h2 id="gallery-form-title">Upload gallery photos</h2><button type="button" class="text-button" data-cancel="gallery">Clear</button></div>
+            <label>Photos<input name="photos" type="file" accept="image/*" multiple /><span class="field-note">Choose one or several photos. A photo is only required for a new entry.</span></label>
+            <label>Optional title<input name="title" /></label>
+            <label>Optional caption<textarea name="caption" rows="3"></textarea></label>
+            <label>Category<select name="category"><option value="Service">Service</option><option value="Campus Event">Campus Event</option><option value="Brotherhood">Brotherhood</option><option value="Homecoming">Homecoming</option><option value="Other" selected>Other</option></select></label>
+            <label>Event date, if known<input name="event_date" type="date" /></label>
+            <label>Related calendar event<select id="gallery-event-id" name="event_id"><option value="">None</option></select></label>
+            <label class="check-label"><input name="published" type="checkbox" checked /> Published on the public site</label>
+            <div class="form-actions"><button class="portal-button" type="submit">Save gallery item</button><button class="portal-button portal-button--danger" type="button" data-delete="gallery" hidden>Delete</button></div>
+          </form>
+        </section>
+      </section>
+    </main>
+    <script src="/undergraduate/portal.js?v=20260927a"></script>
+  </body>
+</html>

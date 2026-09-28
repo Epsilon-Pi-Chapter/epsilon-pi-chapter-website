@@ -5,7 +5,8 @@ const eventsCalendarMonths = () => document.querySelectorAll(".events-calendar-m
 const eventsCalendarDetails = () => document.querySelectorAll(".events-calendar-detail");
 const eventsCalendarShells = () => document.querySelectorAll(".events-calendar-shell");
 const siteMediaConfig = window.EPI_SITE_MEDIA || {};
-const galleryMediaConfig = Array.isArray(window.EPI_GALLERY_MEDIA) ? window.EPI_GALLERY_MEDIA : [];
+const legacyGalleryMediaConfig = Array.isArray(window.EPI_GALLERY_MEDIA) ? window.EPI_GALLERY_MEDIA : [];
+let galleryMediaConfig = [...legacyGalleryMediaConfig];
 
 // Officers: leave `email` blank to auto-derive firstname.middleinitial.lastname@spartans.nsu.edu
 // Set `email: null` to skip (e.g. faculty advisor). Set `email: "custom@..."` to override.
@@ -30,7 +31,7 @@ const officersData = [
 // `category` controls the calendar tint: "service" (community/mentorship)
 // or "event" (chapter / fellowship / business). Days with both render a
 // diagonal split.
-const eventsCalendarData = [
+let eventsCalendarData = [
   {
     date: "2026-04-25",
     category: "event",
@@ -76,6 +77,7 @@ const eventsCalendarData = [
     description: "Officer handoff, summer planning, and committee alignment for the next chapter term.",
   },
 ];
+const legacyEventsCalendarData = [...eventsCalendarData];
 
 // State outline assets: place one image per state in assets/states/ (e.g. va.png, md.png).
 // Use transparent background + gold border for best look; or we'll use your outline as-is.
@@ -238,6 +240,7 @@ const SUMMER_BREAK_END_KEY = "2026-07-31";
 let todaysDateKey = formatDateKey(new Date());
 let currentCalendarMonth = getInitialCalendarMonth();
 let selectedCalendarDateKey = getInitialSelectedDate();
+let calendarHasUserInteraction = false;
 
 function formatDateKey(date) {
   const year = date.getFullYear();
@@ -283,7 +286,7 @@ function getEventsForDate(dateKey) {
 // Ice Cold Tuesday content. Keyed by date — add a new entry each Tuesday
 // with `video` (path under epsilon-pi-site/) and `caption`. Tuesdays without
 // an entry still show the "Ice Cold Tuesday" badge in the day's detail.
-const iceColdTuesdayContent = {
+let iceColdTuesdayContent = {
   "2026-04-28": {
     video: "assets/videos/ict-2026-04-28-cain-greaux.mp4",
     poster: "assets/videos/ict-2026-04-28-cain-greaux-poster.jpg",
@@ -293,6 +296,79 @@ const iceColdTuesdayContent = {
       "The greatest lessons in college don't come from a syllabus, they come from life.\n\nBro. Cain & Bro. Greaux speak on what they've learned beyond the classroom as they prepare to graduate. From discipline to navigating real-world pressure.",
   },
 };
+const legacyIceColdTuesdayContent = { ...iceColdTuesdayContent };
+
+function formatCmsTime(value) {
+  if (!value) return "";
+  const [hours, minutes] = String(value).split(":").map(Number);
+  if (!Number.isFinite(hours)) return value;
+  return new Intl.DateTimeFormat("en-US", { hour: "numeric", minute: "2-digit" }).format(new Date(2000, 0, 1, hours, minutes || 0));
+}
+
+function safeExternalUrl(value) {
+  try {
+    const url = new URL(value);
+    return url.protocol === "http:" || url.protocol === "https:" ? url.href : "";
+  } catch {
+    return "";
+  }
+}
+
+function applyCmsContent(content) {
+  if (!content?.configured) return;
+
+  eventsCalendarData = (content.events || []).map((event) => {
+    const legacy = legacyEventsCalendarData.find((item) => item.date === event.event_date && item.title === event.title) || {};
+    const start = formatCmsTime(event.start_time);
+    const end = formatCmsTime(event.end_time);
+    return {
+      ...legacy,
+      id: event.id,
+      date: event.event_date,
+      category: event.category || "event",
+      title: event.title,
+      time: [start, end].filter(Boolean).join(" – "),
+      location: event.location || "",
+      description: event.description || "",
+      flyerUrl: event.flyer_url || "",
+      recap: event.recap || "",
+      recapFlyerUrl: event.recap_flyer_url || "",
+      relatedImages: (event.related_images || []).map((image) => image.url).filter(Boolean),
+    };
+  });
+
+  iceColdTuesdayContent = (content.iceColdTuesdays || []).reduce((entries, item) => {
+    entries[item.entry_date] = {
+      ...(legacyIceColdTuesdayContent[item.entry_date] || {}),
+      title: item.title || "Ice Cold Tuesday",
+      caption: item.caption || "",
+      instagramUrl: item.instagram_url || "",
+      thumbnail: item.thumbnail_url || "",
+    };
+    return entries;
+  }, {});
+
+  const managedGallery = (content.galleryImages || []).map((image, index) => ({
+    id: image.id,
+    src: image.url,
+    title: image.title || "",
+    alt: image.title || image.caption || `Epsilon Pi gallery photo ${index + 1}`,
+    caption: image.caption || "",
+    badge: image.category || "Other",
+    eventDate: image.event_date || "",
+    managed: true,
+  })).filter((image) => image.src);
+  galleryMediaConfig = managedGallery;
+
+  if (eventsCalendarGrids().length) {
+    if (!calendarHasUserInteraction) {
+      currentCalendarMonth = getInitialCalendarMonth();
+      selectedCalendarDateKey = getInitialSelectedDate();
+    }
+    renderEventsCalendar();
+  }
+  window.dispatchEvent(new CustomEvent("epi:gallery-updated"));
+}
 
 function isSchoolYearTuesday(date) {
   return date.getDay() === 2 && !isSummerBreakDateKey(formatDateKey(date));
@@ -301,6 +377,9 @@ function isSchoolYearTuesday(date) {
 function renderIceColdTuesdayCard(dateKey, date) {
   const content = iceColdTuesdayContent[dateKey];
   let body = "";
+  if (content && content.thumbnail) {
+    body += `<img class="events-calendar-ict-thumbnail" src="${content.thumbnail}" alt="${escapeHtml(content.title || "Ice Cold Tuesday")}" loading="lazy" />`;
+  }
   if (content && content.video) {
     const posterAttr = content.poster ? ` poster="${content.poster}"` : "";
     const isMov = /\.mov($|\?)/i.test(content.video);
@@ -317,14 +396,17 @@ function renderIceColdTuesdayCard(dateKey, date) {
     `;
   }
   if (content && content.instagramUrl) {
+    const instagramUrl = safeExternalUrl(content.instagramUrl);
+    if (instagramUrl) {
     body += `
-      <a class="events-calendar-ict-ig" href="${content.instagramUrl}" target="_blank" rel="noopener noreferrer">
+      <a class="events-calendar-ict-ig" href="${instagramUrl}" target="_blank" rel="noopener noreferrer">
         Watch this Reel on Instagram →
       </a>
     `;
+    }
   }
   if (content && content.caption) {
-    const paragraphs = content.caption
+    const paragraphs = escapeHtml(content.caption)
       .split(/\n\s*\n/)
       .map((p) => `<p>${p.replace(/\n/g, "<br />")}</p>`)
       .join("");
@@ -335,7 +417,7 @@ function renderIceColdTuesdayCard(dateKey, date) {
   }
   return `
     <article class="events-calendar-event events-calendar-event--ict">
-      <h4><span class="events-calendar-event-tag" aria-hidden="true">❄</span> Ice Cold Tuesday</h4>
+      <h4><span class="events-calendar-event-tag" aria-hidden="true">❄</span> ${escapeHtml(content?.title || "Ice Cold Tuesday")}</h4>
       ${body}
     </article>
   `;
@@ -353,19 +435,30 @@ function renderEventsCalendarDetail(dateKey) {
 
   const eventCards = events
     .map((event) => {
-      const metaParts = [event.time, event.location].filter(Boolean);
+      const metaParts = [event.time, event.location].filter(Boolean).map(escapeHtml);
       const meta = metaParts.length ? `<p class="events-calendar-event-meta">${metaParts.join(" · ")}</p>` : "";
-      const link = event.linkUrl
-        ? `<a class="events-calendar-event-link" href="${event.linkUrl}" target="_blank" rel="noopener noreferrer">${event.linkLabel || "View details"}</a>`
+      const eventLinkUrl = safeExternalUrl(event.linkUrl) || (String(event.linkUrl || "").startsWith("mailto:") ? event.linkUrl : "");
+      const link = eventLinkUrl
+        ? `<a class="events-calendar-event-link" href="${escapeHtml(eventLinkUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(event.linkLabel || "View details")}</a>`
+        : "";
+      const flyer = event.flyerUrl ? `<img class="events-calendar-event-flyer" src="${event.flyerUrl}" alt="Flyer for ${escapeHtml(event.title)}" loading="lazy" />` : "";
+      const recapFlyer = event.recapFlyerUrl ? `<img class="events-calendar-event-flyer" src="${event.recapFlyerUrl}" alt="Recap flyer for ${escapeHtml(event.title)}" loading="lazy" />` : "";
+      const recap = event.recap ? `<div class="events-calendar-event-recap"><strong>Event recap</strong><p>${escapeHtml(event.recap).replace(/\n/g, "<br />")}</p></div>` : "";
+      const relatedImages = event.relatedImages?.length
+        ? `<div class="events-calendar-event-photos">${event.relatedImages.slice(0, 6).map((src) => `<img src="${src}" alt="${escapeHtml(event.title)} recap photo" loading="lazy" />`).join("")}</div>`
         : "";
       const tag = event.category === "service" ? "Service" : "Event";
       const tagClass = event.category === "service" ? "is-service" : "is-event";
       return `
         <article class="events-calendar-event">
           <span class="events-calendar-event-tag ${tagClass} events-calendar-event-tag--corner">${tag}</span>
-          <h4>${event.title}</h4>
+          <h4>${escapeHtml(event.title)}</h4>
           ${meta}
-          <p>${event.description}</p>
+          <p>${escapeHtml(event.description)}</p>
+          ${flyer}
+          ${recap}
+          ${recapFlyer}
+          ${relatedImages}
           ${link}
         </article>
       `;
@@ -510,6 +603,7 @@ if (eventsCalendarGrids().length) {
   document.addEventListener("click", (event) => {
     const nav = event.target.closest("[data-cal-nav]");
     if (nav) {
+      calendarHasUserInteraction = true;
       const dir = nav.getAttribute("data-cal-nav") === "prev" ? -1 : 1;
       currentCalendarMonth = new Date(
         currentCalendarMonth.getFullYear(),
@@ -521,6 +615,7 @@ if (eventsCalendarGrids().length) {
     }
     const cell = event.target.closest(".events-calendar-day");
     if (cell && cell.closest(".events-calendar-grid")) {
+      calendarHasUserInteraction = true;
       selectedCalendarDateKey = cell.dataset.date;
       renderEventsCalendar();
     }
@@ -2207,12 +2302,18 @@ function initGalleryPage() {
     { src: "assets/line-photos/spring-2026-3.png", alt: "Spring 2026 line photo 3", title: "On the Yard", caption: "A featured chapter moment.", badge: "Campus", shape: "portrait" },
     { src: "assets/line-photos/spring-2026-4.png", alt: "Spring 2026 line photo 4", title: "Built Together", caption: "A featured chapter moment.", badge: "Candid", shape: "square" }
   ];
-  const items = galleryMediaConfig.length ? galleryMediaConfig : fallbackGallery;
+  let items = galleryMediaConfig.length ? galleryMediaConfig : fallbackGallery;
   const emptyState = document.getElementById("gallery-empty-state");
   const count = items.length;
 
   galleryGrid.innerHTML = renderGalleryTiles(items);
   if (emptyState) emptyState.hidden = count > 0;
+
+  window.addEventListener("epi:gallery-updated", () => {
+    items = galleryMediaConfig.length ? galleryMediaConfig : fallbackGallery;
+    galleryGrid.innerHTML = renderGalleryTiles(items);
+    if (emptyState) emptyState.hidden = items.length > 0;
+  });
 
   const lightbox = document.getElementById("gallery-lightbox");
   const lightboxImage = document.getElementById("gallery-lightbox-image");
@@ -2846,3 +2947,5 @@ document.querySelectorAll('[data-copy]').forEach((btn) => {
     }
   });
 });
+
+window.EPI_CONTENT_READY?.then(applyCmsContent);

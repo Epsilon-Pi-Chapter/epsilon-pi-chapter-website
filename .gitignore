@@ -1,2 +1,5 @@
 .codex_tmp_pillow/
+.env
+.env.*
+!.env.example
 .vercel
