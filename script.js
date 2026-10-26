@@ -14,17 +14,17 @@ let galleryMediaConfig = [...legacyGalleryMediaConfig];
 const officersData = [
   { role: "Chapter President", name: "Jahkari N. Taylor", photo: "assets/portraits/jahkari-taylor.jpg", email: "j.n.taylor128121@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/jahkari-taylor-944259294/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BpBtQpMOST%2FGNF1fTq9qc1w%3D%3D" },
   { role: "1st Vice President", name: "Nyles A. Ferguson", photo: "assets/portraits/nyles-ferguson.jpg", email: "n.a.ferguson134760@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/nyles-ferguson-45b254321/" },
-  { role: "2nd Vice President", name: "Khamani A. Battiste", photo: "assets/portraits/khamani-battiste.png", email: "k.battiste@spartans.nsu.edu", linkedIn: "" },
+  { role: "2nd Vice President", name: "Khamani A. Battiste", photo: "assets/portraits/khamani-battiste.png", email: "k.battiste@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/khamani-battiste-040561311/" },
   { role: "Corresponding Secretary", name: "Ian X. Thomas", photo: "assets/portraits/ian-thomas.jpg?v=20260608b", email: "i.x.thomas130032@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/ian-thomas-09186b330" },
-  { role: "Recording Secretary", name: "Allan J. White", photo: "assets/portraits/allan-white.jpg", email: "a.j.white128063@spartans.nsu.edu", linkedIn: "" },
+  { role: "Recording Secretary", name: "Allan J. White", photo: "assets/portraits/allan-white.jpg", email: "a.j.white128063@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/allan-white-834484327/" },
   { role: "Treasurer", name: "Joseph E. Hargett", photo: "assets/portraits/joseph-hargett.jpg", email: "j.e.hargett@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/joseph-hargett/" },
   { role: "Associate Editor to the Sphinx", name: "Simeon A. Butler", photo: "assets/portraits/simeon-butler-officer.png", email: "s.a.butler130446@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/simeon-butler-ab92242b2" },
-  { role: "Chaplain", name: "Jaylen L. Johnson", photo: "assets/portraits/jaylen-johnson.png", email: "j.l.johnson122678@spartans.nsu.edu", linkedIn: "" },
+  { role: "Chaplain", name: "Jaylen L. Johnson", photo: "assets/portraits/jaylen-johnson.png", email: "j.l.johnson122678@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/jaylen-johnson-46a286290/" },
   { role: "Historian", name: "Brett D. Andrews, Jr", photo: "assets/portraits/brett-andrews-jr.jpg", email: "b.d.andrews@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/brett-andrews-norfolk-state" },
-  { role: "Chapter Dean of Membership", name: "Jahkael Parker", photo: "assets/portraits/jahkael-parker.jpg", email: "j.parker126522@spartans.nsu.edu", linkedIn: "" },
+  { role: "Chapter Dean of Membership", name: "Jahkael Parker", photo: "assets/portraits/jahkael-parker.jpg", email: "j.parker126522@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/jahkael-parker-912381261/" },
   { role: "Parliamentarian", name: "Jaleel P. Drummond", photo: "assets/portraits/jaleel-drummond.jpg", email: "j.p.drummond@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/jaleel-drummond-391096384" },
   { role: "Sergeant-At-Arms", name: "Adarius K. Johnson", photo: "assets/portraits/adarius-johnson.jpg", email: "a.k.johnson128247@spartans.nsu.edu", linkedIn: "https://www.linkedin.com/in/adarius-johnson-456868383" },
-  { role: "Chapter Advisor", name: "Dr. Leon Rouson", photo: "assets/portraits/leon-rousen.png", email: "lrouson@nsu.edu", linkedIn: "" },
+  { role: "Chapter Advisor", name: "Dr. Isaiah Lucas", photo: "assets/portraits/chapter-advisor-isaiah-lucas.png", email: "itlucas@nsu.edu", linkedIn: "https://www.linkedin.com/in/isaiah-lucas-ph-d-aa958b155/" },
 ];
 
 // Update this list to add or revise upcoming events shown on the monthly calendar.
