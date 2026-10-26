@@ -56,13 +56,14 @@
                 aria-controls="lineage-search-results"
                 aria-expanded="false"
               />
-              <span class="lineage-search-icon" aria-hidden="true">Search</span>
             </div>
             <div id="lineage-search-results" class="lineage-search-results" role="listbox" hidden></div>
           </div>
         </div>
-        <div class="lineage-term-menu-wrap" role="tablist" aria-label="Select lineage term">
-          <div id="lineage-term-track" class="lineage-term-track"></div>
+        <div class="lineage-term-menu-wrap">
+          <button class="lineage-term-scroll-btn lineage-term-scroll-btn--previous" type="button" aria-label="Show earlier lineage terms" disabled>&lsaquo;</button>
+          <div id="lineage-term-track" class="lineage-term-track" role="tablist" aria-label="Select lineage term"></div>
+          <button class="lineage-term-scroll-btn lineage-term-scroll-btn--next" type="button" aria-label="Show more lineage terms">&rsaquo;</button>
         </div>
         <div id="lineage-list" class="lineage-list" aria-live="polite"></div>
       </section>

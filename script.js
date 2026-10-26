@@ -2038,6 +2038,34 @@ function buildLineageItem(termKey, details) {
 
 let currentLineageTerm = "Spring 2026";
 
+function updateLineageTermScrollButtons() {
+  const track = document.getElementById("lineage-term-track");
+  const previousButton = document.querySelector(".lineage-term-scroll-btn--previous");
+  const nextButton = document.querySelector(".lineage-term-scroll-btn--next");
+  if (!track || !previousButton || !nextButton) return;
+
+  const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+  previousButton.disabled = track.scrollLeft <= 2;
+  nextButton.disabled = track.scrollLeft >= maxScroll - 2;
+}
+
+function setupLineageTermScroller() {
+  const track = document.getElementById("lineage-term-track");
+  const previousButton = document.querySelector(".lineage-term-scroll-btn--previous");
+  const nextButton = document.querySelector(".lineage-term-scroll-btn--next");
+  if (!track || !previousButton || !nextButton) return;
+
+  const scrollTerms = (direction) => {
+    track.scrollBy({ left: direction * Math.max(220, track.clientWidth * 0.72), behavior: "smooth" });
+  };
+
+  previousButton.addEventListener("click", () => scrollTerms(-1));
+  nextButton.addEventListener("click", () => scrollTerms(1));
+  track.addEventListener("scroll", updateLineageTermScrollButtons, { passive: true });
+  window.addEventListener("resize", updateLineageTermScrollButtons);
+  requestAnimationFrame(updateLineageTermScrollButtons);
+}
+
 function populateLineageMenu() {
   const track = document.getElementById("lineage-term-track");
   if (!track) return;
@@ -2053,8 +2081,11 @@ function populateLineageMenu() {
 function setActiveLineageTerm(termKey) {
   currentLineageTerm = termKey;
   document.querySelectorAll(".lineage-term-btn").forEach((btn) => {
-    btn.setAttribute("aria-selected", btn.dataset.term === termKey ? "true" : "false");
+    const isActive = btn.dataset.term === termKey;
+    btn.setAttribute("aria-selected", isActive ? "true" : "false");
+    if (isActive) btn.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
   });
+  requestAnimationFrame(updateLineageTermScrollButtons);
 }
 
 function showLineageTerm(termKey) {
@@ -2071,6 +2102,7 @@ function renderLineage() {
   buildLineageSearchIndex();
   const terms = buildLineageTerms();
   populateLineageMenu();
+  setupLineageTermScroller();
   setupLineageSearch();
 
   const initialTerm = terms[0] ? `${terms[0].season} ${terms[0].year}` : "Spring 2026";

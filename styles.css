@@ -1246,7 +1246,7 @@ main::before {
   min-height: 3rem;
   border: 1px solid rgba(201, 154, 46, 0.46);
   border-radius: 999px;
-  padding: 0.75rem 1.15rem 0.75rem 3.75rem;
+  padding: 0.75rem 1.2rem;
   color: var(--text);
   background:
     linear-gradient(135deg, rgba(201, 154, 46, 0.13), rgba(255, 255, 255, 0.04)),
@@ -1264,42 +1264,6 @@ main::before {
   outline: none;
   border-color: var(--gold);
   box-shadow: inset 0 0 0 1px rgba(255, 215, 112, 0.22), 0 0 0 3px rgba(201, 154, 46, 0.2), 0 18px 42px rgba(0, 0, 0, 0.28);
-}
-
-.lineage-search-icon {
-  position: absolute;
-  left: 0.55rem;
-  top: 50%;
-  transform: translateY(-50%);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  overflow: hidden;
-  color: transparent;
-  border-radius: 999px;
-  background: rgba(201, 154, 46, 0.18);
-  border: 1px solid rgba(201, 154, 46, 0.45);
-}
-
-.lineage-search-icon::before {
-  content: "";
-  width: 0.65rem;
-  height: 0.65rem;
-  border: 2px solid var(--gold);
-  border-radius: 50%;
-  transform: translate(-0.1rem, -0.1rem);
-}
-
-.lineage-search-icon::after {
-  content: "";
-  position: absolute;
-  width: 0.48rem;
-  height: 2px;
-  border-radius: 999px;
-  background: var(--gold);
-  transform: translate(0.42rem, 0.42rem) rotate(45deg);
 }
 
 .lineage-search-results {
@@ -1372,6 +1336,14 @@ main::before {
 
 .lineage-term-menu-wrap {
   margin: 1rem 0;
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr) 2.25rem;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem;
+  border: 1px solid rgba(201, 154, 46, 0.16);
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.025);
 }
 
 .lineage-term-track {
@@ -1379,27 +1351,51 @@ main::before {
   gap: 0.6rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  scroll-padding-left: 1.3rem;
-  padding: 0.35rem 1.3rem 0.6rem 1.3rem;
+  scroll-padding-inline: 0.2rem;
+  padding: 0.2rem;
+  scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
 }
 
 .lineage-term-btn:first-child {
-  margin-left: 0.25rem;
+  margin-left: 0;
 }
 
 .lineage-term-track::-webkit-scrollbar {
-  height: 6px;
+  display: none;
 }
 
-.lineage-term-track::-webkit-scrollbar-track {
-  background: var(--panel-alt);
-  border-radius: 3px;
+.lineage-term-scroll-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0 0 0.15rem;
+  border: 1px solid rgba(201, 154, 46, 0.38);
+  border-radius: 0.65rem;
+  color: var(--gold);
+  background: rgba(201, 154, 46, 0.08);
+  font: 400 1.55rem/1 Georgia, serif;
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
 }
 
-.lineage-term-track::-webkit-scrollbar-thumb {
-  background: rgba(201, 154, 46, 0.4);
-  border-radius: 3px;
+.lineage-term-scroll-btn:hover:not(:disabled) {
+  color: var(--bg);
+  background: var(--gold);
+  border-color: var(--gold);
+  transform: translateY(-1px);
+}
+
+.lineage-term-scroll-btn:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.lineage-term-scroll-btn:disabled {
+  opacity: 0.28;
+  cursor: default;
 }
 
 .lineage-term-btn {
@@ -1425,7 +1421,7 @@ main::before {
   color: var(--bg);
   background: var(--gold);
   border-color: var(--gold);
-  box-shadow: 0 0 0 2px var(--gold);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
 }
 
 .lineage-term-btn:focus {
@@ -2778,9 +2774,9 @@ html.force-mobile .preview-switcher-link {
     width: 100%;
   }
 
-  /* Term strip full-bleed like .lineage-item; edge inset via scroll-padding + track padding */
+  /* Keep the term carousel visually contained while cards remain full-bleed. */
   #lineage.panel .lineage-term-menu-wrap {
-    padding-inline: 0;
+    padding: 0.3rem;
     margin-inline: 0;
   }
 
@@ -2791,10 +2787,8 @@ html.force-mobile .preview-switcher-link {
   }
 
   #lineage .lineage-term-track {
-    padding-inline: 1rem;
-    padding-top: 0.35rem;
-    padding-bottom: 0.6rem;
-    scroll-padding-inline: 1rem;
+    padding: 0.15rem;
+    scroll-padding-inline: 0.15rem;
   }
 
   #lineage .lineage-term-btn:first-child {
@@ -3022,8 +3016,15 @@ html.force-mobile .preview-switcher-link {
   }
 
   #lineage.panel .lineage-term-menu-wrap {
-    padding-inline: 0;
-    margin-inline: 0;
+    grid-template-columns: 2.1rem minmax(0, 1fr) 2.1rem;
+    gap: 0.35rem;
+    padding: 0.3rem;
+    margin-inline: 1rem;
+  }
+
+  .lineage-term-scroll-btn {
+    width: 2.1rem;
+    height: 2.1rem;
   }
 
   /* Mobile no-photo cards: keep the compact row while giving details a full-width second row */
@@ -3180,10 +3181,8 @@ html.force-mobile .preview-switcher-link {
   }
 
   #lineage .lineage-term-track {
-    padding-inline: 1rem;
-    padding-top: 0.35rem;
-    padding-bottom: 0.5rem;
-    scroll-padding-inline: 1rem;
+    padding: 0.15rem;
+    scroll-padding-inline: 0.15rem;
   }
 
   .lineage-term-btn:first-child {
