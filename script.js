@@ -328,7 +328,7 @@ function applyCmsContent(content) {
       category: event.category || "event",
       title: event.title,
       time: [start, end].filter(Boolean).join(" – "),
-      location: event.location || "",
+      location: [event.location, event.room_number && `Room ${event.room_number}`].filter(Boolean).join(", "),
       description: event.description || "",
       flyerUrl: event.flyer_url || "",
       recap: event.recap || "",
@@ -423,6 +423,16 @@ function renderIceColdTuesdayCard(dateKey, date) {
   `;
 }
 
+function calendarImageUrl(value) {
+  if (!value) return "";
+  try {
+    const url = new URL(value, window.location.href);
+    return safeExternalUrl(url.href);
+  } catch {
+    return "";
+  }
+}
+
 function renderEventsCalendarDetail(dateKey) {
   const detailNodes = eventsCalendarDetails();
   if (!detailNodes.length) return;
@@ -441,21 +451,45 @@ function renderEventsCalendarDetail(dateKey) {
       const link = eventLinkUrl
         ? `<a class="events-calendar-event-link" href="${escapeHtml(eventLinkUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(event.linkLabel || "View details")}</a>`
         : "";
-      const flyer = event.flyerUrl ? `<img class="events-calendar-event-flyer" src="${event.flyerUrl}" alt="Flyer for ${escapeHtml(event.title)}" loading="lazy" />` : "";
-      const recapFlyer = event.recapFlyerUrl ? `<img class="events-calendar-event-flyer" src="${event.recapFlyerUrl}" alt="Recap flyer for ${escapeHtml(event.title)}" loading="lazy" />` : "";
+      const flyerUrl = calendarImageUrl(event.flyerUrl);
+      const recapFlyerUrl = calendarImageUrl(event.recapFlyerUrl);
+      const flyer = flyerUrl ? `<img class="events-calendar-event-flyer" src="${escapeHtml(flyerUrl)}" alt="Flyer for ${escapeHtml(event.title)}" loading="lazy" />` : "";
+      const recapFlyer = recapFlyerUrl ? `<img class="events-calendar-event-flyer" src="${escapeHtml(recapFlyerUrl)}" alt="Recap flyer for ${escapeHtml(event.title)}" loading="lazy" />` : "";
       const recap = event.recap ? `<div class="events-calendar-event-recap"><strong>Event recap</strong><p>${escapeHtml(event.recap).replace(/\n/g, "<br />")}</p></div>` : "";
-      const relatedImages = event.relatedImages?.length
-        ? `<div class="events-calendar-event-photos">${event.relatedImages.slice(0, 6).map((src) => `<img src="${src}" alt="${escapeHtml(event.title)} recap photo" loading="lazy" />`).join("")}</div>`
+      const photoUrls = (event.relatedImages || []).map(calendarImageUrl).filter(Boolean);
+      const relatedImages = photoUrls.length
+        ? `<button class="events-calendar-recap-button" type="button" aria-haspopup="dialog">View recap photos</button>
+           <dialog class="events-calendar-recap-dialog" aria-label="Recap photos for ${escapeHtml(event.title)}">
+             <header class="events-calendar-recap-header">
+               <h4>${escapeHtml(event.title)}: Recap photos</h4>
+               <form method="dialog"><button class="events-calendar-recap-button" autofocus>Close</button></form>
+             </header>
+             <div class="events-calendar-event-photos">${photoUrls.map((src, index) => `
+               <button class="events-calendar-recap-photo" type="button" aria-haspopup="dialog" aria-label="Open recap photo ${index + 1}">
+                 <img src="${escapeHtml(src)}" alt="${escapeHtml(event.title)} recap photo ${index + 1}" loading="lazy" decoding="async" />
+               </button>`).join("")}</div>
+             <dialog class="events-calendar-photo-viewer" aria-label="Expanded recap photo for ${escapeHtml(event.title)}">
+               <header class="events-calendar-recap-header">
+                 <p class="events-calendar-photo-position" aria-live="polite"></p>
+                 <form method="dialog"><button class="events-calendar-recap-button" autofocus>Back to photos</button></form>
+               </header>
+               <div class="events-calendar-photo-stage">
+                 <img alt="" draggable="false" />
+                 <button class="events-calendar-photo-arrow" type="button" data-step="-1" aria-label="Previous photo" ${photoUrls.length < 2 ? "hidden" : ""}>&#8249;</button>
+                 <button class="events-calendar-photo-arrow" type="button" data-step="1" aria-label="Next photo" ${photoUrls.length < 2 ? "hidden" : ""}>&#8250;</button>
+               </div>
+             </dialog>
+           </dialog>`
         : "";
-      const tag = event.category === "service" ? "Service" : "Event";
+      const tag = event.category === "pageant" ? "Pageant" : event.category === "service" ? "Service" : "Event";
       const tagClass = event.category === "service" ? "is-service" : "is-event";
       return `
         <article class="events-calendar-event">
           <span class="events-calendar-event-tag ${tagClass} events-calendar-event-tag--corner">${tag}</span>
           <h4>${escapeHtml(event.title)}</h4>
           ${meta}
-          <p>${escapeHtml(event.description)}</p>
           ${flyer}
+          <p>${escapeHtml(event.description)}</p>
           ${recap}
           ${recapFlyer}
           ${relatedImages}
@@ -492,7 +526,75 @@ function renderEventsCalendarDetail(dateKey) {
     <p class="events-calendar-detail-date">${formattedDate}</p>
     <div class="events-calendar-detail-list">${inner}</div>
   `;
-  detailNodes.forEach((node) => { node.innerHTML = html; });
+  detailNodes.forEach((node) => {
+    node.innerHTML = html;
+    node.querySelectorAll('.events-calendar-recap-button[aria-haspopup="dialog"]').forEach((button) => {
+      bindCalendarRecap(button);
+    });
+  });
+}
+
+function bindCalendarRecap(button) {
+  const dialog = button.nextElementSibling;
+  const viewer = dialog.querySelector(".events-calendar-photo-viewer");
+  const tiles = Array.from(dialog.querySelectorAll(".events-calendar-recap-photo"));
+  const stage = viewer.querySelector(".events-calendar-photo-stage");
+  const fullPhoto = stage.querySelector("img");
+  const position = viewer.querySelector(".events-calendar-photo-position");
+  let current = 0;
+  let opener;
+  let touchStart;
+
+  function showPhoto(index) {
+    current = (index + tiles.length) % tiles.length;
+    const image = tiles[current].querySelector("img");
+    fullPhoto.src = image.currentSrc || image.src;
+    fullPhoto.alt = image.alt;
+    position.textContent = `Photo ${current + 1} of ${tiles.length}`;
+  }
+
+  tiles.forEach((tile, index) => {
+    const image = tile.querySelector("img");
+    const sizeTile = () => {
+      if (image.naturalWidth && image.naturalHeight) {
+        tile.style.setProperty("--photo-ratio", image.naturalWidth / image.naturalHeight);
+      }
+    };
+    if (image.complete) sizeTile();
+    else image.addEventListener("load", sizeTile, { once: true });
+    tile.addEventListener("click", () => {
+      opener = tile;
+      showPhoto(index);
+      viewer.showModal();
+    });
+  });
+
+  viewer.querySelectorAll("[data-step]").forEach((arrow) => {
+    arrow.addEventListener("click", () => showPhoto(current + Number(arrow.dataset.step)));
+  });
+  viewer.addEventListener("keydown", (event) => {
+    if (tiles.length < 2 || !["ArrowLeft", "ArrowRight"].includes(event.key)) return;
+    event.preventDefault();
+    showPhoto(current + (event.key === "ArrowLeft" ? -1 : 1));
+  });
+  stage.addEventListener("touchstart", (event) => {
+    touchStart = event.touches.length === 1 ? event.touches[0] : null;
+  }, { passive: true });
+  stage.addEventListener("touchend", (event) => {
+    if (!touchStart || tiles.length < 2) return;
+    const touch = Array.from(event.changedTouches).find((item) => item.identifier === touchStart.identifier);
+    if (!touch) return;
+    const dx = touch.clientX - touchStart.clientX;
+    const dy = touch.clientY - touchStart.clientY;
+    touchStart = null;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.4) showPhoto(current + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+  stage.addEventListener("touchcancel", () => { touchStart = null; });
+  viewer.addEventListener("close", () => {
+    touchStart = null;
+    opener?.focus({ preventScroll: true });
+  });
+  button.addEventListener("click", () => dialog.showModal());
 }
 
 function renderEventsCalendar() {
@@ -544,7 +646,8 @@ function renderEventsCalendar() {
 
     const cats = new Set(events.map((e) => e.category || "event"));
     const hasService = cats.has("service");
-    const hasEvent = cats.has("event");
+    const hasPageant = cats.has("pageant");
+    const hasEvent = cats.has("event") || hasPageant;
     let categoryClass = "";
     if (hasService && hasEvent) categoryClass = "cat-both";
     else if (hasService) categoryClass = "cat-service";
@@ -557,6 +660,7 @@ function renderEventsCalendar() {
       "events-calendar-day",
       events.length ? "has-event" : "",
       categoryClass,
+      hasPageant ? "has-pageant" : "",
       isSummerBreakDay ? "is-summer-break-day" : "",
       isIceColdTuesday ? "is-ict" : "",
       isSelected ? "is-selected" : "",
@@ -571,9 +675,23 @@ function renderEventsCalendar() {
         data-date="${dateKey}"
         role="gridcell"
         aria-pressed="${isSelected}"
-        aria-label="${calendarDetailFormatter.format(date)}${isToday ? ", today" : ""}${isIceColdTuesday ? ", Ice Cold Tuesday" : ""}${events.length ? `, ${events.length} event${events.length > 1 ? "s" : ""}` : ", no events"}"
+        aria-label="${calendarDetailFormatter.format(date)}${isToday ? ", today" : ""}${isIceColdTuesday ? ", Ice Cold Tuesday" : ""}${hasPageant ? ", Pageant" : ""}${events.length ? `, ${events.length} event${events.length > 1 ? "s" : ""}` : ", no events"}"
       >
         ${isIceColdTuesday ? '<span class="events-calendar-ice-cap" aria-hidden="true"></span>' : ""}
+        ${hasPageant ? `<svg class="events-calendar-tiara" viewBox="0 0 100 34" aria-hidden="true" focusable="false">
+          <path class="events-calendar-tiara-band" d="M5 29Q50 18 95 29L94 33Q50 25 6 33Z"/>
+          <path d="M8 28 6 22m14 4v-8m15 6v-8m15 7v-9m15 10v-8m15 10v-8m12 10 2-6M12 27q8-7 16-2m14-2q8-6 16 0m14 2q8-5 16 2"/>
+          <g class="events-calendar-tiara-jewels">
+            <ellipse cx="6" cy="19" rx="3" ry="4"/>
+            <ellipse cx="20" cy="14" rx="4" ry="5"/>
+            <ellipse cx="35" cy="10" rx="4.5" ry="6"/>
+            <ellipse cx="50" cy="8" rx="5.5" ry="7"/>
+            <ellipse cx="65" cy="10" rx="4.5" ry="6"/>
+            <ellipse cx="80" cy="14" rx="4" ry="5"/>
+            <ellipse cx="94" cy="19" rx="3" ry="4"/>
+          </g>
+          <path class="events-calendar-tiara-glints" d="M5 18h.1m13-5h.5m15-4h.5m14-2h1m15 2h.5m15 4h.5m14 5h.1"/>
+        </svg>` : ""}
         <span class="events-calendar-day-number">${day}</span>
       </button>
     `);

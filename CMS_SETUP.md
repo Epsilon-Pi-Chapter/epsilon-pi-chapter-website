@@ -8,6 +8,7 @@ The private portal is available at `/undergraduate/`. It uses server-side passwo
 2. Open **SQL Editor**.
 3. Run `supabase/migrations/001_undergraduate_cms.sql`.
 4. Run `supabase/migrations/002_seed_existing_gallery.sql`.
+5. Run `supabase/migrations/003_event_room_number.sql` before deploying the portal's room-number field. On an existing setup, run only this new migration.
 
 The first migration creates `events`, `ice_cold_tuesdays`, and `gallery_images`, plus the public `chapter-media` storage bucket. It also seeds the calendar and Ice Cold Tuesday content that was previously stored in `script.js`. The second migration registers the 79 existing website photos so they can be edited or removed through the portal without moving the original image files.
 

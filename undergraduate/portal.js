@@ -68,11 +68,14 @@ function renderAll() {
 function renderEvents() {
   const node = document.getElementById("event-list");
   const items = portalState.content.events || [];
-  node.innerHTML = items.length ? items.map((event) => `
+  node.innerHTML = items.length ? items.map((event) => {
+    const location = [event.location, event.room_number && `Room ${event.room_number}`].filter(Boolean).join(", ");
+    return `
     <button class="content-item" type="button" data-edit-event="${event.id}">
-      <span><strong>${escapeHtml(event.title)}</strong><span>${formatDate(event.event_date)} · ${escapeHtml(event.location || "Location not set")}</span></span>
+      <span><strong>${escapeHtml(event.title)}</strong><span>${formatDate(event.event_date)} · ${escapeHtml(location || "Location not set")}</span></span>
       <em>${event.published ? "Live" : "Draft"}</em>
-    </button>`).join("") : '<p class="empty-list">No Supabase events yet. Add the first event to begin managing the public calendar here.</p>';
+    </button>`;
+  }).join("") : '<p class="empty-list">No Supabase events yet. Add the first event to begin managing the public calendar here.</p>';
 }
 
 function renderIct() {
@@ -202,7 +205,7 @@ document.getElementById("event-form").addEventListener("submit", async (event) =
   try {
     const flyerPath = await uploadFile(form.elements.flyer.files[0], "events/flyers") || existing?.flyer_path || "";
     const recapFlyerPath = await uploadFile(form.elements.recap_flyer.files[0], "events/recaps") || existing?.recap_flyer_path || "";
-    const result = await saveRecord("events", values.id, { ...values, flyer_path: flyerPath, recap_flyer_path: recapFlyerPath, published: form.elements.published.checked });
+    const result = await saveRecord("events", values.id, { ...values, room_number: values.room_number.trim(), flyer_path: flyerPath, recap_flyer_path: recapFlyerPath, published: form.elements.published.checked });
     const savedId = result.item.id;
     for (const [index, file] of [...form.elements.recap_photos.files].entries()) {
       const storagePath = await uploadFile(file, "gallery/event-recaps");

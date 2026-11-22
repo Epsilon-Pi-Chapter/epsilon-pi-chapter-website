@@ -6,7 +6,7 @@ const TABLES = {
 
 const RESOURCE_FIELDS = {
   events: [
-    "title", "event_date", "start_time", "end_time", "location", "description", "category",
+    "title", "event_date", "start_time", "end_time", "location", "room_number", "description", "category",
     "flyer_path", "recap", "recap_flyer_path", "published",
   ],
   iceColdTuesdays: ["entry_date", "title", "caption", "instagram_url", "thumbnail_path", "published"],
