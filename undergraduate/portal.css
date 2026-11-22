@@ -24,6 +24,8 @@ h1,h2 { margin:0; font-family:"Cinzel",serif; }
 .login-card .portal-form { margin-top:28px; }
 .portal-form label { display:grid; gap:8px; color:var(--gold-soft); font-size:.88rem; font-weight:700; }
 .portal-form input:not([type="checkbox"]),.portal-form select,.portal-form textarea { width:100%; min-height:48px; padding:12px 14px; border:1px solid rgba(240,212,123,.24); border-radius:12px; background:#0d0d0c; color:var(--cream); outline:none; }
+.portal-form input[type="date"],.portal-form input[type="time"] { color-scheme:dark; cursor:pointer; }
+.portal-form input[type="date"]::-webkit-calendar-picker-indicator,.portal-form input[type="time"]::-webkit-calendar-picker-indicator { cursor:pointer; opacity:.78; }
 .portal-form textarea { resize:vertical; }
 .portal-form input:focus,.portal-form select:focus,.portal-form textarea:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(213,166,42,.14); }
 .portal-button { min-height:46px; padding:11px 18px; border:1px solid var(--gold); border-radius:999px; background:var(--gold); color:#090806; font-weight:800; cursor:pointer; }

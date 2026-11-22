@@ -3,6 +3,13 @@ const loginView = document.getElementById("login-view");
 const dashboardView = document.getElementById("dashboard-view");
 const statusNode = document.getElementById("portal-status");
 
+document.querySelectorAll('input[type="date"], input[type="time"]').forEach((input) => {
+  input.addEventListener("click", () => {
+    if (typeof input.showPicker !== "function") return;
+    try { input.showPicker(); } catch { /* The browser still provides its normal input fallback. */ }
+  });
+});
+
 function escapeHtml(value = "") {
   const div = document.createElement("div");
   div.textContent = value;
